@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/01 18:22:57 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:36:56 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@
 # define PLAYER_SPEED 0.03
 # define ROTATION_SPEED 0.025
 
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
+# define TEXTUREHEIGHT	512
+
 typedef struct s_player
 {
 	float	x;
@@ -64,6 +68,10 @@ typedef struct s_map
 	char		*east_texture;
 	int			floor_color;
 	int			ceiling_color;
+	void		*north_img;
+	void		*south_img;
+	void		*west_img;
+	void		*east_img;
 	char		**grid;
 	t_player	player;
 }	t_map;
@@ -72,6 +80,11 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
 	t_map	*map;
 }	t_game;
 
@@ -87,5 +100,9 @@ int		key_handle_wrappper(int keycode, void *param);
 void	free_resources(t_map *map);
 void	free_map(t_map *map);
 void	render_scene(t_game *game);
+t_game	*init_game(t_map *map);
+void	init_image(t_game *game);
+int		game_loop(t_game *game);
+void	load_all_textures(t_game *game);
 
 #endif
