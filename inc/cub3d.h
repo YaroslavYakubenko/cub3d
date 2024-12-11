@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/08 21:36:56 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:57:25 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 
+typedef struct s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_lenght;
+	int		endian;
+}	t_image;
+
+
 typedef struct s_player
 {
 	float	x;
@@ -68,10 +78,6 @@ typedef struct s_map
 	char		*east_texture;
 	int			floor_color;
 	int			ceiling_color;
-	void		*north_img;
-	void		*south_img;
-	void		*west_img;
-	void		*east_img;
 	char		**grid;
 	t_player	player;
 }	t_map;
@@ -80,11 +86,11 @@ typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
+	t_image	*back;
+	t_image	*north_img;
+	t_image	*south_img;
+	t_image	*west_img;
+	t_image	*east_img;
 	t_map	*map;
 }	t_game;
 

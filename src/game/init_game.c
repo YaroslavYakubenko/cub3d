@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/08 21:38:45 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/11 20:58:07 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	init_image(t_game *game)
 {
-	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!game->img)
+	game->back->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	if (!game->back->img)
 	{
 		// free(game->img);
 		exit(1);
 	}
-	game->addr = mlx_get_data_addr(game->img, &game->bpp, &game->line_len, &game->endian);
+	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
+		&game->back->line_lenght, &game->back->endian);
+	if (!game->back->addr)
+		exit(1);
 }
 
 t_game	*init_game(t_map *map)
