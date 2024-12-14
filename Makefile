@@ -31,7 +31,7 @@ SRCS        = $(SRCS_F)main.c \
               $(SRCS_F)game/init_move.c \
 			  $(SRCS_F)game/movement.c \
 			  $(SRCS_F)game/init_game.c \
-            #   $(SRCS_F)raycast/raycast.c \
+              $(SRCS_F)raycast/render.c \
 
 OBJS        = $(SRCS:.c=.o)
 

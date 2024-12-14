@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/01 18:09:01 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:56:32 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,18 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 		else if (ft_strncmp(lines[i], "EA ", 3) == 0)
 			map->east_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "F ", 2) == 0)
-			map->floor_color = ft_atoi(lines[i] + 2);
+			map->floor = ft_strdup(lines[i] + 2);
 		else if (ft_strncmp(lines[i], "C ", 2) == 0)
-			map->ceiling_color = ft_atoi(lines[i] + 2);
+		{
+			map->ceiling = ft_strdup(lines[i] + 2);
+			printf("ceiling: %s\nlines: %s", map->ceiling, lines[i]);
+		}
 		else
 			break;
 		i++;
 	}
+	// printf("north_texture: %ssouth_texture: %swest_texture: %seast_texture: %sfloor_color: %d\nceiling_color: %d\n", map->north_texture,
+	// 	map->south_texture, map->west_texture, map->east_texture, map->floor_color, map->ceiling_color);
 	return (i);
 }
 
@@ -54,7 +59,7 @@ int	validate_map(char **grid)
 				&& grid[i][j] != 'E' && grid[i][j] != 'W'
 				&& grid[i][j] != 'P')
 				{
-				ft_printf("Error: Invalid character in map\n");
+				ft_printf("Error: Invalid character in map.\n");
 				return (0);	
 				}
 			j++;
@@ -83,10 +88,12 @@ t_map	*parse_cub_file(const char *file_name)
 	map->grid = NULL;
 	map_start = parse_textures_and_colors(map, lines);
 	map->grid = &lines[map_start];
+	// printf("north_texture: %ssouth_texture: %swest_texture: %seast_texture: %sfloor_color: %d\nceiling_color: %d\n", map->north_texture,
+	// 	map->south_texture, map->west_texture, map->east_texture, map->floor_color, map->ceiling_color);
 	// lines = NULL;
-	if (!validate_map(map->grid) || !find_player(map))
+	if (!validate_map(map->grid))
 	{
-		ft_printf("Error: Invalid map\n");
+		ft_printf("Error: Invalid map.\n");
 		free_map(map);
         return (NULL);
 	}

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/11 20:57:25 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:52:01 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ typedef struct s_map
 	char		*south_texture;
 	char		*west_texture;
 	char		*east_texture;
+	char		*floor;
+	char		*ceiling;
 	int			floor_color;
 	int			ceiling_color;
 	char		**grid;
@@ -100,9 +102,8 @@ typedef struct s_game
 char	**read_file(const char *file_name);
 t_map	*parse_cub_file(const char *file_name);
 void	free_map(t_map *map);
-int		find_player(t_map *map);
+void	find_player(t_game *game);
 int		handle_input(int keycode, t_game *game);
-int		key_handle_wrappper(int keycode, void *param);
 void	free_resources(t_map *map);
 void	free_map(t_map *map);
 void	render_scene(t_game *game);
@@ -110,5 +111,6 @@ t_game	*init_game(t_map *map);
 void	init_image(t_game *game);
 int		game_loop(t_game *game);
 void	load_all_textures(t_game *game);
+void	render_scene(t_game *game);
 
 #endif
