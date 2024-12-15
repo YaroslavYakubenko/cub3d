@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/14 21:56:32 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:23:00 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,29 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	// printf("north_texture: %ssouth_texture: %swest_texture: %seast_texture: %sfloor_color: %d\nceiling_color: %d\n", map->north_texture,
 	// 	map->south_texture, map->west_texture, map->east_texture, map->floor_color, map->ceiling_color);
 	return (i);
+}
+
+unsigned int	init_colors(char *color_string, t_map *map)
+{
+	char			**rgb;
+	unsigned int	colors[3];
+	int				i;
+
+	(void)map;
+	i = 0;
+	if (color_string != NULL)
+	{
+		rgb = ft_split(color_string, ',');
+		while (rgb[i])
+		{
+			colors[i] = ft_atoi(rgb[i]);
+			if (colors[i] > 255)
+				printf("Error: The range must be from 0 to 255.\n");
+			i++;
+		}
+		return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
+	}
+	return (0);
 }
 
 int	validate_map(char **grid)
