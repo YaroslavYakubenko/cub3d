@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/05 21:22:36 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:08:59 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 	}
 	// init_image(game);
 	load_all_textures(game);
-	mlx_hook(game->win, KeyPress, KeyPressMask, handle_input, game);
+	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, handle_input, game);
 	printf("here\n");
 	// printf("here\n");
 	// mlx_key_hook(game->win, handle_input, game);

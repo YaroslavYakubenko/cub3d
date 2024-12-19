@@ -3,21 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/14 21:52:01 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/17 19:09:38 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../minilibx_linux/mlx.h"
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 # include "get_next_line/get_next_line_bonus.h"
-# include <X11/X.h>
+# ifdef __APPLE__
+#  include "../mlx/mlx.h"
+#  include <OpenGL/gl.h>
+#  include <AppKit/AppKit.h>
+#  define KEY_W 13
+#  define KEY_A 0
+#  define KEY_S 1
+#  define KEY_D 2
+#  define KEY_ESC 53
+#  define KEY_LEFT 123
+#  define KEY_RIGHT 124
+#  define KEY_SPACE 49
+# else
+#  include "../minilibx_linux/mlx.h"
+#  include <X11/X.h>
+#  include <X11/keysym.h>
+#  include <X11/Xlib.h>
+#  define KEY_W 119
+#  define KEY_A 97
+#  define KEY_S 115
+#  define KEY_D 100
+#  define KEY_ESC 65307
+#  define KEY_LEFT 65361
+#  define KEY_RIGHT 65363
+#  define KEY_SPACE 32
+# endif
 # include <assert.h>
 # include <errno.h>
 # include <fcntl.h>
@@ -32,19 +56,10 @@
 # include <time.h>
 # include <unistd.h>
 
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
-# define KEY_ESC 65307
-# define KEY_LEFT 65361
-# define KEY_RIGHT 65363
-# define KEY_SPACE 32
-# define KEY_PRESS KeyPress
-# define KEY_RELEASE KeyRelease
-
-# define KEY_PRESS_MASK KeyPressMask
-# define KEY_RELEASE_MASK KeyReleaseMask
+# define KEY_PRESS 2
+# define KEY_RELEASE 3
+# define KEY_PRESS_MASK (1L<<0) 
+# define KEY_RELEASE_MASK (1L<<1) 
 
 # define PLAYER_SPEED 0.03
 # define ROTATION_SPEED 0.025
