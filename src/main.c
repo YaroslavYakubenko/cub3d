@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/20 15:11:04 by yaroslav         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:33:34 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	main(int ac, char **av)
 		ft_printf("Error: Failed to parse the *.cub file.\n");
 		return (1);
 	}
-	printf("here\n");
 	game = init_game(map);
+	printf("here\n");
 	if (!game)
 	{
 		ft_printf("Error: Failed to initialize the game.\n");
