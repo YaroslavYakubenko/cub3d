@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/15 21:23:00 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/20 13:52:22 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 		else if (ft_strncmp(lines[i], "C ", 2) == 0)
 		{
 			map->ceiling = ft_strdup(lines[i] + 2);
-			printf("ceiling: %s\nlines: %s", map->ceiling, lines[i]);
+			// printf("ceiling: %s\nlines: %s", map->ceiling, lines[i]);
 		}
 		else
 			break;
@@ -110,6 +110,9 @@ t_map	*parse_cub_file(const char *file_name)
 	map->ceiling_color = -1;
 	map->grid = NULL;
 	map_start = parse_textures_and_colors(map, lines);
+	map->ceiling_color = init_colors(map->ceiling, map);
+	map->floor_color = init_colors(map->floor, map);
+	// printf("floor_color: %d\nceiling_color: %d\n", map->floor_color, map->ceiling_color);
 	map->grid = &lines[map_start];
 	// printf("north_texture: %ssouth_texture: %swest_texture: %seast_texture: %sfloor_color: %d\nceiling_color: %d\n", map->north_texture,
 	// 	map->south_texture, map->west_texture, map->east_texture, map->floor_color, map->ceiling_color);

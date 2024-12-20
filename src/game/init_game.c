@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/14 20:39:22 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:38:29 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_image(t_game *game)
 
 t_game	*init_game(t_map *map)
 {
+	printf("here_init_game");
 	t_game	*game;
 
 	game = malloc(sizeof(t_game));
@@ -64,10 +65,14 @@ int	game_loop(t_game *game)
 void	load_texture(t_game *game, char *path,
 	t_image **texture, int size_texture)
 {
-	*texture = malloc(sizeof(t_image));
-	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size_texture, &size_texture);
+	int	size;
+	
+	size = size_texture;
+	(*texture)->img = malloc(sizeof(t_image));
+	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
 	if (!(*texture)->img)
 	{
+		printf("path: %s\nsize_texture: %d\n", path, size_texture);
 		ft_printf("Error: Failed to load texture.\n");
 		exit(1);
 	}
