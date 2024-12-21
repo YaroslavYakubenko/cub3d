@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/20 21:51:41 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/21 19:06:41 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,48 +99,6 @@ void	load_texture(t_game *game, char *path,
 	}
 }
 
-// void	load_texture(t_game *game, char *path, t_image **texture, int size_texture)
-// {
-// 	int	size;
-
-// 	size = size_texture;
-
-// 	// Выделяем память для структуры
-// 	*texture = malloc(sizeof(t_image));
-// 	if (!(*texture))
-// 	{
-// 		printf("Error: Failed to allocate memory for texture.\n");
-// 		exit(1);
-// 	}
-
-// 	// printf("Allocated memory for texture.\n");
-
-// 	// Загружаем изображение
-// 	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
-// 	if (!(*texture)->img)
-// 	{
-// 		printf("path: %s\nsize_texture: %d\n", path, size_texture);
-// 		printf("Error: Failed to load texture.\n");
-// 		free(*texture); // Очищаем память, если загрузка не удалась
-// 		exit(1);
-// 	}
-
-// 	// printf("Texture loaded successfully: %s\n", path);
-
-// 	// Получаем адрес изображения
-// 	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,
-// 		&(*texture)->line_lenght, &(*texture)->endian);
-// 	if (!(*texture)->addr)
-// 	{
-// 		printf("Error: Failed to get image address.\n");
-// 		mlx_destroy_image(game->mlx, (*texture)->img);
-// 		free(*texture);
-// 		exit(1);
-// 	}
-
-// 	printf("Image address obtained successfully.\n");
-// }
-
 void	rm_newline(char *str)
 {
 	int	len;
@@ -165,15 +123,3 @@ void	load_all_textures(t_game *game)
 	load_texture(game, game->map->west_texture, &game->west_img, TEXTUREHEIGHT);
 	load_texture(game, game->map->east_texture, &game->east_img,TEXTUREHEIGHT);
 }
-
-
-
-// void	load_all_textures(t_game *game)
-// {
-// 	load_texture(game, "textures/north_texture.xpm", &game->north_img, TEXTUREHEIGHT);
-// 	// printf("here_is_load_all_textures\n");
-// 	load_texture(game, "textures/south_texture.xpm", &game->south_img,TEXTUREHEIGHT);
-// 	load_texture(game, "textures/west_texture.xpm", &game->west_img, TEXTUREHEIGHT);
-// 	load_texture(game, "textures/east_texture.xpm", &game->east_img,TEXTUREHEIGHT);
-// }
-

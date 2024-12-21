@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/17 19:09:38 by yaroslav         ###   ########.fr       */
+/*   Updated: 2024/12/21 21:44:57 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 
 # define PLAYER_SPEED 0.03
 # define ROTATION_SPEED 0.025
+# define FOV 1.047 //60 градусов, угол обзора камеры
 
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
@@ -83,6 +84,7 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	angle;
+	// float	fov;
 }	t_player;
 
 typedef struct s_map
@@ -109,7 +111,21 @@ typedef struct s_game
 	t_image	*west_img;
 	t_image	*east_img;
 	t_map	*map;
+	float	*z_buffer;
 }	t_game;
+
+typedef struct s_ray
+{
+	float	ray_x;
+	float	ray_y;
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	side_dist_x;
+	float	side_dist_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+}	t_ray;
 
 
 

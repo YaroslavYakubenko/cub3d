@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/20 21:33:34 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/21 21:40:55 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ int	main(int ac, char **av)
 	}
 	// init_image(game);
 	// load_all_textures(game);
+	mlx_loop_hook(game->mlx, game_loop, game);
 	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, handle_input, game);
 	// printf("here\n");
 	// mlx_key_hook(game->win, handle_input, game);
 	// render_scene(game);
-	mlx_loop_hook(game->mlx, game_loop, game);
 	printf("here1\n");
 	mlx_loop(game->mlx);
 	printf("here2\n");
