@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/21 21:36:53 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/22 21:45:35 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ float	perform_dda(t_ray *ray, t_game *game)
 			map_y += ray->step_y;
 			ray->side = 1;
 		}
+		if (map_x < 0 || map_x > SCREEN_WIDTH || map_y < 0 || map_y > SCREEN_HEIGHT)
+		{
+			printf("Out of bounds: map_x=%d, map_y=%d\n", map_x, map_y);
+			return (-1);
+		}
 		if (game->map->grid[map_y][map_x] == '1')
 			break;
 	}
@@ -127,16 +132,24 @@ void	cast_rays(t_game *game)
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
-		ray_angle = game->map->player.angle - (FOV / 2) + (FOV / SCREEN_HEIGHT) * x;
+		ray_angle = game->map->player.angle - (FOV / 2) + (FOV / SCREEN_WIDTH) * x;
+		// if (ray_angle < 0)
+		// 	ray_angle += 2 * M_PI;
+		// else if (ray_angle >= 2)
+		// 	ray_angle -= 2 * M_PI;
 		calculate_ray_direction(&ray, game, ray_angle);
 		dist_to_wall = perform_dda(&ray, game);
 		draw_wall(game, x, dist_to_wall, ray.side);
 		x++;
+		// printf("here_is_cast_rays\n");
+		// printf("x: %d\n", x);
+		printf("ray_angle: %f\n", ray_angle);
 	}
 }
 
 void	render_scene(t_game *game)
 {
 	cast_rays(game);
+	printf("here_is_render_scene\n");
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }

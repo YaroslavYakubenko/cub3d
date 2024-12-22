@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/21 21:44:57 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/22 19:38:30 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
+
+# define M_PI 3.14159265358979323846
 
 typedef struct s_image
 {

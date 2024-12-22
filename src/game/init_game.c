@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/21 19:06:41 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:02:16 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ t_game	*init_game(t_map *map)
 
 int	game_loop(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->back->img);
-	init_image(game);
+	// mlx_destroy_image(game->mlx, game->back->img);
+	// init_image(game);
 	render_scene(game);
+	printf("here_is_game_loop\n");
 	return (0);
 }
 
