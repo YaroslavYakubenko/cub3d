@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/22 18:02:16 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/24 17:23:48 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,32 @@ void	init_image(t_game *game)
 		exit(1);
 }
 
-t_game	*init_game(t_map *map)
-{
-	t_game	*game;
+// t_game	*init_game(t_map *map)
+// {
+// 	t_game	*game;
 
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (NULL);
-	game->map = map;
-	game->mlx = mlx_init();
-	if (!game->mlx)
-	{
-		free(game);
-		return (NULL);
-	}
-	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
-	if (!game->win)
-	{
-		free(game);
-		return (NULL);
-	}
-	load_all_textures(game);
-	init_image(game);
-	printf("here_init_game\n");
+// 	game = malloc(sizeof(t_game));
+// 	if (!game)
+// 		return (NULL);
+// 	game->map = map;
+// 	game->mlx = mlx_init();
+// 	if (!game->mlx)
+// 	{
+// 		free(game);
+// 		return (NULL);
+// 	}
+// 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
+// 	if (!game->win)
+// 	{
+// 		free(game);
+// 		return (NULL);
+// 	}
+// 	load_all_textures(game);
+// 	init_image(game);
+// 	printf("here_init_game\n");
 	
-	return (game);
-}
+// 	return (game);
+// }
 
 
 int	game_loop(t_game *game)

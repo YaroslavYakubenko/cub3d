@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/22 19:38:30 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:54:46 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,12 @@ int		handle_input(int keycode, t_game *game);
 void	free_resources(t_map *map);
 void	free_map(t_map *map);
 void	render_scene(t_game *game);
-t_game	*init_game(t_map *map);
+// t_game	*init_game(t_map *map);
 void	init_image(t_game *game);
 int		game_loop(t_game *game);
 void	load_all_textures(t_game *game);
 void	render_scene(t_game *game);
+
+void	put_pixel(t_game *game, int x, int y, int color);
 
 #endif

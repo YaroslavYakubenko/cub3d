@@ -6,46 +6,123 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/21 21:40:55 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/24 20:16:17 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	put_pixel(t_game *game, int x, int y, int color)
+{
+	int	i;
+	if (!game || !game->back || !game->back->addr)
+	{
+		printf("Error: game, back or addr is NULL.\n");
+		return;
+	}
+	if (x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT || x < 0 || y < 0)
+	{
+		printf("Error: coordinates out of bounds: x=%d, y=%d\n", x, y);
+		return;
+	}
+	i = y * game->back->line_lenght + x * game->back->bpp / 8;
+	// printf("Error: coordinates out of bounds: x=%d, y=%d\n", x, y);
+	game->back->addr[i] = color & 0xFF;
+	// printf("here\n");
+	game->back->addr[i + 1] = (color >> 8) & 0xFF;
+	game->back->addr[i + 2] = (color >> 16) & 0xFF;
+}
+
+void	draw_square(t_game *game, int x, int y, int size, int color)
+{
+	int	i;
+
+	i = 0;
+	while (i++ < size)
+		put_pixel(game, x + i, y, color);
+	i = 0;
+	while (i++ < size)
+		put_pixel(game, x, y + i, color);
+	i = 0;
+	while (i++ < size)
+		put_pixel(game, x + size, y + i, color);
+	i = 0;
+	while (i++ < size)
+		put_pixel(game, x + i, y + size, color);
+}
+
+void	init_game(t_game *game)
+{
+	// game = NULL;
+	game->back = malloc(sizeof(t_image));
+	// game->mlx = NULL;
+	// game->back->img = NULL;
+	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
+	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
+	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp, &game->back->line_lenght, &game->back->endian);
+	// printf("line_lenght: %d, bpp: %d\n", game->back->line_lenght, game->back->bpp);
+	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
+}
+
 int	main(int ac, char **av)
 {
-	t_map	*map;
-	t_game	*game;
+	// t_map	*map;
+	t_game	game;
 
+	(void)av;
+	// game = NULL;
 	if (ac != 2)
 	{
-		ft_printf("Error: Too many arguments.\n");
+		printf("Error: Too many arguments.\n");
 		return (1);
 	}
-	map = parse_cub_file(av[1]);
-	if (!map)
-	{
-		ft_printf("Error: Failed to parse the *.cub file.\n");
-		return (1);
-	}
-	game = init_game(map);
-	printf("here\n");
-	if (!game)
-	{
-		ft_printf("Error: Failed to initialize the game.\n");
-		free_resources(map);
-		return (1);
-	}
-	// init_image(game);
-	// load_all_textures(game);
-	mlx_loop_hook(game->mlx, game_loop, game);
-	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, handle_input, game);
-	// printf("here\n");
-	// mlx_key_hook(game->win, handle_input, game);
-	// render_scene(game);
-	printf("here1\n");
-	mlx_loop(game->mlx);
-	printf("here2\n");
-	free_resources(map);
+	// map = parse_cub_file(av[1]);
+	// if (!map)
+	// {
+	// 	printf("Error: Failed to parse the *.cub file.\n");
+	// 	return (1);
+	// }
+	init_game(&game);
+	draw_square(&game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0x00FF00);
+	mlx_loop(game.mlx);
 	return (0);
 }
+
+// int	main(int ac, char **av)
+// {
+// 	t_map	*map;
+// 	t_game	*game;
+
+// 	if (ac != 2)
+// 	{
+// 		ft_printf("Error: Too many arguments.\n");
+// 		return (1);
+// 	}
+// 	map = parse_cub_file(av[1]);
+// 	if (!map)
+// 	{
+// 		ft_printf("Error: Failed to parse the *.cub file.\n");
+// 		return (1);
+// 	}
+// 	game = init_game(map);
+// 	printf("here\n");
+// 	if (!game)
+// 	{
+// 		ft_printf("Error: Failed to initialize the game.\n");
+// 		free_resources(map);
+// 		return (1);
+// 	}
+// 	// init_image(game);
+// 	// load_all_textures(game);
+// 	mlx_loop_hook(game->mlx, game_loop, game);
+// 	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, handle_input, game);
+// 	// printf("here\n");
+// 	// mlx_key_hook(game->win, handle_input, game);
+// 	// render_scene(game);
+// 	printf("here1\n");
+// 	mlx_loop(game->mlx);
+// 	printf("here2\n");
+// 	free_resources(map);
+// 	return (0);
+// }

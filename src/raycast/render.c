@@ -6,21 +6,21 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/22 21:45:35 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:55:42 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel(t_game *game, int x, int y, int color)
-{
-	char	*pixel;
+// void	put_pixel(t_game *game, int x, int y, int color)
+// {
+// 	char	*pixel;
 
-	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
-		return ;
-	pixel = game->back->addr + (y * game->back->line_lenght + x * (game->back->bpp / 8));
-	*(unsigned int *)pixel = color;
-}
+// 	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+// 		return ;
+// 	pixel = game->back->addr + (y * game->back->line_lenght + x * (game->back->bpp / 8));
+// 	*(unsigned int *)pixel = color;
+// }
 
 void	calculate_ray_direction(t_ray *ray, t_game *game, float ray_angle)
 {
