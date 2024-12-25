@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/24 18:54:46 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/25 22:04:48 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@
 # define PLAYER_SPEED 0.03
 # define ROTATION_SPEED 0.025
 # define FOV 1.047 //60 градусов, угол обзора камеры
+# define M_PI 3.14159265358979323846
 
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 
-# define M_PI 3.14159265358979323846
 
 typedef struct s_image
 {
@@ -87,6 +87,10 @@ typedef struct s_player
 	float	y;
 	float	angle;
 	// float	fov;
+	bool	key_up;
+	bool	key_down;
+	bool	key_left;
+	bool	key_right;
 }	t_player;
 
 typedef struct s_map
@@ -113,6 +117,7 @@ typedef struct s_game
 	t_image	*west_img;
 	t_image	*east_img;
 	t_map	*map;
+	t_player	*player;
 	float	*z_buffer;
 }	t_game;
 
@@ -147,5 +152,9 @@ void	load_all_textures(t_game *game);
 void	render_scene(t_game *game);
 
 void	put_pixel(t_game *game, int x, int y, int color);
+int		key_press(int keycode, t_player *player);
+int		key_realese(int keycode, t_player *player);
+void	move_player(t_player *player);
+void	init_player(t_player *player);
 
 #endif

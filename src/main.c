@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/24 20:16:17 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/25 22:06:41 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	init_game(t_game *game)
 	game->back = malloc(sizeof(t_image));
 	// game->mlx = NULL;
 	// game->back->img = NULL;
+	init_player(game->player);
+	printf("here_init_game\n");
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -65,9 +67,20 @@ void	init_game(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
 
+int	draw_loop(t_game *game)
+{
+	t_player	*player;
+
+	player = &game->map->player;
+	move_player(player);
+	draw_square(game, player->x, player->y, 10, 0x00FF00);
+	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
-	// t_map	*map;
+	t_map	*map;
 	t_game	game;
 
 	(void)av;
@@ -77,14 +90,18 @@ int	main(int ac, char **av)
 		printf("Error: Too many arguments.\n");
 		return (1);
 	}
-	// map = parse_cub_file(av[1]);
-	// if (!map)
-	// {
-	// 	printf("Error: Failed to parse the *.cub file.\n");
-	// 	return (1);
-	// }
+	map = parse_cub_file(av[1]);
+	if (!map)
+	{
+		printf("Error: Failed to parse the *.cub file.\n");
+		return (1);
+	}
 	init_game(&game);
-	draw_square(&game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0x00FF00);
+	printf("here\n");
+	mlx_hook(game.mlx, KEY_PRESS, KEY_PRESS_MASK, key_press, &game.map->player);
+	mlx_hook(game.mlx, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, &game.map->player);
+	mlx_loop_hook(game.mlx, draw_loop, &game);
+	// draw_square(&game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0x00FF00);
 	mlx_loop(game.mlx);
 	return (0);
 }
