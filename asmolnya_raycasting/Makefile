@@ -1,13 +1,15 @@
-NAME = ganr
+NAME = game
 CC = cc
-OBJ = (SRC:.c = .o)
+OBJ = $(SRC:.c=.o)
 
-# FLAGS = -L./includes/mlx -lmlx -lXent -lX11 -lm -lz
-INCLUDES = includes/minilibx-linux/libmlx.a
+FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -g
+INCLUDES = mlx/libmlx.a
 SRC = src/main.c
  
+all: $(NAME)
+
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) -o $(NAME) $(INCLUDES) $(FLAGS)
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
