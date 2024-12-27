@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/24 18:55:42 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/27 20:28:28 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 void	calculate_ray_direction(t_ray *ray, t_game *game, float ray_angle)
 {
-	ray->ray_x = game->map->player.x;
-	ray->ray_y = game->map->player.y;
+	ray->ray_x = game->player->x;
+	ray->ray_y = game->player->y;
 	ray->ray_dir_x = cos(ray_angle);
 	ray->ray_dir_y = -sin(ray_angle);
 }
@@ -132,7 +132,7 @@ void	cast_rays(t_game *game)
 	x = 0;
 	while (x < SCREEN_WIDTH)
 	{
-		ray_angle = game->map->player.angle - (FOV / 2) + (FOV / SCREEN_WIDTH) * x;
+		ray_angle = game->player->angle - (FOV / 2) + (FOV / SCREEN_WIDTH) * x;
 		// if (ray_angle < 0)
 		// 	ray_angle += 2 * M_PI;
 		// else if (ray_angle >= 2)

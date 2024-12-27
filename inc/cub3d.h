@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/25 22:04:48 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/27 20:26:19 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define KEY_PRESS_MASK (1L<<0) 
 # define KEY_RELEASE_MASK (1L<<1) 
 
-# define PLAYER_SPEED 0.03
+# define PLAYER_SPEED 5
 # define ROTATION_SPEED 0.025
 # define FOV 1.047 //60 градусов, угол обзора камеры
 # define M_PI 3.14159265358979323846
@@ -104,7 +104,7 @@ typedef struct s_map
 	int			floor_color;
 	int			ceiling_color;
 	char		**grid;
-	t_player	player;
+	// t_player	*player;
 }	t_map;
 
 typedef struct s_game

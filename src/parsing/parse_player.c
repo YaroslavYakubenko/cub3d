@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/25 22:04:16 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/27 21:12:53 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,25 @@
 
 void	init_player(t_player *player)
 {
+	// player = malloc(sizeof(t_player));
+	// // player = ft_calloc(sizeof(t_player), player);
+
+	// if (!player)
+	// {
+	// 	printf("Error: Failed to allocate memory.\n");
+	// 	return ;
+	// }
+	// printf("player->x: %f.2\n", player->x);
 	player->x = SCREEN_WIDTH / 2;
-	printf("here_is_init_player\n");
+	// printf("here_is_init_player\n");
 	player->y = SCREEN_HEIGHT / 2;
 	player->key_down = false;
 	player->key_up = false;
 	player->key_left = false;
 	player->key_right = false;
+	// printf("player->x: %f\n", player->x);
+	// printf("player->y: %f\n", player->y);
+
 }
 
 // void	find_player(t_game *game)
@@ -72,7 +84,8 @@ int	key_press(int keycode, t_player *player)
 
 int	key_realese(int keycode, t_player *player)
 {
-	if (keycode == KEY_W)
+	printf("Key realesed: %d\n", keycode);
+	if (keycode == KEY_W && player->key_up == true)
 		player->key_up = false;
 	if (keycode == KEY_S)
 		player->key_down = false;
@@ -85,15 +98,28 @@ int	key_realese(int keycode, t_player *player)
 
 void	move_player(t_player *player)
 {
-	int	speed;
-
-	speed = 5;
+	if (!player)
+	{
+		printf("Error: player is NULL.\n");
+		return;
+	}
+	// printf("Address of player: %p\n", (void *)player);
+	// printf("here_is_move_player\n");
+	// printf("player->x: %f\n", player->x);
+	// printf("player->y: %f\n", player->y);
+	// printf("KEY_UP = %d\n", player->key_up);
 	if (player->key_up)
-		player->y -= speed;
+	{
+		player->y -= PLAYER_SPEED;
+		printf("player.x: %f\n", player->x);
+		printf("player.y: %f\n", player->y);	
+	}
 	if (player->key_down)
-		player->y += speed;
+		player->y += PLAYER_SPEED;
 	if (player->key_left)
-		player->x -= speed;
+		player->x -= PLAYER_SPEED;
 	if (player->key_right)
-		player->x += speed;
+		player->x += PLAYER_SPEED;
+	// printf("player->x: %f\n", player->x);
+	// printf("player->y: %f\n", player->y);
 }

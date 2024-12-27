@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/25 22:06:41 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/27 21:16:12 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,23 @@ void	init_game(t_game *game)
 {
 	// game = NULL;
 	game->back = malloc(sizeof(t_image));
+	// game->player = NULL;
+	game->player = malloc(sizeof(t_player));
+	// player = ft_calloc(sizeof(t_player), player);
+
+	if (!game->player)
+	{
+		printf("Error: Failed to allocate memory.\n");
+		return ;
+	}
 	// game->mlx = NULL;
 	// game->back->img = NULL;
 	init_player(game->player);
-	printf("here_init_game\n");
+	if(game->player == NULL)
+		printf("here NULL ->dksmj\n");
+	// printf("player->x: %f\n", game->player->x);
+	// printf("player->y: %f\n", game->player->y);
+	// printf("here_init_game\n");
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -69,11 +82,22 @@ void	init_game(t_game *game)
 
 int	draw_loop(t_game *game)
 {
-	t_player	*player;
+	// t_player	*player;
 
-	player = &game->map->player;
-	move_player(player);
-	draw_square(game, player->x, player->y, 10, 0x00FF00);
+	// player = game->player;
+	
+	// move_player(player);
+	// // printf("Draw loop executed\n");
+	// draw_square(game, player->x, player->y, 10, 0x00FF00);
+	// mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
+	// return (0);
+
+
+	// printf("player.x: %f\n", game->player->x);
+	// printf("player.y: %f\n", game->player->y);
+	move_player(game->player);
+	// printf("Draw loop executed\n");
+	draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }
@@ -81,9 +105,10 @@ int	draw_loop(t_game *game)
 int	main(int ac, char **av)
 {
 	t_map	*map;
-	t_game	game;
+	// t_game	game;
+	t_game	*game = calloc(1, sizeof(t_game));
 
-	(void)av;
+	// (void)av;
 	// game = NULL;
 	if (ac != 2)
 	{
@@ -96,13 +121,22 @@ int	main(int ac, char **av)
 		printf("Error: Failed to parse the *.cub file.\n");
 		return (1);
 	}
-	init_game(&game);
-	printf("here\n");
-	mlx_hook(game.mlx, KEY_PRESS, KEY_PRESS_MASK, key_press, &game.map->player);
-	mlx_hook(game.mlx, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, &game.map->player);
-	mlx_loop_hook(game.mlx, draw_loop, &game);
+	init_game(game);
+	// printf("player.x: %f\n", game.player->x);
+	// printf("player.y: %f\n", game.player->y);
+
+	mlx_loop_hook(game->mlx, draw_loop, &game);
+
+	
+	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, key_press, game->player);
+	mlx_hook(game->win, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, game->player);
+
+	// mlx_hook(game->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key_action, game);
+	// mlx_hook(game->mlx_win, KEY_RELEASE, KEY_RELEASE_MASK, key_release_hook,
+	// 	game);
 	// draw_square(&game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0x00FF00);
-	mlx_loop(game.mlx);
+	mlx_loop(game->mlx);
+	printf("here\n");
 	return (0);
 }
 
