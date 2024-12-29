@@ -6,13 +6,13 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/27 21:16:12 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/29 18:43:04 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel(t_game *game, int x, int y, int color)
+void	put_pixel(t_game *game, float x, float y, int color)
 {
 	int	i;
 	if (!game || !game->back || !game->back->addr)
@@ -20,9 +20,10 @@ void	put_pixel(t_game *game, int x, int y, int color)
 		printf("Error: game, back or addr is NULL.\n");
 		return;
 	}
+	// printf("x = %f\ny = %f\n", x, y);
 	if (x >= SCREEN_WIDTH || y >= SCREEN_HEIGHT || x < 0 || y < 0)
 	{
-		printf("Error: coordinates out of bounds: x=%d, y=%d\n", x, y);
+		// printf("Error: coordinates out of bounds: x=%d, y=%d\n", x, y);
 		return;
 	}
 	i = y * game->back->line_lenght + x * game->back->bpp / 8;
@@ -33,11 +34,12 @@ void	put_pixel(t_game *game, int x, int y, int color)
 	game->back->addr[i + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_square(t_game *game, int x, int y, int size, int color)
+void	draw_square(t_game *game, float x, float y, int size, int color)
 {
-	int	i;
+	float	i;
 
 	i = 0;
+	printf("x = %f\ny = %f\n", x, y);
 	while (i++ < size)
 		put_pixel(game, x + i, y, color);
 	i = 0;
@@ -77,6 +79,13 @@ void	init_game(t_game *game)
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp, &game->back->line_lenght, &game->back->endian);
 	// printf("line_lenght: %d, bpp: %d\n", game->back->line_lenght, game->back->bpp);
+	if (!game->mlx || !game->win || !game->back->img || !game->back->addr)
+	{
+    	printf("Error: Initialization failed.\n");
+    	exit(1);
+	}
+	printf("mlx: %p, win: %p, img: %p\n", game->mlx, game->win, game->back->img);
+
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
 
@@ -95,18 +104,26 @@ int	draw_loop(t_game *game)
 
 	// printf("player.x: %f\n", game->player->x);
 	// printf("player.y: %f\n", game->player->y);
-	move_player(game->player);
 	// printf("Draw loop executed\n");
+	
 	draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
+	// printf("player->x = %f\nplayer->y = %f\n", game->player->x, game->player->y);
+	move_player(game->player);
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }
 
+// int	exit_game(t_game *game)
+// {
+// 	free_game(game);
+// 	exit(0);
+// 	return (0);
+// }
+
 int	main(int ac, char **av)
 {
 	t_map	*map;
-	// t_game	game;
-	t_game	*game = calloc(1, sizeof(t_game));
+	t_game	game;
 
 	// (void)av;
 	// game = NULL;
@@ -121,22 +138,16 @@ int	main(int ac, char **av)
 		printf("Error: Failed to parse the *.cub file.\n");
 		return (1);
 	}
-	init_game(game);
+	init_game(&game);
 	// printf("player.x: %f\n", game.player->x);
 	// printf("player.y: %f\n", game.player->y);
-
-	mlx_loop_hook(game->mlx, draw_loop, &game);
-
-	
-	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, key_press, game->player);
-	mlx_hook(game->win, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, game->player);
-
-	// mlx_hook(game->mlx_win, KEY_PRESS, KEY_PRESS_MASK, key_action, game);
-	// mlx_hook(game->mlx_win, KEY_RELEASE, KEY_RELEASE_MASK, key_release_hook,
-	// 	game);
-	// draw_square(&game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 10, 0x00FF00);
-	mlx_loop(game->mlx);
+	mlx_loop_hook(game.mlx, draw_loop, &game);
+	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, key_press, game.player);
+	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, game.player);
+	// mlx_hook(game->win, DestroyNotify, KEY_PRESS_MASK, exit_game, game);
 	printf("here\n");
+	mlx_loop(game.mlx);
+	// free(game);
 	return (0);
 }
 

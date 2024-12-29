@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/27 20:26:19 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/29 21:09:34 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define KEY_PRESS_MASK (1L<<0) 
 # define KEY_RELEASE_MASK (1L<<1) 
 
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 1
 # define ROTATION_SPEED 0.025
 # define FOV 1.047 //60 градусов, угол обзора камеры
 # define M_PI 3.14159265358979323846
@@ -151,7 +151,7 @@ int		game_loop(t_game *game);
 void	load_all_textures(t_game *game);
 void	render_scene(t_game *game);
 
-void	put_pixel(t_game *game, int x, int y, int color);
+void	put_pixel(t_game *game, float x, float y, int color);
 int		key_press(int keycode, t_player *player);
 int		key_realese(int keycode, t_player *player);
 void	move_player(t_player *player);

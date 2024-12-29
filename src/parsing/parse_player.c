@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/27 21:12:53 by yyakuben         ###   ########.fr       */
+/*   Updated: 2024/12/29 18:37:15 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_player(t_player *player)
 	// 	printf("Error: Failed to allocate memory.\n");
 	// 	return ;
 	// }
-	// printf("player->x: %f.2\n", player->x);
+	printf("player->x: %f.2\n", player->x);
 	player->x = SCREEN_WIDTH / 2;
 	// printf("here_is_init_player\n");
 	player->y = SCREEN_HEIGHT / 2;
@@ -85,7 +85,7 @@ int	key_press(int keycode, t_player *player)
 int	key_realese(int keycode, t_player *player)
 {
 	printf("Key realesed: %d\n", keycode);
-	if (keycode == KEY_W && player->key_up == true)
+	if (keycode == KEY_W)
 		player->key_up = false;
 	if (keycode == KEY_S)
 		player->key_down = false;
@@ -111,8 +111,8 @@ void	move_player(t_player *player)
 	if (player->key_up)
 	{
 		player->y -= PLAYER_SPEED;
-		printf("player.x: %f\n", player->x);
-		printf("player.y: %f\n", player->y);	
+		// printf("player.x: %f\n", player->x);
+		// printf("player.y: %f\n", player->y);	
 	}
 	if (player->key_down)
 		player->y += PLAYER_SPEED;
