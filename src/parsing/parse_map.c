@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/21 19:08:35 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:33:17 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	while (lines[i])
 	{
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-		{
-			map->north_texture = ft_strdup(lines[i] + 3);
-			// printf("n_txtr:%s\n", map->north_texture);
-		}
+			map->north_texture = ft_strdup(lines[i] + 3);\
 		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			map->south_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/29 21:09:34 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:59:59 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_player
 	float	x;
 	float	y;
 	float	angle;
-	// float	fov;
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;
@@ -117,6 +116,7 @@ typedef struct s_game
 	t_image	*west_img;
 	t_image	*east_img;
 	t_map	*map;
+	char	**mapp;
 	t_player	*player;
 	float	*z_buffer;
 }	t_game;
@@ -156,5 +156,8 @@ int		key_press(int keycode, t_player *player);
 int		key_realese(int keycode, t_player *player);
 void	move_player(t_player *player);
 void	init_player(t_player *player);
+int		draw_loop(t_game *game);
+void	init_game(t_game *game);
+void	clear_image(t_game *game);
 
 #endif

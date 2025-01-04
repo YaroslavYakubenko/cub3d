@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/12/29 18:37:15 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:32:53 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,15 @@
 
 void	init_player(t_player *player)
 {
-	// player = malloc(sizeof(t_player));
-	// // player = ft_calloc(sizeof(t_player), player);
-
-	// if (!player)
-	// {
-	// 	printf("Error: Failed to allocate memory.\n");
-	// 	return ;
-	// }
 	printf("player->x: %f.2\n", player->x);
 	player->x = SCREEN_WIDTH / 2;
-	// printf("here_is_init_player\n");
 	player->y = SCREEN_HEIGHT / 2;
 	player->key_down = false;
 	player->key_up = false;
 	player->key_left = false;
 	player->key_right = false;
-	// printf("player->x: %f\n", player->x);
-	// printf("player->y: %f\n", player->y);
 
 }
-
-// void	find_player(t_game *game)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	printf("here_is_find_player\n");
-// 	printf("map_grid: %s\n", game->map->grid[i]);
-// 	while (game->map->grid[i])
-// 	{
-// 		j = 0;
-// 		while (game->map->grid[i][j])
-// 		{
-// 			if (ft_strchr("NSEW", game->map->grid[i][j]))
-// 			{
-// 				game->map->player.x = j + 0.5;
-// 				game->map->player.y = i + 0.5;
-// 				if (game->map->grid[i][j] == 'N')
-// 					game->map->player.angle = M_PI / 2;
-// 				else if (game->map->grid[i][j] == 'S')
-// 					game->map->player.angle = 3 * M_PI / 2;
-// 				else if (game->map->grid[i][j] == 'E')
-// 					game->map->player.angle = 0;
-// 				else if (game->map->grid[i][j] == 'W')
-// 					game->map->player.angle = M_PI;
-// 				game->map->grid[i][j] = '0';
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	init_player(&game->map->player);
-// }
 
 int	key_press(int keycode, t_player *player)
 {
@@ -103,23 +58,12 @@ void	move_player(t_player *player)
 		printf("Error: player is NULL.\n");
 		return;
 	}
-	// printf("Address of player: %p\n", (void *)player);
-	// printf("here_is_move_player\n");
-	// printf("player->x: %f\n", player->x);
-	// printf("player->y: %f\n", player->y);
-	// printf("KEY_UP = %d\n", player->key_up);
 	if (player->key_up)
-	{
 		player->y -= PLAYER_SPEED;
-		// printf("player.x: %f\n", player->x);
-		// printf("player.y: %f\n", player->y);	
-	}
 	if (player->key_down)
 		player->y += PLAYER_SPEED;
 	if (player->key_left)
 		player->x -= PLAYER_SPEED;
 	if (player->key_right)
 		player->x += PLAYER_SPEED;
-	// printf("player->x: %f\n", player->x);
-	// printf("player->y: %f\n", player->y);
 }
