@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/04 19:33:17 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:26:29 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	while (lines[i])
 	{
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-			map->north_texture = ft_strdup(lines[i] + 3);\
+			map->north_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			map->south_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
@@ -37,6 +37,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 			break;
 		i++;
 	}
+	i++;
 	return (i);
 }
 
@@ -68,7 +69,7 @@ int	validate_map(char **grid)
 	int	i;
 	int	j;
 
-	i = 5;
+	i = 6;
 	while (grid[i])
 	{
 		j = 0;
@@ -91,11 +92,14 @@ int	validate_map(char **grid)
 
 t_map	*parse_cub_file(const char *file_name)
 {
+	// t_game	*game;
 	t_map	*map;
 	char	**lines;
 	int		map_start;
 
+	// game = malloc(sizeof(t_game));
 	map = malloc(sizeof(t_map));
+	// game->map = map;
 	lines = read_file(file_name);
 	if (!lines)
 		return (NULL);
@@ -107,14 +111,23 @@ t_map	*parse_cub_file(const char *file_name)
 	map->ceiling_color = -1;
 	map->grid = NULL;
 	map_start = parse_textures_and_colors(map, lines);
+	// printf("map_start: %d\n", map_start);
 	map->ceiling_color = init_colors(map->ceiling, map);
 	map->floor_color = init_colors(map->floor, map);
 	map->grid = &lines[map_start];
+	// printf("lines: %s\n", lines[map_start]);
 	if (!validate_map(map->grid))
 	{
 		ft_printf("Error: Invalid map.\n");
 		free_map(map);
         return (NULL);
 	}
+	// printf("map->grid: %s", map->grid[0]);
+	// printf("map->grid: %s", map->grid[1]);
+	// printf("map->grid: %s", map->grid[2]);
+	// printf("map->grid: %s", map->grid[3]);
+	// printf("map->grid: %s", map->grid[4]);
+	// printf("map->grid: %s", map->grid[5]);
+	// printf("map->grid: %s", map->grid[6]);
 	return (map);
 }

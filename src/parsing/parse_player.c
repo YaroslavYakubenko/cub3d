@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/04 19:32:53 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:19:30 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_player(t_player *player)
 {
-	printf("player->x: %f.2\n", player->x);
+	// printf("player->x: %f.2\n", player->x);
 	player->x = SCREEN_WIDTH / 2;
 	player->y = SCREEN_HEIGHT / 2;
 	player->key_down = false;
@@ -39,7 +39,7 @@ int	key_press(int keycode, t_player *player)
 
 int	key_realese(int keycode, t_player *player)
 {
-	printf("Key realesed: %d\n", keycode);
+	// printf("Key realesed: %d\n", keycode);
 	if (keycode == KEY_W)
 		player->key_up = false;
 	if (keycode == KEY_S)

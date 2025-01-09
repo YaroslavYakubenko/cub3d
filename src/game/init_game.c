@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/04 19:57:23 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/08 19:26:41 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,40 @@ void	init_image(t_game *game)
 	if (!game->back->addr)
 		exit(1);
 }
+
+void	draw_map(t_game *game)
+{
+	char	**map;
+	int		color;
+	int		x;
+	int		y;
+
+	y = 0;
+	color = 0x0000FF;
+	// game = malloc(sizeof(t_game));
+	// printf("here\n");
+	// printf("game->map->grid: %s\n", game->map->grid[0]);
+	map = game->map->grid;
+	// printf("map: %s\n", map[0]);
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1')
+				draw_square(game, x * 64, y * 64, 64, color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_square(t_game *game, float x, float y, int size, int color)
 {
 	float	i;
 
 	i = 0;
-	printf("x = %f\ny = %f\n", x, y);
+	// printf("x = %f\ny = %f\n", x, y);
 	while (i++ < size)
 		put_pixel(game, x + i, y, color);
 	i = 0;
@@ -74,7 +102,7 @@ void	init_game(t_game *game)
 	game->back = malloc(sizeof(t_image));
 	game->player = malloc(sizeof(t_player));
 
-	if (!game->player)
+	if (!game->player || !game->back)
 	{
 		printf("Error: Failed to allocate memory.\n");
 		return ;
@@ -91,7 +119,7 @@ void	init_game(t_game *game)
     	printf("Error: Initialization failed.\n");
     	exit(1);
 	}
-	printf("mlx: %p, win: %p, img: %p\n", game->mlx, game->win, game->back->img);
+	// printf("mlx: %p, win: %p, img: %p\n", game->mlx, game->win, game->back->img);
 
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
@@ -101,6 +129,7 @@ int	draw_loop(t_game *game)
 	move_player(game->player);
 	clear_image(game);
 	draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
+	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }

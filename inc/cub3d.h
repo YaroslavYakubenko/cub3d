@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/04 19:59:59 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:26:03 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,6 @@ void	init_player(t_player *player);
 int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
+void	draw_square(t_game *game, float x, float y, int size, int color);
 
 #endif
