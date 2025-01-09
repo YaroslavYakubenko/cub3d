@@ -2,14 +2,17 @@ NAME = game
 CC = cc
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -g
-INCLUDES = mlx/libmlx.a
+# FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -g
+FLAGS = -L$(MLX) -lmlx -lGL -lX11 -lXext -g
+MLX = ../minilibx_linux/
 SRC = src/main.c
  
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $(NAME) $(INCLUDES) $(FLAGS)
+	@$(MAKE) -sC $(MLX)
+	$(CC) $(OBJ) -o $(NAME) $(FLAGS) -L$(MLX) -lmlx
+# $(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c $< -o $@
