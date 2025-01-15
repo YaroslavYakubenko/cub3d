@@ -24,6 +24,7 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 
 void init_game(t_game *game)
 {
+	init_player(&game->player);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
