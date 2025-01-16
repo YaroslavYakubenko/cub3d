@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/08 18:26:03 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:39:51 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
+# define BLOCK 128
 
 
 typedef struct s_image
@@ -90,6 +91,8 @@ typedef struct s_player
 	bool	key_down;
 	bool	key_left;
 	bool	key_right;
+	bool	lef_rotate;
+	bool	right_rotate;
 }	t_player;
 
 typedef struct s_map

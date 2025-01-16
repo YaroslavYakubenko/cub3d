@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/08 19:26:41 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:38:21 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_map(t_game *game)
 		while (map[y][x])
 		{
 			if (map[y][x] == '1')
-				draw_square(game, x * 64, y * 64, 64, color);
+				draw_square(game, x * BLOCK, y * BLOCK, BLOCK, color);
 			x++;
 		}
 		y++;
