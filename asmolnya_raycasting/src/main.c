@@ -4,7 +4,7 @@ void put_pixel(int x, int y, int color, t_game *game)
 {
 	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
 		return;
-	int index = y * game->size_line + x * game->bpp / 8; // WAT IS DIS???
+	int index = y * game->size_line + x * game->bpp / 8; // counting index
 	game->data[index] = color & 0xFF;  // set blue component
 	game->data[index + 1] = (color >> 8) & 0xFF; //  set green
 	game->data[index + 2] = (color >> 16) & 0xFF; // set red
@@ -33,12 +33,25 @@ void init_game(t_game *game)
 	
 }
 
+int draw_loop(t_game *game)
+{
+	t_player *player = &game->player;
+	move_player(player);
+	draw_square(player->x, player->y, 5, 0x00FF00, game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	return 0;
+}
+
 int main()
 {
-	t_game *game = malloc(sizeof(t_game));
-	init_game(game);
+	// t_game *game = malloc(sizeof(t_game));
+	t_game game;
+	init_game(&game);
+	mlx_hook(game.win, 2, 1L<<0, key_press, &game.player);
+	mlx_hook(game.win, 2, 1L<<1, key_release, &game.player);
 	
-	draw_square(WIDTH / 2, HEIGHT / 2, 10, 0x00FF00, game);
-	mlx_loop(game->mlx);
+	// draw_square(WIDTH / 2, HEIGHT / 2, 10, 0x00FF00, &game);
+	mlx_loop_hook(game.mlx, draw_loop, &game);
+	mlx_loop(game.mlx);
 	return 0;
 }
