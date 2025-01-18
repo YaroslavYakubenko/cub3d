@@ -38,11 +38,13 @@ typedef struct s_game
     int size_line;
     int endian;
     t_player player;
+    char **map;
 } t_game;
 
 void init_player(t_player *player);
 int key_press(int keycode, t_player *player);
 int key_release(int keycode, t_player *player);
 void move_player(t_player *player);
+char **get_map(void);
 
 #endif

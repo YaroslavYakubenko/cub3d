@@ -25,12 +25,41 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 void init_game(t_game *game)
 {
 	init_player(&game->player);
+	game->map = get_map();
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	
+}
+
+char **get_map(void)
+{
+    char **map = malloc(sizeof(char *) * 11);
+    map[0] = "111111111111111";
+    map[1] = "100000000000001";
+    map[2] = "100000000000001";
+    map[3] = "100000100000001";
+    map[4] = "100000000000001";
+    map[5] = "100000010000001";
+    map[6] = "100001000000001";
+    map[7] = "100000000000001";
+    map[8] = "100000000000001";
+    map[9] = "111111111111111";
+    map[10] = NULL;
+    return (map);
+}
+
+int draw_map(t_game *game)
+{
+	char **map = game->map;
+	int color = 0x0000FF;
+	for(int y = 0; map[y]; y++)
+		for(int x = 0; map[y][x]; x++)
+			if(map[y][x] == '1')
+				draw_square(x * 64, y * 64, 64, color, game);
+	return 0;
 }
 
 void clear_image(t_game *game)
@@ -45,7 +74,7 @@ int draw_loop(t_game *game)
 	t_player *player = &game->player;
 	move_player(player);
 	clear_image(game);
-	draw_square(player->x, player->y, 5, 0x00FF00, game);
+	draw_square(player->x, player->y, 10, 0x00FF00, game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return 0;
 }
