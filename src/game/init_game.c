@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/19 19:59:43 by yaroslav         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:19:31 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,34 +131,62 @@ bool	touch(t_game *game, float px, float py)
 
 	x = px / BLOCK;
 	y = py / BLOCK;
-	printf("here_is_touch\n");
-	printf("game->mapp: %s\n", game->mapp[0]);
-	if (game->mapp[y][x] == '1')
-	{
-		printf("game->mapp: %s\n", game->mapp[0]);
+	if (game->map->grid[y][x] == '1')
 		return (true);
-	}
 	return (false);
+}
+
+float	distance(float x, float y)
+{
+	return (sqrt(x * x + y * y));
+}
+
+void	draw_line(t_player *player, t_game *game, float start_x, int i)
+{
+	float	cos_angle;
+	float	sin_angle;
+	float	ray_x;
+	float	ray_y;
+	float	dist;
+
+	cos_angle = cos(start_x);
+	sin_angle = sin(start_x);
+	ray_x = player->x;
+	ray_y = player->y;
+	while (!touch(game, ray_x, ray_y))
+	{
+		put_pixel(game, ray_x, ray_y, 0xFF0000);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
+	dist = distance(ray_x - player->x, ray_y - player->y);
+	float	height = (BLOCK / dist) * (SCREEN_WIDTH / 2);
+	int	start_y = (SCREEN_HEIGHT - height) / 2;
+	int	end = start_y + height;
+	while (start_y < end)
+	{
+		put_pixel(game, i, start_y, 255);
+	}
 }
 
 int	draw_loop(t_game *game)
 {
+	t_player	*player;
+
+	player = game->player;
 	move_player(game->player);
 	clear_image(game);
 	draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
 	draw_map(game);
-	float	ray_x = game->player->x;
-	float	ray_y = game->player->y;
-	float	cos_angel = cos(game->player->angle);
-	float	sin_angel = sin(game->player->angle);
-	// printf("ray_x: %f\nray_y: %f\ncos_angle: %f\nsin_angle : %f\n", ray_x, ray_y, cos_angel, sin_angel);
-	while (!touch(game, ray_x, ray_y))
+	float	fraction = PI / 3 / SCREEN_WIDTH;
+	float	start_x = game->player->angle - PI / 6;
+	int		i = 0;
+	while (i < SCREEN_WIDTH)
 	{
-		put_pixel(game, ray_x, ray_y, 0xFF0000);
-		ray_x += cos_angel;
-		ray_y += sin_angel;
+		draw_line(player, game, start_x, i);
+		start_x += fraction;
+		i++;
 	}
-	printf("here_is_draw_loop\n");
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }
