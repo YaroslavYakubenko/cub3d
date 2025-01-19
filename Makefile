@@ -42,7 +42,7 @@ ifeq ($(UNAME_S), Linux)
     MLX_FLAGS   = -Imlx -Lmlx -lmlx -lXext -lX11 -lz
 else ifeq ($(UNAME_S), Darwin)
     MLX         = mlx/
-	CC_FLAGS    = -Wall -Wextra -Werror -g -Iinc -ObjC #-fsanitize=address
+	CC_FLAGS    = -Wall -Wextra -Werror -g -Iinc -ObjC -fsanitize=address
 	MLX_FLAGS 	= -Imlx -Lmlx -lmlx -framework OpenGL -framework AppKit -framework Foundation
 endif
 

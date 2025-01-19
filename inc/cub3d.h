@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/15 21:39:51 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:46:55 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 # define PLAYER_SPEED 1
 # define ROTATION_SPEED 0.025
 # define FOV 1.047 //60 градусов, угол обзора камеры
-# define M_PI 3.14159265358979323846
+# define PI 3.14159265358979323846
 
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
@@ -154,7 +154,7 @@ int		game_loop(t_game *game);
 void	load_all_textures(t_game *game);
 void	render_scene(t_game *game);
 
-void	put_pixel(t_game *game, float x, float y, int color);
+void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_player *player);
 int		key_realese(int keycode, t_player *player);
 void	move_player(t_player *player);
@@ -162,6 +162,6 @@ void	init_player(t_player *player);
 int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
-void	draw_square(t_game *game, float x, float y, int size, int color);
+void	draw_square(t_game *game, int x, int y, int size, int color);
 
 #endif

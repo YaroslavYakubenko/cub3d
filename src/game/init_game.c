@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/15 21:38:21 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/19 19:59:43 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel(t_game *game, float x, float y, int color)
+void	put_pixel(t_game *game, int x, int y, int color)
 {
 	int	i;
 	if (!game || !game->back || !game->back->addr)
@@ -77,7 +77,7 @@ void	draw_map(t_game *game)
 	}
 }
 
-void	draw_square(t_game *game, float x, float y, int size, int color)
+void	draw_square(t_game *game, int x, int y, int size, int color)
 {
 	float	i;
 
@@ -124,12 +124,41 @@ void	init_game(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
 
+bool	touch(t_game *game, float px, float py)
+{
+	int	x;
+	int	y;
+
+	x = px / BLOCK;
+	y = py / BLOCK;
+	printf("here_is_touch\n");
+	printf("game->mapp: %s\n", game->mapp[0]);
+	if (game->mapp[y][x] == '1')
+	{
+		printf("game->mapp: %s\n", game->mapp[0]);
+		return (true);
+	}
+	return (false);
+}
+
 int	draw_loop(t_game *game)
 {
 	move_player(game->player);
 	clear_image(game);
 	draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
 	draw_map(game);
+	float	ray_x = game->player->x;
+	float	ray_y = game->player->y;
+	float	cos_angel = cos(game->player->angle);
+	float	sin_angel = sin(game->player->angle);
+	// printf("ray_x: %f\nray_y: %f\ncos_angle: %f\nsin_angle : %f\n", ray_x, ray_y, cos_angel, sin_angel);
+	while (!touch(game, ray_x, ray_y))
+	{
+		put_pixel(game, ray_x, ray_y, 0xFF0000);
+		ray_x += cos_angel;
+		ray_y += sin_angel;
+	}
+	printf("here_is_draw_loop\n");
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }
