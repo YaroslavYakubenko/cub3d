@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/17 17:46:55 by yaroslav         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:41:26 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@
 # define KEY_PRESS_MASK (1L<<0) 
 # define KEY_RELEASE_MASK (1L<<1) 
 
-# define PLAYER_SPEED 1
-# define ROTATION_SPEED 0.025
+# define PLAYER_SPEED 3
+# define ROTATION_SPEED 0.03
 # define FOV 1.047 //60 градусов, угол обзора камеры
 # define PI 3.14159265358979323846
 
@@ -70,6 +70,7 @@
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 # define BLOCK 128
+# define DEBUG 1
 
 
 typedef struct s_image

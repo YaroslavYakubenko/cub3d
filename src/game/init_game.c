@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/19 22:19:31 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:40:09 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,6 @@ void	init_game(t_game *game)
 		return ;
 	}
 	init_player(game->player);
-	if(game->player == NULL)
-		printf("here NULL ->dksmj\n");
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -119,7 +117,6 @@ void	init_game(t_game *game)
     	printf("Error: Initialization failed.\n");
     	exit(1);
 	}
-	// printf("mlx: %p, win: %p, img: %p\n", game->mlx, game->win, game->back->img);
 
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
@@ -141,6 +138,20 @@ float	distance(float x, float y)
 	return (sqrt(x * x + y * y));
 }
 
+float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2)
+{
+	float	delta_x;
+	float	delta_y;
+	float	angle;
+	float	fix_dist;
+
+	delta_x = x2 - x1;
+	delta_y = y2 - y1;
+	angle = atan2(delta_y, delta_y) - game->player->angle;
+	fix_dist = distance(delta_x, delta_y) * cos(angle);
+	return (fix_dist);
+}
+
 void	draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	float	cos_angle;
@@ -155,17 +166,22 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	ray_y = player->y;
 	while (!touch(game, ray_x, ray_y))
 	{
-		put_pixel(game, ray_x, ray_y, 0xFF0000);
+		if (DEBUG)
+			put_pixel(game, ray_x, ray_y, 0xFF0000);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
-	dist = distance(ray_x - player->x, ray_y - player->y);
-	float	height = (BLOCK / dist) * (SCREEN_WIDTH / 2);
-	int	start_y = (SCREEN_HEIGHT - height) / 2;
-	int	end = start_y + height;
-	while (start_y < end)
+	if (!DEBUG)
 	{
-		put_pixel(game, i, start_y, 255);
+		dist = fixed_dist(game, player->x, player->y, ray_x, ray_y);
+		float	height = (BLOCK / dist) * (SCREEN_WIDTH / 2);
+		int	start_y = (SCREEN_HEIGHT - height) / 2;
+		int	end = start_y + height;
+		while (start_y < end)
+		{
+			put_pixel(game, i, start_y, 255);
+			start_y++;
+		}
 	}
 }
 
@@ -176,15 +192,21 @@ int	draw_loop(t_game *game)
 	player = game->player;
 	move_player(game->player);
 	clear_image(game);
-	draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
-	draw_map(game);
+	if (DEBUG)
+	{	
+		draw_square(game, game->player->x, game->player->y, 10, 0x00FF00);
+		draw_map(game);
+	}
 	float	fraction = PI / 3 / SCREEN_WIDTH;
 	float	start_x = game->player->angle - PI / 6;
 	int		i = 0;
 	while (i < SCREEN_WIDTH)
 	{
+		printf("i: %d\n", i);
 		draw_line(player, game, start_x, i);
+		printf("start-x before: %f\n", start_x);
 		start_x += fraction;
+		printf("start-x after: %f\n", start_x);
 		i++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
