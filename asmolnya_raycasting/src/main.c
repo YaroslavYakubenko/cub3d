@@ -58,7 +58,7 @@ int draw_map(t_game *game)
 	for(int y = 0; map[y]; y++)
 		for(int x = 0; map[y][x]; x++)
 			if(map[y][x] == '1')
-				draw_square(x * 64, y * 64, 64, color, game);
+				draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
 	return 0;
 }
 
@@ -75,6 +75,7 @@ int draw_loop(t_game *game)
 	move_player(player);
 	clear_image(game);
 	draw_square(player->x, player->y, 10, 0x00FF00, game);
+	draw_map(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return 0;
 }

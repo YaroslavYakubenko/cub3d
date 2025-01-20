@@ -3,7 +3,7 @@ CC = cc
 OBJ = $(SRC:.c=.o)
 
 # FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -g
-FLAGS = -L$(MLX) -lmlx -lGL -lX11 -lXext
+FLAGS = -L$(MLX) -lmlx -lGL -lX11 -lXext -lm
 MLX = ../minilibx_linux/
 SRC = src/main.c src/player.c
  
