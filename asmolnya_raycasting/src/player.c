@@ -16,6 +16,7 @@ void init_player(t_player *player)
 
 int key_press(int keycode, t_player *player)
 {
+	printf("KEYCODE:%d\n", keycode);
 	if(keycode == W)
 		player->key_up = true;
 	if(keycode == S)
@@ -52,7 +53,7 @@ void move_player(t_player *player)
 	float sin_angle = sin(player->angle);
 
 	if(player->left_rotate)
-		player->angle -=angle_speed;
+		player->angle -= angle_speed;
 	if(player->right_rotate)
 		player->angle += angle_speed;
 	if(player->angle > 2 * PI)
