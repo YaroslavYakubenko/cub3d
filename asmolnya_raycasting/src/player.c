@@ -16,7 +16,7 @@ void init_player(t_player *player)
 
 int key_press(int keycode, t_player *player)
 {
-	printf("KEYCODE:%d\n", keycode);
+	printf("pressed KEYCODE:%d\n", keycode);
 	if(keycode == W)
 		player->key_up = true;
 	if(keycode == S)
@@ -34,6 +34,7 @@ int key_press(int keycode, t_player *player)
 
 int key_release(int keycode, t_player *player)
 {
+	printf("released KEYCODE:%d\n", keycode);
 	if(keycode == W)
 		player->key_up = false;
 	if(keycode == S)
@@ -42,6 +43,10 @@ int key_release(int keycode, t_player *player)
 		player->key_left = false;
 	if(keycode == D)
 		player->key_right = false;
+	if(keycode == LEFT)
+		player->left_rotate = false;
+	if(keycode == RIGHT)
+		player->right_rotate = false;
 	return 0;
 }
 
@@ -61,24 +66,24 @@ void move_player(t_player *player)
 	if(player->angle < 0)
 		player->angle = 2 * PI;
 	
-	if(player->key_up)
+	if(player->key_down)
 	{
 		player->x += cos_angle * speed;
 		player->y += sin_angle * speed;
 	}
-	if(player->key_down)
+	if(player->key_up)
 	{
 		player->x -= cos_angle * speed;
-		player->y -= sin_angle * speed;
-	}
-	if(player->key_left)
-	{
-		player->x += cos_angle * speed;
 		player->y -= sin_angle * speed;
 	}
 	if(player->key_right)
 	{
-		player->x -= cos_angle * speed;
-		player->y += sin_angle * speed;
+		player->x += sin_angle * speed;
+		player->y -= cos_angle * speed;
+	}
+	if(player->key_left)
+	{
+		player->x -= sin_angle * speed;
+		player->y += cos_angle * speed;
 	}
 }
