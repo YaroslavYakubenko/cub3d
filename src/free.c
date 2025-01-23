@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2024/11/30 19:47:37 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:45:09 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,47 @@ void	free_map(t_map *map)
 		free(map->grid);
 	}
 	free(map);
+}
+
+void	free_image(void *mlx, t_image *image)
+{
+	if (!image)
+		return ;
+	if (image->img)
+	{
+		mlx_destroy_image(mlx, image->img);
+		image->img = NULL;
+	}
+	free(image);
+}
+
+void	free_all_textures(t_game *game)
+{
+	free_image(game->mlx, game->north_img);
+	free_image(game->mlx, game->west_img);
+	free_image(game->mlx, game->east_img);
+	free_image(game->mlx, game->south_img);
+}
+
+void	free_game(t_game *game)
+{
+	if (!game)
+		return ;
+	if (game->mlx)
+	{
+		free_all_textures(game);
+		if (game->back)
+		{
+			free_image(game->mlx, game->back);
+			game->back = NULL;
+		}
+		if (game->win)
+		{
+			mlx_destroy_window(game->mlx,game->win);
+			game->win = NULL;
+		}
+		free(game->mlx);
+	}
+	free_map(game->map);
+	free(game);
 }

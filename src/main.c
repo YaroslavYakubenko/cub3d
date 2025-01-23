@@ -6,23 +6,18 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/08 19:24:13 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:42:00 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	exit_game(t_game *game)
-// {
-// 	free_game(game);
-// 	exit(0);
-// 	return (0);
-// }
-
 int	main(int ac, char **av)
 {
 	t_game	game;
+	t_game	*ext;
 
+	ext = &game;
 	if (ac != 2)
 	{
 		printf("Error: Too many arguments.\n");
@@ -38,6 +33,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, key_press, game.player);
 	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, game.player);
+	mlx_hook(game.win, DestroyNotify, KEY_PRESS_MASK, exit_game, game.player);
 	// printf("here\n");
 	mlx_loop(game.mlx);
 	// free(game);

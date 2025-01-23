@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/20 20:41:26 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:11:27 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_game
 	t_image	*west_img;
 	t_image	*east_img;
 	t_map	*map;
-	char	**mapp;
+	// char	**mapp;
 	t_player	*player;
 	float	*z_buffer;
 }	t_game;
@@ -144,19 +144,14 @@ typedef struct s_ray
 char	**read_file(const char *file_name);
 t_map	*parse_cub_file(const char *file_name);
 void	free_map(t_map *map);
-void	find_player(t_game *game);
-int		handle_input(int keycode, t_game *game);
 void	free_resources(t_map *map);
 void	free_map(t_map *map);
-void	render_scene(t_game *game);
-// t_game	*init_game(t_map *map);
 void	init_image(t_game *game);
-int		game_loop(t_game *game);
 void	load_all_textures(t_game *game);
 void	render_scene(t_game *game);
 
 void	put_pixel(t_game *game, int x, int y, int color);
-int		key_press(int keycode, t_player *player);
+int		key_press(int keycode, t_player *player, t_game *game);
 int		key_realese(int keycode, t_player *player);
 void	move_player(t_player *player);
 void	init_player(t_player *player);
@@ -164,5 +159,9 @@ int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
 void	draw_square(t_game *game, int x, int y, int size, int color);
+void	draw_map(t_game *game);
+int		exit_game(t_game *game);
+void	free_game(t_game *game);
+void	free_map(t_map *map);
 
 #endif

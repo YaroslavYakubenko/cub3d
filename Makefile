@@ -23,11 +23,12 @@ SRCS        = $(SRCS_F)main.c \
               $(SRCS_F)free.c \
               $(SRCS_F)parsing/check_and_reading.c \
               $(SRCS_F)parsing/parse_map.c \
-              $(SRCS_F)parsing/parse_player.c \
+              $(SRCS_F)game/init_player.c \
               $(SRCS_F)game/init_move.c \
               $(SRCS_F)game/movement.c \
               $(SRCS_F)game/init_game.c \
               $(SRCS_F)raycast/render.c \
+			  $(SRCS_F)raycast/raycast.c \
 
 OBJS        = $(SRCS:.c=.o)
 OBJS_P      = $(addprefix $(OBJS_F), $(OBJS))
