@@ -69,6 +69,15 @@ void clear_image(t_game *game)
 			put_pixel(x, y, 0, game);
 }
 
+bool touch(float px, float py, t_game *game)
+{
+	int x = px / BLOCK;
+	int y = py / BLOCK;
+	if(game->map[y][x] == '1')
+		return true;
+	return false;
+}
+
 int draw_loop(t_game *game)
 {
 	t_player *player = &game->player;
@@ -76,6 +85,16 @@ int draw_loop(t_game *game)
 	clear_image(game);
 	draw_square(player->x, player->y, 10, 0x00FF00, game);
 	draw_map(game);
+	float ray_x = player->x;
+	float ray_y = player->y;
+	float cos_angle = cos(player->angle);
+	float sin_angle = sin(player->angle);
+	while(!touch(ray_x, ray_y, game))
+	{
+		put_pixel(ray_x, ray_y, 0xFF0000, game);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return 0;
 }

@@ -66,22 +66,22 @@ void move_player(t_player *player)
 	if(player->angle < 0)
 		player->angle = 2 * PI;
 	
-	if(player->key_down)
+	if(player->key_up)
 	{
 		player->x += cos_angle * speed;
 		player->y += sin_angle * speed;
 	}
-	if(player->key_up)
+	if(player->key_down)
 	{
 		player->x -= cos_angle * speed;
 		player->y -= sin_angle * speed;
 	}
-	if(player->key_right)
+	if(player->key_left)
 	{
 		player->x += sin_angle * speed;
 		player->y -= cos_angle * speed;
 	}
-	if(player->key_left)
+	if(player->key_right)
 	{
 		player->x -= sin_angle * speed;
 		player->y += cos_angle * speed;
