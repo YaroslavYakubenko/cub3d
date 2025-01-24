@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/23 20:11:27 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:39:11 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_player *player, t_game *game);
 int		key_realese(int keycode, t_player *player);
 void	move_player(t_player *player);
-void	init_player(t_player *player);
+void	init_player(t_player *player, t_game *game);
 int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
