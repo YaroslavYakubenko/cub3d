@@ -78,6 +78,24 @@ bool touch(float px, float py, t_game *game)
 	return false;
 }
 
+void draw_line(t_player *player, t_game *game, float start_x)
+{
+	float cos_angle = cos(start_x);
+	float sin_angle = sin(start_x);
+
+	float ray_x = player->x;
+	float ray_y = player->y;
+
+	while(!touch(ray_x, ray_y, game))
+	{
+		put_pixel(ray_x, ray_y, 0xFF0000, game);
+		ray_x += cos_angle;
+		ray_y += sin_angle;
+	}
+
+
+}
+
 int draw_loop(t_game *game)
 {
 	t_player *player = &game->player;
@@ -85,15 +103,25 @@ int draw_loop(t_game *game)
 	clear_image(game);
 	draw_square(player->x, player->y, 10, 0x00FF00, game);
 	draw_map(game);
-	float ray_x = player->x;
-	float ray_y = player->y;
-	float cos_angle = cos(player->angle);
-	float sin_angle = sin(player->angle);
-	while(!touch(ray_x, ray_y, game))
+	// float ray_x = player->x;
+	// float ray_y = player->y;
+	// float cos_angle = cos(player->angle);
+	// float sin_angle = sin(player->angle);
+	// while(!touch(ray_x, ray_y, game))
+	// {
+	// 	put_pixel(ray_x, ray_y, 0xFF0000, game);
+	// 	ray_x += cos_angle;
+	// 	ray_y += sin_angle;
+	// }
+
+	float fraction = PI / 3 / WIDTH;
+	float start_x = player->angle - PI / 6;
+	int i = 0;
+	while(i < WIDTH)
 	{
-		put_pixel(ray_x, ray_y, 0xFF0000, game);
-		ray_x += cos_angle;
-		ray_y += sin_angle;
+		draw_line(player, game, start_x);
+		start_x += fraction;
+		i++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return 0;
