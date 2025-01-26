@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/08 19:26:29 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:39:41 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,12 @@ int	validate_map(char **grid)
 
 t_map	*parse_cub_file(const char *file_name)
 {
-	// t_game	*game;
 	t_map	*map;
 	char	**lines;
 	int		map_start;
+	int		i;
 
-	// game = malloc(sizeof(t_game));
 	map = malloc(sizeof(t_map));
-	// game->map = map;
 	lines = read_file(file_name);
 	if (!lines)
 		return (NULL);
@@ -111,11 +109,9 @@ t_map	*parse_cub_file(const char *file_name)
 	map->ceiling_color = -1;
 	map->grid = NULL;
 	map_start = parse_textures_and_colors(map, lines);
-	// printf("map_start: %d\n", map_start);
 	map->ceiling_color = init_colors(map->ceiling, map);
 	map->floor_color = init_colors(map->floor, map);
 	map->grid = &lines[map_start];
-	// printf("lines: %s\n", lines[map_start]);
 	if (!validate_map(map->grid))
 	{
 		ft_printf("Error: Invalid map.\n");
@@ -129,5 +125,9 @@ t_map	*parse_cub_file(const char *file_name)
 	// printf("map->grid: %s", map->grid[4]);
 	// printf("map->grid: %s", map->grid[5]);
 	// printf("map->grid: %s", map->grid[6]);
+	i = 0;
+	while (lines[i++])
+		free(lines[i]);
+	free(lines);
 	return (map);
 }
