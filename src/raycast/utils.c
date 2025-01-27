@@ -1,0 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
+/*   Updated: 2025/01/27 20:16:16 by yyakuben         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+bool	touch(t_game *game, float px, float py)
+{
+	int	x;
+	int	y;
+
+	x = px / BLOCK;
+	y = py / BLOCK;
+	if (game->map->grid[y][x] == '1')
+		return (true);
+	return (false);
+}
+
+float	distance(float x, float y)
+{
+	return (sqrt(x * x + y * y));
+}
+
+float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2)
+{
+	float	delta_x;
+	float	delta_y;
+	float	angle;
+	float	fix_dist;
+
+	delta_x = x2 - x1;
+	delta_y = y2 - y1;
+	angle = atan2(delta_y, delta_y) - game->player->angle;
+	fix_dist = distance(delta_x, delta_y) * cos(angle);
+	return (fix_dist);
+}

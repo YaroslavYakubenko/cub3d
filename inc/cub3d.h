@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/24 18:39:11 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/27 20:16:47 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,7 @@ void	draw_map(t_game *game);
 int		exit_game(t_game *game);
 void	free_game(t_game *game);
 void	free_map(t_map *map);
+bool	touch(t_game *game, float px, float py);
+float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2);
 
 #endif

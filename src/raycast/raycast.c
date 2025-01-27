@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:51:06 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/22 19:56:21 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:54:22 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ void	draw_map(t_game *game)
 
 	y = 0;
 	color = 0x0000FF;
-	// game = malloc(sizeof(t_game));
-	// printf("here\n");
-	// printf("game->map->grid: %s\n", game->map->grid[0]);
 	map = game->map->grid;
-	// printf("map: %s\n", map[0]);
 	while (map[y])
 	{
 		x = 0;
@@ -60,7 +56,6 @@ void	draw_square(t_game *game, int x, int y, int size, int color)
 	float	i;
 
 	i = 0;
-	// printf("x = %f\ny = %f\n", x, y);
 	while (i++ < size)
 		put_pixel(game, x + i, y, color);
 	i = 0;

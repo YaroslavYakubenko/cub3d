@@ -29,6 +29,7 @@ SRCS        = $(SRCS_F)main.c \
               $(SRCS_F)game/init_game.c \
               $(SRCS_F)raycast/render.c \
 			  $(SRCS_F)raycast/raycast.c \
+			  $(SRCS_F)raycast/utils.c \
 
 OBJS        = $(SRCS:.c=.o)
 OBJS_P      = $(addprefix $(OBJS_F), $(OBJS))

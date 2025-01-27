@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/24 18:40:50 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/27 19:52:03 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ void	position_player(t_player *player, t_game *game)
 	int		x;
 	int		y;
 
-	// game = NULL;
-	// if (!game)
-	// 	printf("Error: Invalid game.\n");
 	y = 0;
 	while (game->map->grid[y])
 	{
@@ -30,8 +27,8 @@ void	position_player(t_player *player, t_game *game)
 				|| game->map->grid[y][x] == 'S' || game->map->grid[y][x] == 'W'
 				|| game->map->grid[y][x] == 'P')
 			{
-				player->x = (float)x;
-				player->y = (float)y;
+				player->x = (float)x * BLOCK;
+				player->y = (float)y * BLOCK;
 				return ;
 			}
 			x++;
@@ -42,10 +39,8 @@ void	position_player(t_player *player, t_game *game)
 
 void	init_player(t_player *player, t_game *game)
 {
-	player->x = SCREEN_WIDTH / 2;
-	player->y = SCREEN_HEIGHT / 2;
 	position_player(player, game);
-	printf("player->x: %f\nplayer->y: %f\n", player->x, player->y);
+	// printf("player->x: %f\nplayer->y: %f\n", player->x, player->y);
 	player->angle = PI / 2;
 	player->key_down = false;
 	player->key_up = false;
