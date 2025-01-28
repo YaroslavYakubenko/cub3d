@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/27 20:16:16 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:42:07 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2)
 
 	delta_x = x2 - x1;
 	delta_y = y2 - y1;
-	angle = atan2(delta_y, delta_y) - game->player->angle;
+	angle = atan2(delta_y, delta_x) - game->player->angle;
 	fix_dist = distance(delta_x, delta_y) * cos(angle);
 	return (fix_dist);
 }
