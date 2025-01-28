@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/27 20:16:11 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:35:16 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 		int	end = start_y + height;
 		while (start_y < end)
 		{
-			put_pixel(game, i, start_y, 0x123456);
+			put_pixel(game, i, start_y, 0x11FFF0);
 			start_y++;
 		}
 	}

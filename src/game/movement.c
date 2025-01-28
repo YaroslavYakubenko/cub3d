@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:28:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/23 18:14:18 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:29:56 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	movement_player(t_player *player)
 
 void	move_player(t_player *player)
 {
-	float	cos_angle;
-	float	sin_angle;
+	// float	cos_angle;
+	// float	sin_angle;
 	
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
+	// cos_angle = cos(player->angle);
+	// sin_angle = sin(player->angle);
 	if (player->lef_rotate)
 		player->angle -= ROTATION_SPEED;
 	if (player->right_rotate)

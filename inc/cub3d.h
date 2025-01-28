@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/27 20:16:47 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:31:29 by yaroslav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 # define BLOCK 128
-# define DEBUG 1
+# define DEBUG 0
 
 
 typedef struct s_image
