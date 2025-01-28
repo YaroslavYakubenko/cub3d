@@ -78,7 +78,12 @@ bool touch(float px, float py, t_game *game)
 	return false;
 }
 
-void draw_line(t_player *player, t_game *game, float start_x)
+int distance(float x, float y)
+{
+	return sqrt(x * x + y * y);
+}
+
+void draw_line(t_player *player, t_game *game, float start_x, int i)
 {
 	float cos_angle = cos(start_x);
 	float sin_angle = sin(start_x);
@@ -92,7 +97,15 @@ void draw_line(t_player *player, t_game *game, float start_x)
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
-
+	float dist = distance(ray_x - player->x, ray_y - player->y);
+	float height = (BLOCK / dist) * (WIDTH / 2);
+	int start_y = (HEIGHT - height) / 2;
+	int end = start_y + height;
+	while(start_y < end)
+	{
+		put_pixel(i, start_y, 255, game);
+		start_y++;
+	}
 
 }
 
@@ -119,7 +132,7 @@ int draw_loop(t_game *game)
 	int i = 0;
 	while(i < WIDTH)
 	{
-		draw_line(player, game, start_x);
+		draw_line(player, game, start_x, i);
 		start_x += fraction;
 		i++;
 	}
