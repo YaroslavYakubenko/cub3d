@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 17:42:07 by yaroslav         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:26:10 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ bool	touch(t_game *game, float px, float py)
 	int	x;
 	int	y;
 
-	x = px / BLOCK;
-	y = py / BLOCK;
+	x = (int)px / BLOCK;
+	y = (int)py / BLOCK;
+	if (x < 0 || y < 0 || y >= SCREEN_HEIGHT || x >= SCREEN_WIDTH)
+		return (true);
 	if (game->map->grid[y][x] == '1')
 		return (true);
 	return (false);

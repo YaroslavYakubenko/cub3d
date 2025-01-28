@@ -6,55 +6,76 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2023/11/20 20:19:46 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:35:20 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_countword(char const *s, char c)
+static int	ft_count_words(char const *s, char c)
 {
-	size_t	count;
+	int	counter;
+	int	i;
 
-	if (!*s)
-		return (0);
-	count = 0;
-	while (*s)
+	counter = 0;
+	i = 0;
+	while (s[i])
 	{
-		while (*s == c)
-			s++;
-		if (*s)
-			count++;
-		while (*s != c && *s)
-			s++;
+		if (s[i] != c && (i == 0 || s[i - 1] == c))
+			counter++;
+		i++;
 	}
-	return (count);
+	return (counter);
+}
+
+static int	ft_word_len(char const *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && (s[i] != c))
+		i++;
+	return (i);
+}
+
+static void	ft_free(char **buffer)
+{
+	int	i;
+
+	i = 0;
+	while (buffer[i])
+	{
+		free(buffer[i]);
+		i++;
+	}
+	free(buffer);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**lst;
-	size_t	word_len;
+	char	**buffer;
+	int		word_len;
 	int		i;
+	int		s_i;
 
-	lst = (char **)malloc((ft_countword(s, c) + 1) * sizeof(char *));
-	if (!s || !lst)
-		return (0);
+	buffer = (char **)ft_calloc(sizeof(char *), (ft_count_words(s, c) + 1));
+	if (!buffer)
+		return (NULL);
 	i = 0;
-	while (*s)
+	s_i = 0;
+	while (i < ft_count_words(s, c))
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s)
+		while (s[s_i] == c)
+			s_i++;
+		word_len = ft_word_len(&s[s_i], c);
+		buffer[i] = ft_substr(s, s_i, word_len);
+		if (!buffer[i])
 		{
-			if (!ft_strchr(s, c))
-				word_len = ft_strlen(s);
-			else
-				word_len = ft_strchr(s, c) - s;
-			lst[i++] = ft_substr(s, 0, word_len);
-			s += word_len;
+			ft_free(buffer);
+			return (NULL);
 		}
+		i++;
+		s_i += word_len;
 	}
-	lst[i] = NULL;
-	return (lst);
+	return (buffer);
 }

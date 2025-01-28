@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/27 19:52:03 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:24:32 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	position_player(t_player *player, t_game *game)
 	int		x;
 	int		y;
 
+	// game->player = malloc(sizeof(t_player));
+	// if (!player)
+	// 	exit(1);
 	y = 0;
 	while (game->map->grid[y])
 	{

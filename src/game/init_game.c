@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/24 18:39:30 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/28 20:24:36 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	init_image(t_game *game)
 		&game->back->line_lenght, &game->back->endian);
 	if (!game->back->addr)
 	{
-		printf("Error: Failed to create image's address\n");
+		printf("Error: Failed to create image's address.\n");
 		exit(1);
 	}
 }

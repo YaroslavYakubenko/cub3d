@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 17:31:29 by yaroslav         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:08:24 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 # define BLOCK 128
-# define DEBUG 0
+# define DEBUG 1
 
 
 typedef struct s_image
@@ -153,7 +153,7 @@ void	render_scene(t_game *game);
 void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_player *player, t_game *game);
 int		key_realese(int keycode, t_player *player);
-void	move_player(t_player *player);
+void	move_player(t_game *game, float move_x, float move_y);
 void	init_player(t_player *player, t_game *game);
 int		draw_loop(t_game *game);
 void	init_game(t_game *game);
@@ -165,5 +165,6 @@ void	free_game(t_game *game);
 void	free_map(t_map *map);
 bool	touch(t_game *game, float px, float py);
 float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2);
+void	movement_player(t_game *game);
 
 #endif

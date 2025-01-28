@@ -3,51 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:28:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 17:29:56 by yaroslav         ###   ########.fr       */
+/*   Updated: 2025/01/28 22:18:48 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	movement_player(t_player *player)
+void	move_player(t_game *game, float move_x, float move_y)
 {
-	float	cos_angle;
-	float	sin_angle;
+	t_player	*player;
+	float	new_x;
+	float	new_y;
 	
-	cos_angle = cos(player->angle);
-	sin_angle = sin(player->angle);
-	if (player->key_up)
-	{
-		player->x += cos_angle * PLAYER_SPEED;
-		player->y += sin_angle * PLAYER_SPEED;
-	}
-	if (player->key_down)
-	{
-		player->x -= cos_angle * PLAYER_SPEED;
-		player->y -= sin_angle * PLAYER_SPEED;
-	}
-	if (player->key_left)
-	{
-		player->x += sin_angle * PLAYER_SPEED;
-		player->y -= cos_angle * PLAYER_SPEED;
-	}
-	if (player->key_right)
-	{
-		player->x -= sin_angle * PLAYER_SPEED;
-		player->y += cos_angle * PLAYER_SPEED;
-	}
-}
-
-void	move_player(t_player *player)
-{
-	// float	cos_angle;
-	// float	sin_angle;
-	
-	// cos_angle = cos(player->angle);
-	// sin_angle = sin(player->angle);
+	player = game->player;
+	new_x = player->x + move_x;
+	new_y = player->y + move_y;
+	if (!touch(game, new_x, player->y))
+		player->x = new_x;
+	if (!touch(game, player->y, new_y))
+		player->y = new_y;
 	if (player->lef_rotate)
 		player->angle -= ROTATION_SPEED;
 	if (player->right_rotate)
@@ -56,5 +33,48 @@ void	move_player(t_player *player)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * PI;
-	movement_player(player);
+}
+
+void	movement_player(t_game *game)
+{
+	t_player	*player;
+	// float		cos_angle;
+	// float		sin_angle;
+	float		move_x;
+	float		move_y;
+	
+	move_x = 0;
+	move_y = 0;
+	player = game->player;
+	// cos_angle = cos(player->angle);
+	// sin_angle = sin(player->angle);
+	if (player->key_up)
+	{
+		move_x += cos(player->angle) * PLAYER_SPEED;
+		move_y += sin(player->angle) * PLAYER_SPEED;
+		// player->x += cos_angle * PLAYER_SPEED;
+		// player->y += sin_angle * PLAYER_SPEED;
+	}
+	if (player->key_down)
+	{
+		move_x -= cos(player->angle) * PLAYER_SPEED;
+		move_y -= sin(player->angle) * PLAYER_SPEED;
+		// player->x -= cos_angle * PLAYER_SPEED;
+		// player->y -= sin_angle * PLAYER_SPEED;
+	}
+	if (player->key_left)
+	{
+		move_x += sin(player->angle) * PLAYER_SPEED;
+		move_y -= cos(player->angle) * PLAYER_SPEED;
+		// player->x += sin_angle * PLAYER_SPEED;
+		// player->y -= cos_angle * PLAYER_SPEED;
+	}
+	if (player->key_right)
+	{
+		move_x -= sin(player->angle) * PLAYER_SPEED;
+		move_y += cos(player->angle) * PLAYER_SPEED;
+		// player->x -= sin_angle * PLAYER_SPEED;
+		// player->y += cos_angle * PLAYER_SPEED;
+	}
+	move_player(game, move_x, move_y);
 }

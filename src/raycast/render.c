@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yaroslav <yaroslav@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 17:35:16 by yaroslav         ###   ########.fr       */
+/*   Updated: 2025/01/28 21:47:50 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	draw_loop(t_game *game)
 	t_player	*player;
 
 	player = game->player;
-	move_player(game->player);
+	// move_player(game->player);
+	movement_player(game);
 	clear_image(game);
 	if (DEBUG)
 	{	
