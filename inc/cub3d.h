@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 22:08:24 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:43:45 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct s_map
 	int			floor_color;
 	int			ceiling_color;
 	char		**grid;
+	char		**liness;
 	// t_player	*player;
 }	t_map;
 

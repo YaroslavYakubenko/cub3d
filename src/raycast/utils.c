@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 22:26:10 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:35:11 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ bool	touch(t_game *game, float px, float py)
 
 	x = (int)px / BLOCK;
 	y = (int)py / BLOCK;
+	// printf("px: %f\npy: %f\n", px, py);
 	if (x < 0 || y < 0 || y >= SCREEN_HEIGHT || x >= SCREEN_WIDTH)
 		return (true);
 	if (game->map->grid[y][x] == '1')

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/22 21:45:09 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:13:52 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,24 @@ void	free_map(t_map *map)
 
 	if (!map)
 		return ;
-	if (map->north_texture)
-		free(map->north_texture);
-	if (map->south_texture)
-		free(map->south_texture);
-	if (map->west_texture)
-		free(map->west_texture);
-	if (map->east_texture)
-		free(map->east_texture);
-	if (map->grid)
+	// if (map->north_texture)
+	// 	free(map->north_texture);
+	// if (map->south_texture)
+	// 	free(map->south_texture);
+	// if (map->west_texture)
+	// 	free(map->west_texture);
+	// if (map->east_texture)
+	// 	free(map->east_texture);
+	// if (map->floor)
+	// 	free(map->floor);
+	// if (map->ceiling)
+	// 	free(map->ceiling);
+	if (map->liness)
 	{
 		i = 0;
-		while (map->grid[i])
-			free(map->grid[i++]);
-		free(map->grid);
+		while (map->liness[i])
+			free(map->liness[i++]);
+		free(map->liness);
 	}
 	free(map);
 }

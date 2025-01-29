@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/27 17:44:14 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:08:48 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ unsigned int	init_colors(char *color_string, t_map *map)
 				printf("Error: The range must be from 0 to 255.\n");
 			i++;
 		}
+		i = 0;
+		while (i < 3)
+			free(rgb[i++]);
+		free(rgb);
 		return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 	}
 	return (0);
@@ -95,13 +99,13 @@ int	validate_map(char **grid)
 t_map	*parse_cub_file(const char *file_name)
 {
 	t_map	*map;
-	char	**lines;
+	// char	**lines;
 	int		map_start;
 	// int		i;
 
 	map = malloc(sizeof(t_map));
-	lines = read_file(file_name);
-	if (!lines)
+	map->liness = read_file(file_name);
+	if (!map->liness)
 		return (NULL);
 	// i = 0;
 	// while (i < 15)
@@ -117,10 +121,16 @@ t_map	*parse_cub_file(const char *file_name)
 	map->floor_color = -1;
 	map->ceiling_color = -1;
 	map->grid = NULL;
-	map_start = parse_textures_and_colors(map, lines);
+	map_start = parse_textures_and_colors(map, map->liness);
 	map->ceiling_color = init_colors(map->ceiling, map);
 	map->floor_color = init_colors(map->floor, map);
-	map->grid = &lines[map_start];
+	// i = 0;
+	// while (map->liness[i])
+	// {
+	// 	printf("map->liness[%d]: %s\n", i, map->liness[i]);
+	// 	i++;
+	// }
+	map->grid = &map->liness[map_start];
 	// printf("map->grid: %s\n", map->grid[0]);
 	// printf("map->grid: %s\n", map->grid[1]);
 	// printf("map->grid: %s\n", map->grid[2]);
