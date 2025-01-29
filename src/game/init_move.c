@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/22 21:48:17 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:36:43 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	clear_image(t_game *game)
 		}
 		y++;
 	}
+	// printf("%s", game->map->north_texture);
 }
 
 int	key_press(int keycode, t_player *player, t_game *game)

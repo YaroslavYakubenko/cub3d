@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 20:43:45 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:27:54 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,22 +108,20 @@ typedef struct s_map
 	int			ceiling_color;
 	char		**grid;
 	char		**liness;
-	// t_player	*player;
 }	t_map;
 
 typedef struct s_game
 {
-	void	*mlx;
-	void	*win;
-	t_image	*back;
-	t_image	*north_img;
-	t_image	*south_img;
-	t_image	*west_img;
-	t_image	*east_img;
-	t_map	*map;
-	// char	**mapp;
+	void		*mlx;
+	void		*win;
+	t_image		*back;
+	t_image		*north_img;
+	t_image		*south_img;
+	t_image		*west_img;
+	t_image		*east_img;
+	t_map		*map;
 	t_player	*player;
-	float	*z_buffer;
+	float		*z_buffer;
 }	t_game;
 
 typedef struct s_ray

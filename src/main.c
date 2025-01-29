@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 20:37:26 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:28:33 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	main(int ac, char **av)
 	}
 	init_game(&game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
-	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, key_press, game.player);
-	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, game.player);
-	mlx_hook(game.win, 17, KEY_PRESS_MASK, exit_game, game.player);
+	mlx_hook(game.win, KEY_PRESS, KEY_PRESS_MASK, key_press, &game);
+	mlx_hook(game.win, KEY_RELEASE, KEY_RELEASE_MASK, key_realese, &game);
+	mlx_hook(game.win, 17, KEY_PRESS_MASK, exit_game, &game);
 	mlx_loop(game.mlx);
 	
 	// printf("here\n");

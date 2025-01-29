@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 21:08:48 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:07:01 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	while (lines[i])
 	{
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
+		{
 			map->north_texture = ft_strdup(lines[i] + 3);
+			printf("map->north_texture: %s\n", map->north_texture);
+		}
 		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			map->south_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
@@ -84,8 +87,6 @@ int	validate_map(char **grid)
 				&& grid[i][j] != 'E' && grid[i][j] != 'W'
 				&& grid[i][j] != 'P')
 				{
-					printf("i: %d\nj: %d\n", i, j);
-					printf("grid[i]: %s\n", grid[i]);
 					printf("Error: Invalid character in map.\n");
 					return (0);	
 				}

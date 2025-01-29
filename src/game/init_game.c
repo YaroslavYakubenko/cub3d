@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 20:24:36 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/01/29 22:47:26 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	init_game(t_game *game)
 int	exit_game(t_game *game)
 {
 	free_game(game);
+	printf("here_is_free_game\n");
 	exit(0);
 	return (0);
 }
