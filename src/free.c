@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 22:43:14 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:23:58 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,20 @@ void	free_resources(t_map *map)
 	}
 }
 
-void	free_map(t_map *map)
+void	free_map(t_map *map, t_game *game)
 {
 	size_t	i;
 
-	if (!map)
+	if (!map || !game)
 		return ;
+	printf("here_is_free_map\n");
+	printf("is it %p?\n", map->north_texture);
 	if (map->north_texture)
 		free(map->north_texture);
 	if (map->south_texture)
+	{
 		free(map->south_texture);
+	}
 	if (map->west_texture)
 		free(map->west_texture);
 	if (map->east_texture)
@@ -72,25 +76,27 @@ void	free_all_textures(t_game *game)
 
 void	free_game(t_game *game)
 {
-	// printf("map->north_texture: %s\n", game->map->north_texture);
+	// printf("1map->north_texture: %s\n", game->map->north_texture);
 	if (!game)
 		return ;
-	if (game->mlx)
-	{
-		free_all_textures(game);
-		if (game->back)
-		{
-			free_image(game->mlx, game->back);
-			game->back = NULL;
-		}
-		if (game->win)
-		{
-			mlx_destroy_window(game->mlx,game->win);
-			game->win = NULL;
-		}
-		free(game->mlx);
-	}
-	printf("here_is_free_game\n");
-	free_map(game->map);
-	free(game);
+	// printf("game->mlx before: %p\n", &game->mlx);
+	// if (game->mlx)
+	// {
+	// 	printf("here_is_free_game\n");
+	// 	free_all_textures(game);
+	// 	if (game->back)
+	// 	{
+	// 		free_image(game->mlx, game->back);
+	// 		game->back = NULL;
+	// 	}
+	// 	if (game->win)
+	// 	{
+	// 		mlx_destroy_window(game->mlx,game->win);
+	// 		game->win = NULL;
+	// 	}
+	// 	free(game->mlx);
+	// }
+	// printf("game->mlx  after: %p\n", &game->mlx);
+	// free_map(game->map, game);
+	// free(game);
 }

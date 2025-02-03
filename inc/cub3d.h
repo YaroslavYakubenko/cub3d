@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 21:27:54 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:21:46 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 # define BLOCK 128
-# define DEBUG 1
+# define DEBUG 0
+
 
 
 typedef struct s_image
@@ -142,15 +143,12 @@ typedef struct s_ray
 
 char	**read_file(const char *file_name);
 t_map	*parse_cub_file(const char *file_name);
-void	free_map(t_map *map);
 void	free_resources(t_map *map);
-void	free_map(t_map *map);
-void	init_image(t_game *game);
 void	load_all_textures(t_game *game);
 void	render_scene(t_game *game);
 
 void	put_pixel(t_game *game, int x, int y, int color);
-int		key_press(int keycode, t_player *player, t_game *game);
+int		key_press(int keycode, t_game *game);
 int		key_realese(int keycode, t_player *player);
 void	move_player(t_game *game, float move_x, float move_y);
 void	init_player(t_player *player, t_game *game);
@@ -161,7 +159,7 @@ void	draw_square(t_game *game, int x, int y, int size, int color);
 void	draw_map(t_game *game);
 int		exit_game(t_game *game);
 void	free_game(t_game *game);
-void	free_map(t_map *map);
+void	free_map(t_map *map, t_game *game);
 bool	touch(t_game *game, float px, float py);
 float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2);
 void	movement_player(t_game *game);

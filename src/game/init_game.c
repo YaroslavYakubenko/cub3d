@@ -6,37 +6,37 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 22:47:26 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:19:53 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-void	init_image(t_game *game)
-{
-	game->back = malloc(sizeof(t_image));
-	if (!game->back)
-		{
-			printf("Error: Failed to allocate memory for back image.\n");
-			free(game->back);
-			exit(1);
-		}
-	game->back->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	if (!game->back->img)
-	{
-		printf("Error: Failed to create new image.\n");
-		free(game->back);
-		exit(1);
-	}
-	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
-		&game->back->line_lenght, &game->back->endian);
-	if (!game->back->addr)
-	{
-		printf("Error: Failed to create image's address.\n");
-		exit(1);
-	}
-}
+// void	init_image(t_game *game)
+// {
+// 	game->back = malloc(sizeof(t_image));
+// 	if (!game->back)
+// 		{
+// 			printf("Error: Failed to allocate memory for back image.\n");
+// 			free(game->back);
+// 			exit(1);
+// 		}
+// 	game->back->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+// 	if (!game->back->img)
+// 	{
+// 		printf("Error: Failed to create new image.\n");
+// 		free(game->back);
+// 		exit(1);
+// 	}
+// 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
+// 		&game->back->line_lenght, &game->back->endian);
+// 	if (!game->back->addr)
+// 	{
+// 		printf("Error: Failed to create image's address.\n");
+// 		exit(1);
+// 	}
+// }
 
 void	init_game(t_game *game)
 {
@@ -65,8 +65,25 @@ void	init_game(t_game *game)
 
 int	exit_game(t_game *game)
 {
+	// (void)game;
+	// t_game *agame = (t_game *)game;
+	printf("exit function\n");
+
+	// printf("z buffer %f\n", *(game->z_buffer));
+	// // (t_game *)game;
+
+	// mlx_destroy_image(game->mlx, game->back);
+	// // if (game->win)
+	mlx_destroy_window(game->mlx, game->win);
+	// // if (game->mlx)
+	// // {
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+	// // }
+	// // free_map(game->map, &game);	
+	// printf("3map->north_texture: %s\n", (game)->map->north_texture);
 	free_game(game);
-	printf("here_is_free_game\n");
+	// printf("here_is_exit_game\n");
 	exit(0);
 	return (0);
 }

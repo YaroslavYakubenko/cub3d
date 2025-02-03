@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 22:07:01 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:48:49 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
 		{
 			map->north_texture = ft_strdup(lines[i] + 3);
-			printf("map->north_texture: %s\n", map->north_texture);
+			// printf("map->north_texture: %s\n", map->north_texture);
 		}
 		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			map->south_texture = ft_strdup(lines[i] + 3);
@@ -142,7 +142,7 @@ t_map	*parse_cub_file(const char *file_name)
 	if (!validate_map(map->grid))
 	{
 		printf("Error: Invalid map.\n");
-		free_map(map);
+		// free_map(map);
         return (NULL);
 	}
 	// i = 0;

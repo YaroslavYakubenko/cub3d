@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 22:36:43 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:09:49 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,29 @@ void	clear_image(t_game *game)
 	// printf("%s", game->map->north_texture);
 }
 
-int	key_press(int keycode, t_player *player, t_game *game)
+int	key_press(int keycode, t_game *game)
 {
+	// if (game->map) {
+	// 	printf("here\n");
+	// 	// printf("3map->north_texture: %s\n", (game)->map->north_texture);
+	// }
 	if (keycode == KEY_ESC)
+	{
+		// printf("z buffer %f\n", *(game->z_buffer));
 		exit_game(game);
-	if (keycode == KEY_W)
-		player->key_up = true;
-	if (keycode == KEY_S)
-		player->key_down = true;
-	if (keycode == KEY_A)
-		player->key_left = true;
-	if (keycode ==  KEY_D)
-		player->key_right = true;
-	if (keycode == KEY_LEFT)
-		player->lef_rotate = true;
-	if (keycode == KEY_RIGHT)
-		player->right_rotate = true;
+	}
+	// if (keycode == KEY_W)
+	// 	player->key_up = true;
+	// if (keycode == KEY_S)
+	// 	player->key_down = true;
+	// if (keycode == KEY_A)
+	// 	player->key_left = true;
+	// if (keycode ==  KEY_D)
+	// 	player->key_right = true;
+	// if (keycode == KEY_LEFT)
+	// 	player->lef_rotate = true;
+	// if (keycode == KEY_RIGHT)
+	// 	player->right_rotate = true;
 	return (0);
 }
 
