@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:28:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 22:18:48 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/04 22:06:47 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void	move_player(t_game *game, float move_x, float move_y)
 	player = game->player;
 	new_x = player->x + move_x;
 	new_y = player->y + move_y;
-	if (!touch(game, new_x, player->y))
+	if (!touch(game, new_x + DISTANCE, player->y) &&
+		!touch(game, new_x - DISTANCE, player->y))
 		player->x = new_x;
-	if (!touch(game, player->y, new_y))
+	if (!touch(game, player->y, new_y + DISTANCE) &&
+		!touch(game, player->y, new_y - DISTANCE))
 		player->y = new_y;
 	if (player->lef_rotate)
 		player->angle -= ROTATION_SPEED;
@@ -38,43 +40,31 @@ void	move_player(t_game *game, float move_x, float move_y)
 void	movement_player(t_game *game)
 {
 	t_player	*player;
-	// float		cos_angle;
-	// float		sin_angle;
 	float		move_x;
 	float		move_y;
 	
 	move_x = 0;
 	move_y = 0;
 	player = game->player;
-	// cos_angle = cos(player->angle);
-	// sin_angle = sin(player->angle);
 	if (player->key_up)
 	{
 		move_x += cos(player->angle) * PLAYER_SPEED;
 		move_y += sin(player->angle) * PLAYER_SPEED;
-		// player->x += cos_angle * PLAYER_SPEED;
-		// player->y += sin_angle * PLAYER_SPEED;
 	}
 	if (player->key_down)
 	{
 		move_x -= cos(player->angle) * PLAYER_SPEED;
 		move_y -= sin(player->angle) * PLAYER_SPEED;
-		// player->x -= cos_angle * PLAYER_SPEED;
-		// player->y -= sin_angle * PLAYER_SPEED;
 	}
 	if (player->key_left)
 	{
 		move_x += sin(player->angle) * PLAYER_SPEED;
 		move_y -= cos(player->angle) * PLAYER_SPEED;
-		// player->x += sin_angle * PLAYER_SPEED;
-		// player->y -= cos_angle * PLAYER_SPEED;
 	}
 	if (player->key_right)
 	{
 		move_x -= sin(player->angle) * PLAYER_SPEED;
 		move_y += cos(player->angle) * PLAYER_SPEED;
-		// player->x -= sin_angle * PLAYER_SPEED;
-		// player->y += cos_angle * PLAYER_SPEED;
 	}
 	move_player(game, move_x, move_y);
 }

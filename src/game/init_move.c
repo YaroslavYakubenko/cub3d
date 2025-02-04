@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/03 21:09:49 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/04 17:52:52 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,44 +33,37 @@ void	clear_image(t_game *game)
 
 int	key_press(int keycode, t_game *game)
 {
-	// if (game->map) {
-	// 	printf("here\n");
-	// 	// printf("3map->north_texture: %s\n", (game)->map->north_texture);
-	// }
 	if (keycode == KEY_ESC)
-	{
-		// printf("z buffer %f\n", *(game->z_buffer));
 		exit_game(game);
-	}
-	// if (keycode == KEY_W)
-	// 	player->key_up = true;
-	// if (keycode == KEY_S)
-	// 	player->key_down = true;
-	// if (keycode == KEY_A)
-	// 	player->key_left = true;
-	// if (keycode ==  KEY_D)
-	// 	player->key_right = true;
-	// if (keycode == KEY_LEFT)
-	// 	player->lef_rotate = true;
-	// if (keycode == KEY_RIGHT)
-	// 	player->right_rotate = true;
+	if (keycode == KEY_W)
+		game->player->key_up = true;
+	if (keycode == KEY_S)
+		game->player->key_down = true;
+	if (keycode == KEY_A)
+		game->player->key_left = true;
+	if (keycode ==  KEY_D)
+		game->player->key_right = true;
+	if (keycode == KEY_LEFT)
+		game->player->lef_rotate = true;
+	if (keycode == KEY_RIGHT)
+		game->player->right_rotate = true;
 	return (0);
 }
 
-int	key_realese(int keycode, t_player *player)
+int	key_realese(int keycode, t_game *game)
 {
 	// printf("Key realesed: %d\n", keycode);
 	if (keycode == KEY_W)
-		player->key_up = false;
+		game->player->key_up = false;
 	if (keycode == KEY_S)
-		player->key_down = false;
+		game->player->key_down = false;
 	if (keycode == KEY_A)
-		player->key_left = false;
+		game->player->key_left = false;
 	if (keycode ==  KEY_D)
-		player->key_right = false;
+		game->player->key_right = false;
 	if (keycode == KEY_LEFT)
-		player->lef_rotate = false;
+		game->player->lef_rotate = false;
 	if (keycode == KEY_RIGHT)
-		player->right_rotate = false;
+		game->player->right_rotate = false;
 	return (0);
 }

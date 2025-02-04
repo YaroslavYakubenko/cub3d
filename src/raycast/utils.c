@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/29 20:35:11 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/04 19:04:50 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,26 @@ bool	touch(t_game *game, float px, float py)
 	x = (int)px / BLOCK;
 	y = (int)py / BLOCK;
 	// printf("px: %f\npy: %f\n", px, py);
-	if (x < 0 || y < 0 || y >= SCREEN_HEIGHT || x >= SCREEN_WIDTH)
+	// if (x < 0 || y < 0 || y >= SCREEN_HEIGHT || x >= SCREEN_WIDTH)
+	// 	return (true);
+	if (y - 1 < 0 || x - 1 < 0 || !game->map->grid[y - 1] || !game->map->grid[y + 1])
+	{
 		return (true);
-	if (game->map->grid[y][x] == '1')
+	}
+	if ((int)ft_strlen(game->map->grid[y - 1]) <= x || (int)ft_strlen(game->map->grid[y + 1]) <= x || x
+		- 1 < 0 || x + 1 >= (int)ft_strlen(game->map->grid[y]))
+	{
 		return (true);
+	}
+	if (game->map->grid[y][x + 1] == ' ' || game->map->grid[y + 1][x] == ' ' || game->map->grid[y][x - 1] == ' '
+		|| game->map->grid[y - 1][x] == ' ')
+	{
+		return (true);
+	}
+	// if (game->map->grid[y][x] == '1')
+	// 	return (true);
 	return (false);
+	// return (game->map->grid[y][x] == '1');
 }
 
 float	distance(float x, float y)

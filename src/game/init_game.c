@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/03 21:19:53 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:07:09 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,26 @@ int	exit_game(t_game *game)
 {
 	// (void)game;
 	// t_game *agame = (t_game *)game;
-	printf("exit function\n");
+	// printf("3map->north_texture: %s\n", (game)->map->north_texture);
 
 	// printf("z buffer %f\n", *(game->z_buffer));
 	// // (t_game *)game;
-
-	// mlx_destroy_image(game->mlx, game->back);
-	// // if (game->win)
-	mlx_destroy_window(game->mlx, game->win);
-	// // if (game->mlx)
-	// // {
-	mlx_destroy_display(game->mlx);
-	free(game->mlx);
-	// // }
-	// // free_map(game->map, &game);	
-	// printf("3map->north_texture: %s\n", (game)->map->north_texture);
-	free_game(game);
+	if (game->back)
+	{
+		mlx_destroy_image(game->mlx, game->back);
+		printf("Destroy game->back\n");
+	}
+	printf("exit function\n");
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	free_map(game->map, game);
+	free(game);
+	// free_game(game);
 	// printf("here_is_exit_game\n");
 	exit(0);
 	return (0);
