@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/04 18:07:09 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:29:03 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,19 @@ int	exit_game(t_game *game)
 
 	// printf("z buffer %f\n", *(game->z_buffer));
 	// // (t_game *)game;
+	if (!game->back)
+		printf("here_is_exit_game\n");
 	if (game->back)
 	{
-		mlx_destroy_image(game->mlx, game->back);
+		if (game->mlx)
+			printf("mlx_is_ok\n");
+		if (game->back)
+		{
+			printf("game->back_is_ok\n");
+			mlx_destroy_image(game->mlx, game->back->img);
+			free(game->back);
+			free(game->player);
+		}
 		printf("Destroy game->back\n");
 	}
 	printf("exit function\n");
