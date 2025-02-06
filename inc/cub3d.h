@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/04 22:17:07 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/06 21:11:48 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
 # define BLOCK 128
-# define DEBUG 1
+# define DEBUG 0
 
 
 

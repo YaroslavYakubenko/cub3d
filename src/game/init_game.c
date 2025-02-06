@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/05 21:29:03 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/06 20:51:13 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	init_game(t_game *game)
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
 		&game->back->line_lenght, &game->back->endian);
+	load_all_textures(game);
 	if (!game->mlx || !game->win || !game->back->img || !game->back->addr)
 	{
     	printf("Error: Initialization failed.\n");
@@ -65,21 +66,10 @@ void	init_game(t_game *game)
 
 int	exit_game(t_game *game)
 {
-	// (void)game;
-	// t_game *agame = (t_game *)game;
-	// printf("3map->north_texture: %s\n", (game)->map->north_texture);
-
-	// printf("z buffer %f\n", *(game->z_buffer));
-	// // (t_game *)game;
-	if (!game->back)
-		printf("here_is_exit_game\n");
 	if (game->back)
 	{
-		if (game->mlx)
-			printf("mlx_is_ok\n");
 		if (game->back)
 		{
-			printf("game->back_is_ok\n");
 			mlx_destroy_image(game->mlx, game->back->img);
 			free(game->back);
 			free(game->player);
@@ -96,72 +86,61 @@ int	exit_game(t_game *game)
 	}
 	free_map(game->map, game);
 	free(game);
-	// free_game(game);
-	// printf("here_is_exit_game\n");
 	exit(0);
 	return (0);
 }
 
-
-
-
-
-// int	game_loop(t_game *game)
-// {
-// 	render_scene(game);
-// 	printf("here_is_game_loop\n");
-// 	return (0);
-// }
-
-// void	load_texture(t_game *game, char *path,
-// 	t_image **texture, int size_texture)
-// {
-// 	int	size;
+void	load_texture(t_game *game, char *path,
+	t_image **texture, int size_texture)
+{
+	int	size;
 	
-// 	size = size_texture;
-// 	*texture = malloc(sizeof(t_image));
-// 	if (!(*texture))
-// 	{
-// 		printf("Error: Failed to allocate memory for texture.");
-// 		exit (1);
-// 	}
-// 	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
-// 	if (!(*texture)->img)
-// 	{
-// 		printf("path: %s\nsize_texture: %d\n", path, size_texture);
-// 		ft_printf("Error: Failed to load texture.\n");
-// 		exit(1);
-// 	}
-// 	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,
-// 		&(*texture)->bpp, &(*texture)->endian);
-// 	if (!(*texture)->addr)
-// 	{
-// 		ft_printf("Error: Failed to get image address.\n");
-// 		exit(1);
-// 	}
-// }
+	size = size_texture;
+	*texture = malloc(sizeof(t_image));
+	if (!(*texture))
+	{
+		printf("Error: Failed to allocate memory for texture.");
+		exit (1);
+	}
+	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
+	if (!(*texture)->img)
+	{
+		printf("path: %s\nsize_texture: %d\n", path, size_texture);
+		printf("Error: Failed to load texture.\n");
+		exit(1);
+	}
+	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,
+		&(*texture)->bpp, &(*texture)->endian);
+	if (!(*texture)->addr)
+	{
+		printf("Error: Failed to get image address.\n");
+		exit(1);
+	}
+}
 
-// void	rm_newline(char *str)
-// {
-// 	int	len;
+void	rm_newline(char *str)
+{
+	int	len;
 
-// 	if (!str)
-// 		return ;
-// 	len = 0;
-// 	len = ft_strlen(str);
-// 	if (len > 0 && str[len - 1] == '\n')
-// 		str[len - 1] = '\0';
+	if (!str)
+		return ;
+	len = 0;
+	len = ft_strlen(str);
+	if (len > 0 && str[len - 1] == '\n')
+		str[len - 1] = '\0';
 	
-// }
+}
 
-// void	load_all_textures(t_game *game)
-// {
-// 	rm_newline(game->map->north_texture);
-// 	rm_newline(game->map->south_texture);
-// 	rm_newline(game->map->west_texture);
-// 	rm_newline(game->map->east_texture);
-// 	load_texture(game, game->map->north_texture, &game->north_img, TEXTUREHEIGHT);
-// 	load_texture(game, game->map->south_texture, &game->south_img,TEXTUREHEIGHT);
-// 	load_texture(game, game->map->west_texture, &game->west_img, TEXTUREHEIGHT);
-// 	load_texture(game, game->map->east_texture, &game->east_img,TEXTUREHEIGHT);
-// }
+void	load_all_textures(t_game *game)
+{
+	printf("north->texture before: %s\n", game->map->north_texture);
+	rm_newline(game->map->north_texture);
+	printf("north->texture after: %s\n", game->map->north_texture);
+	rm_newline(game->map->south_texture);
+	rm_newline(game->map->west_texture);
+	rm_newline(game->map->east_texture);
+	load_texture(game, game->map->north_texture, &game->north_img, TEXTUREHEIGHT);
+	load_texture(game, game->map->south_texture, &game->south_img,TEXTUREHEIGHT);
+	load_texture(game, game->map->west_texture, &game->west_img, TEXTUREHEIGHT);
+	load_texture(game, game->map->east_texture, &game->east_img,TEXTUREHEIGHT);
+}
