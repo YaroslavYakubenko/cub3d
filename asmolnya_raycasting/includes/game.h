@@ -7,6 +7,8 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define DEBUG 0
+
 #define WIDTH 1280
 #define HEIGHT 720
 

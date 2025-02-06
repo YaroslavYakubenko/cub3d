@@ -64,9 +64,15 @@ int draw_map(t_game *game)
 
 void clear_image(t_game *game)
 {
+	int color;
 	for(int y = 0; y < HEIGHT; y++)
 		for(int x = 0; x < WIDTH; x++)
-			put_pixel(x, y, 0, game);
+		{
+			color = 220001000;
+			if(y < HEIGHT / 2)
+				color = 225030000;
+			put_pixel(x, y, color, game);
+		}
 }
 
 bool touch(float px, float py, t_game *game)
@@ -103,29 +109,56 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 
 	while(!touch(ray_x, ray_y, game))
 	{
-		// put_pixel(ray_x, ray_y, 0xFF0000, game);
+		if(DEBUG)
+			put_pixel(ray_x, ray_y, 0xFF0000, game);
 		ray_x += cos_angle;
 		ray_y += sin_angle;
 	}
-	float dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
-	float height = (BLOCK / dist) * (WIDTH / 2);
-	int start_y = (HEIGHT - height) / 2;
-	int end = start_y + height;
-	while(start_y < end)
+	if(!DEBUG)
 	{
-		put_pixel(i, start_y, 255, game);
-		start_y++;
+		float dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
+		float height = (BLOCK / dist) * (WIDTH / 2);
+		int start_y = (HEIGHT - height) / 2;
+		int end = start_y + height;
+		while(start_y < end)
+		{
+			put_pixel(i, start_y, 255, game);
+			start_y++;
+		}
 	}
 
 }
+
+// void color_floor_ceiling(t_game *game)
+// {
+// 	int x;
+// 	int y;
+
+// 	x = 0;
+// 	y = 0;
+// 	while(y < HEIGHT)
+// 	{
+// 		while(x < WIDTH)
+// 		{
+// 			put_pixel(x, y, 70, game);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+
+// }
 
 int draw_loop(t_game *game)
 {
 	t_player *player = &game->player;
 	move_player(player);
 	clear_image(game);
-	// draw_square(player->x, player->y, 10, 0x00FF00, game);
-	// draw_map(game);
+	// color_floor_ceiling(game);
+	if(DEBUG)
+	{
+		draw_square(player->x, player->y, 10, 0x00FF00, game);
+		draw_map(game);
+	}
 	// float ray_x = player->x;
 	// float ray_y = player->y;
 	// float cos_angle = cos(player->angle);
