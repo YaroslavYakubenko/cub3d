@@ -6,11 +6,25 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/01/28 20:24:32 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:44:35 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void player_angle(t_game *game, int x, int y)
+{
+	if (game->map->grid[y][x] == 'N')
+		game->player->angle = PI / 2;
+	if (game->map->grid[y][x] == 'S')
+		game->player->angle = 3 * PI / 2;
+	if (game->map->grid[y][x] == 'W')
+		game->player->angle = PI;
+	if (game->map->grid[y][x] == 'E')
+		game->player->angle = 0;
+	if (game->map->grid[y][x] == 'P')
+		game->player->angle = PI / 2;
+}
 
 void	position_player(t_player *player, t_game *game)
 {
@@ -32,6 +46,7 @@ void	position_player(t_player *player, t_game *game)
 			{
 				player->x = (float)x * BLOCK;
 				player->y = (float)y * BLOCK;
+				player_angle(game, x, y);
 				return ;
 			}
 			x++;
@@ -43,8 +58,8 @@ void	position_player(t_player *player, t_game *game)
 void	init_player(t_player *player, t_game *game)
 {
 	position_player(player, game);
-	// printf("player->x: %f\nplayer->y: %f\n", player->x, player->y);
-	player->angle = PI / 2;
+	// player->angle = PI / 2;
+	// player->angle = PI;
 	player->key_down = false;
 	player->key_up = false;
 	player->key_left = false;

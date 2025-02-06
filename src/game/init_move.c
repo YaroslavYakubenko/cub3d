@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/04 17:52:52 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:31:27 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	clear_image(t_game *game)
 		}
 		y++;
 	}
-	// printf("%s", game->map->north_texture);
 }
 
 int	key_press(int keycode, t_game *game)
@@ -52,7 +51,6 @@ int	key_press(int keycode, t_game *game)
 
 int	key_realese(int keycode, t_game *game)
 {
-	// printf("Key realesed: %d\n", keycode);
 	if (keycode == KEY_W)
 		game->player->key_up = false;
 	if (keycode == KEY_S)

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:28:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/04 22:06:47 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/06 19:59:12 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	move_player(t_game *game, float move_x, float move_y)
 	player = game->player;
 	new_x = player->x + move_x;
 	new_y = player->y + move_y;
-	if (!touch(game, new_x + DISTANCE, player->y) &&
-		!touch(game, new_x - DISTANCE, player->y))
-		player->x = new_x;
-	if (!touch(game, player->y, new_y + DISTANCE) &&
-		!touch(game, player->y, new_y - DISTANCE))
-		player->y = new_y;
 	if (player->lef_rotate)
 		player->angle -= ROTATION_SPEED;
 	if (player->right_rotate)
@@ -35,6 +29,16 @@ void	move_player(t_game *game, float move_x, float move_y)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * PI;
+
+	if(!touch(game, player->x, new_y))
+	{
+		player->y = new_y;
+	}
+	if(!touch(game, new_x, player->y))
+	{
+		player->x = new_x;	
+	}
+	
 }
 
 void	movement_player(t_game *game)
