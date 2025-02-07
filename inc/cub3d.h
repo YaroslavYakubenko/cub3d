@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/06 21:11:48 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/07 18:44:38 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 # define KEY_RELEASE_MASK (1L<<1) 
 # define DESTROY 17
 
-# define PLAYER_SPEED 3
+# define PLAYER_SPEED 5
 # define ROTATION_SPEED 0.03
 # define DISTANCE 10
 # define FOV 1.047 //60 градусов, угол обзора камеры
