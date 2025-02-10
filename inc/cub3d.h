@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/07 18:44:38 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:47:11 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ typedef struct s_image
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	angle;
+	double	x;
+	double	y;
+	double	angle;
 	bool	key_up;
 	bool	key_down;
 	bool	key_left;
@@ -163,7 +163,7 @@ int		exit_game(t_game *game);
 void	free_game(t_game *game);
 void	free_map(t_map *map, t_game *game);
 bool	touch(t_game *game, float px, float py);
-float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2);
+float	fixed_dist(t_game *game, double x1, double y1, double x2, double y2);
 void	movement_player(t_game *game);
 
 #endif

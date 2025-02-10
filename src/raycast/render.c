@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/07 18:47:38 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:06:44 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,17 @@ int	get_pixel(t_image *texture, int x, int y)
 	return (texture->addr[i] | (texture->addr[i + 1] << 8) | (texture->addr[i + 2] << 16));
 }
 
-
-void	draw_line(t_player *player, t_game *game, float start_x, int i)
+void	draw_line(t_player *player, t_game *game, double start_x, int i)
 {
-	float	cos_angle;
-	float	sin_angle;
-	float	ray_x;
-	float	ray_y;
-	float	dist;
+	double	cos_angle = cos(start_x);
+	double	sin_angle = sin(start_x);
+	double	ray_x = player->x;
+	double	ray_y = player->y;
+	double	dist;
 	t_image *texture;
 	int		tex_x, tex_y;
-	float	tex_step;
-	float	tex_pos;
-
-	cos_angle = cos(start_x);
-	sin_angle = sin(start_x);
-	ray_x = player->x;
-	ray_y = player->y;
+	double	tex_step;
+	double	tex_pos;
 
 	// Ищем, где луч ударяется в стену
 	while (!touch(game, ray_x, ray_y))
@@ -50,48 +44,123 @@ void	draw_line(t_player *player, t_game *game, float start_x, int i)
 	}
 
 	// Определяем дистанцию до стены
-	if (!DEBUG)
-	{	
-		dist = fixed_dist(game, player->x, player->y, ray_x, ray_y);
-	
-		// Вычисляем высоту стены на экране
-		float height = (BLOCK / dist) * (SCREEN_WIDTH / 2);
-		int start_y = (SCREEN_HEIGHT - height) / 2;
-		int end_y = start_y + height;
-	
-		// Определяем направление удара в стену
-		if (fabs(sin_angle) > fabs(cos_angle)) // Вертикальное пересечение
-		{
-			if (sin_angle > 0)
-				texture = game->south_img; // Игрок смотрит на юг
-			else
-				texture = game->north_img; // Игрок смотрит на север
-			tex_x = (int)ray_x % BLOCK;
-		}
-		else // Горизонтальное пересечение
-		{
-			if (cos_angle > 0)
-				texture = game->east_img; // Игрок смотрит на восток
-			else
-				texture = game->west_img; // Игрок смотрит на запад
-			tex_x = (int)ray_y % BLOCK;
-		}
-	
-		// Шаг по текстуре
-		tex_step = (float)TEXTUREHEIGHT / height;
-		tex_pos = 0;
-	
-		// Рисуем текстурированную стену
-		while (start_y < end_y)
-		{
-			tex_y = (int)tex_pos & (TEXTUREHEIGHT - 1); // Ограничение в границах текстуры
-			int color = get_pixel(texture, tex_x, tex_y);
-			put_pixel(game, i, start_y, color);
-			tex_pos += tex_step;
-			start_y++;
-		}
+	dist = fixed_dist(game, player->x, player->y, ray_x, ray_y);
+
+	// Вычисляем высоту стены на экране
+	double height = (BLOCK / dist) * (SCREEN_WIDTH / 2);
+	int start_y = (SCREEN_HEIGHT - height) / 2;
+	int end_y = start_y + height;
+
+	// Определяем направление удара в стену
+	double wall_x; // Точка пересечения луча со стеной
+	int side = (fabs(sin_angle) > fabs(cos_angle)) ? 1 : 0; // 1 - горизонтальная, 0 - вертикальная
+
+	if (side == 0) // Вертикальное пересечение
+	{
+		wall_x = player->y + dist * sin_angle;
+		if (cos_angle > 0)
+			texture = game->east_img; // Игрок смотрит на восток
+		else
+			texture = game->west_img; // Игрок смотрит на запад
+	}
+	else // Горизонтальное пересечение
+	{
+		wall_x = player->x + dist * cos_angle;
+		if (sin_angle > 0)
+			texture = game->south_img; // Игрок смотрит на юг
+		else
+			texture = game->north_img; // Игрок смотрит на север
+	}
+	wall_x -= floor(wall_x);
+
+	// Расчет текстурных координат
+	tex_x = (int)(wall_x * TEXTUREHEIGHT);
+	if (tex_x < 0) tex_x = 0;
+	if (tex_x >= TEXTUREHEIGHT) tex_x = TEXTUREHEIGHT - 1;
+
+	// Шаг по текстуре
+	tex_step = (double)TEXTUREHEIGHT / height;
+	tex_pos = (start_y - SCREEN_HEIGHT / 2 + height / 2) * tex_step;
+
+	// Рисуем текстурированную стену
+	for (int y = start_y; y < end_y; y++)
+	{
+		tex_y = (int)tex_pos % TEXTUREHEIGHT;
+		int color = get_pixel(texture, tex_x, tex_y);
+		put_pixel(game, i, y, color);
+		tex_pos += tex_step;
 	}
 }
+
+// void	draw_line(t_player *player, t_game *game, double start_x, int i)
+// {
+// 	double	cos_angle;
+// 	double	sin_angle;
+// 	double	ray_x;
+// 	double	ray_y;
+// 	double	dist;
+// 	t_image *texture;
+// 	int		tex_x, tex_y;
+// 	double	tex_step;
+// 	double	tex_pos;
+
+// 	cos_angle = cos(start_x);
+// 	sin_angle = sin(start_x);
+// 	ray_x = player->x;
+// 	ray_y = player->y;
+
+// 	// Ищем, где луч ударяется в стену
+// 	while (!touch(game, ray_x, ray_y))
+// 	{
+// 		if (DEBUG)
+// 			put_pixel(game, ray_x, ray_y, 0xFF0000);
+// 		ray_x += cos_angle;
+// 		ray_y += sin_angle;
+// 	}
+
+// 	// Определяем дистанцию до стены
+// 	if (!DEBUG)
+// 	{	
+// 		dist = fixed_dist(game, player->x, player->y, ray_x, ray_y);
+	
+// 		// Вычисляем высоту стены на экране
+// 		double height = (BLOCK / dist) * (SCREEN_WIDTH / 2);
+// 		int start_y = (SCREEN_HEIGHT - height) / 2;
+// 		int end_y = start_y + height;
+	
+// 		// Определяем направление удара в стену
+// 		if (fabs(sin_angle) > fabs(cos_angle)) // Вертикальное пересечение
+// 		{
+// 			if (sin_angle > 0)
+// 				texture = game->south_img; // Игрок смотрит на юг
+// 			else
+// 				texture = game->north_img; // Игрок смотрит на север
+// 			tex_x = (int)ray_x % BLOCK;
+// 		}
+// 		else // Горизонтальное пересечение
+// 		{
+// 			if (cos_angle > 0)
+// 				texture = game->east_img; // Игрок смотрит на восток
+// 			else
+// 				texture = game->west_img; // Игрок смотрит на запад
+// 			tex_x = (int)ray_y % BLOCK;
+// 		}
+	
+// 		// Шаг по текстуре
+// 		tex_step = (float)TEXTUREHEIGHT / height;
+// 		tex_pos = 0;
+	
+// 		// Рисуем текстурированную стену
+// 		while (start_y < end_y)
+// 		{
+// 			tex_y = (int)tex_pos & (TEXTUREHEIGHT - 1); // Ограничение в границах текстуры
+// 			int color = get_pixel(texture, tex_x, tex_y);
+// 			put_pixel(game, i, start_y, color);
+// 			tex_pos += tex_step;
+// 			start_y++;
+// 		}
+// 	}
+// }
 
 
 // void	draw_line(t_player *player, t_game *game, float start_x, int i)

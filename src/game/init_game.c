@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/06 20:51:13 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:50:48 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,7 @@ void	rm_newline(char *str)
 
 void	load_all_textures(t_game *game)
 {
-	printf("north->texture before: %s\n", game->map->north_texture);
 	rm_newline(game->map->north_texture);
-	printf("north->texture after: %s\n", game->map->north_texture);
 	rm_newline(game->map->south_texture);
 	rm_newline(game->map->west_texture);
 	rm_newline(game->map->east_texture);

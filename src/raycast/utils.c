@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/06 20:09:46 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:49:47 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,20 @@ bool	touch(t_game *game, float px, float py)
 	y = (int)py / BLOCK;
 	if (game->map->grid[y][x] == '1')
 		return (true);
-	// printf("px: %f\npy: %f\n", px, py);
-	// if (x < 0 || y < 0 || y >= SCREEN_HEIGHT || x >= SCREEN_WIDTH)
-	// 	return (true);
-	// if (y - 1 < 0 || x - 1 < 0 || !game->map->grid[y - 1] || !game->map->grid[y + 1])
-	// {
-	// 	return (true);
-	// }
-	// if ((int)ft_strlen(game->map->grid[y - 1]) <= x || (int)ft_strlen(game->map->grid[y + 1]) <= x || x
-	// 	- 1 < 0 || x + 1 >= (int)ft_strlen(game->map->grid[y]))
-	// {
-	// 	return (true);
-	// }
-	// if (game->map->grid[y][x + 1] == ' ' || game->map->grid[y + 1][x] == ' ' || game->map->grid[y][x - 1] == ' '
-	// 	|| game->map->grid[y - 1][x] == ' ')
-	// {
-	// 	return (true);
-	// }
 	return (false);
-	// return (game->map->grid[y][x] == '1');
 }
 
-float	distance(float x, float y)
+double	distance(double x, double y)
 {
 	return (sqrt(x * x + y * y));
 }
 
-float	fixed_dist(t_game *game, float x1, float y1, float x2, float y2)
+float	fixed_dist(t_game *game, double x1, double y1, double x2, double y2)
 {
-	float	delta_x;
-	float	delta_y;
-	float	angle;
-	float	fix_dist;
+	double	delta_x;
+	double	delta_y;
+	double	angle;
+	double	fix_dist;
 
 	delta_x = x2 - x1;
 	delta_y = y2 - y1;
