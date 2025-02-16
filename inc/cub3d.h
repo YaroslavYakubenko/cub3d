@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/10 19:47:11 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/16 22:00:38 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,32 @@
 # define DEBUG 0
 
 
+typedef	struct	s_raycast
+{
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
+	int		tex_x;
+	int		tex_y;
+	double	step;
+	double	tex_pos;
+	int		color;
+}	t_raycast;
 
 typedef struct s_image
 {
@@ -97,6 +123,10 @@ typedef struct s_player
 	bool	key_right;
 	bool	lef_rotate;
 	bool	right_rotate;
+	double	plane_x;
+	double	plane_y;
+	double	dir_x;
+	double	dir_y;
 }	t_player;
 
 typedef struct s_map
@@ -125,20 +155,21 @@ typedef struct s_game
 	t_map		*map;
 	t_player	*player;
 	float		*z_buffer;
+	t_raycast	*rc;
 }	t_game;
 
-typedef struct s_ray
-{
-	float	ray_x;
-	float	ray_y;
-	float	ray_dir_x;
-	float	ray_dir_y;
-	float	side_dist_x;
-	float	side_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-}	t_ray;
+// typedef struct s_ray
+// {
+// 	float	ray_x;
+// 	float	ray_y;
+// 	float	ray_dir_x;
+// 	float	ray_dir_y;
+// 	float	side_dist_x;
+// 	float	side_dist_y;
+// 	int		step_x;
+// 	int		step_y;
+// 	int		side;
+// }	t_ray;
 
 
 
@@ -147,13 +178,13 @@ char	**read_file(const char *file_name);
 t_map	*parse_cub_file(const char *file_name);
 void	free_resources(t_map *map);
 void	load_all_textures(t_game *game);
-void	render_scene(t_game *game);
+// void	render_scene(t_game *game);
 
 void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_game *game);
 int		key_realese(int keycode, t_game *game);
 void	move_player(t_game *game, float move_x, float move_y);
-void	init_player(t_player *player, t_game *game);
+void	init_player(t_game *game);
 int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
@@ -165,5 +196,13 @@ void	free_map(t_map *map, t_game *game);
 bool	touch(t_game *game, float px, float py);
 float	fixed_dist(t_game *game, double x1, double y1, double x2, double y2);
 void	movement_player(t_game *game);
+void	init_raycast(t_game *game);
+void	draw_wall_segment(t_game *game, int x);
+void	calculate_texture_position(t_game *game);
+void	calculate_wall_dimensions(t_game *game);
+void	find_wall_hit(t_game *game);
+void	calculate_ray_step(t_game *game);
+void	calculate_ray_direction(t_game *game, int x);
+int		get_pixel(t_image *texture, int x, int y);
 
 #endif

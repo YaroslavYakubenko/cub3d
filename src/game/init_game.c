@@ -6,61 +6,35 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/10 19:50:48 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/16 22:29:42 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-// void	init_image(t_game *game)
-// {
-// 	game->back = malloc(sizeof(t_image));
-// 	if (!game->back)
-// 		{
-// 			printf("Error: Failed to allocate memory for back image.\n");
-// 			free(game->back);
-// 			exit(1);
-// 		}
-// 	game->back->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-// 	if (!game->back->img)
-// 	{
-// 		printf("Error: Failed to create new image.\n");
-// 		free(game->back);
-// 		exit(1);
-// 	}
-// 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
-// 		&game->back->line_lenght, &game->back->endian);
-// 	if (!game->back->addr)
-// 	{
-// 		printf("Error: Failed to create image's address.\n");
-// 		exit(1);
-// 	}
-// }
-
 void	init_game(t_game *game)
 {
 	game->back = malloc(sizeof(t_image));
 	game->player = malloc(sizeof(t_player));
-
-	if (!game->player || !game->back)
+	if (!game->back || !game->player)
 	{
 		printf("Error: Failed to allocate memory.\n");
+		free(game->player);
+		free(game->back);
 		return ;
 	}
-	init_player(game->player, game);
+	init_player(game);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
 		&game->back->line_lenght, &game->back->endian);
+		if (!game->mlx || !game->win || !game->back->img || !game->back->addr)
+		{
+			printf("Error: Initialization failed.\n");
+			exit(1);
+		}
 	load_all_textures(game);
-	if (!game->mlx || !game->win || !game->back->img || !game->back->addr)
-	{
-    	printf("Error: Initialization failed.\n");
-    	exit(1);
-	}
-
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
 
@@ -74,9 +48,9 @@ int	exit_game(t_game *game)
 			free(game->back);
 			free(game->player);
 		}
-		printf("Destroy game->back\n");
+		// printf("Destroy game->back\n");
 	}
-	printf("exit function\n");
+	// printf("exit function\n");
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
@@ -110,12 +84,13 @@ void	load_texture(t_game *game, char *path,
 		exit(1);
 	}
 	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,
-		&(*texture)->bpp, &(*texture)->endian);
+		&(*texture)->line_lenght, &(*texture)->endian);
 	if (!(*texture)->addr)
 	{
 		printf("Error: Failed to get image address.\n");
 		exit(1);
 	}
+	printf("Texture loaded successfully from path: %s\n", path);
 }
 
 void	rm_newline(char *str)

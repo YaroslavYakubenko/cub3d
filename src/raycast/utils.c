@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/10 19:49:47 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/12 20:14:24 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ bool	touch(t_game *game, float px, float py)
 	x = (int)px / BLOCK;
 	y = (int)py / BLOCK;
 	if (game->map->grid[y][x] == '1')
+	{
+		// printf("Wall hit at (%d, %d)\n", x, y);
 		return (true);
+	}
 	return (false);
 }
 
