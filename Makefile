@@ -42,13 +42,13 @@ UNAME_S := $(shell uname -s)
 
 ifeq ($(UNAME_S), Linux)
     MLX         = minilibx_linux/
-	CC_FLAGS    = -Wall -Wextra -Werror -g -Iinc #-fsanitize=address
+	CC_FLAGS    = -g -Wall -Wextra -Werror -g -Iinc #-fsanitize=address
     MLX_FLAGS   = -Imlx -Lmlx_Linux -lmlx -lXext -lX11 -lz
 # MLX_FLAGS   = -Imlx -Lmlx -lmlx -lXext -lX11 -lz
 
 else ifeq ($(UNAME_S), Darwin)
     MLX         = mlx/
-	CC_FLAGS    = -Wall -Wextra -Werror -g -Iinc -ObjC -fsanitize=address
+	CC_FLAGS    = -g -Wall -Wextra -Werror -g -Iinc -ObjC -fsanitize=address
 	MLX_FLAGS 	= -Imlx -Lmlx -lmlx -framework OpenGL -framework AppKit -framework Foundation
 endif
 

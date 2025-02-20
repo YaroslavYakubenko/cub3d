@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/16 22:00:38 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:44:23 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,18 @@
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define TEXTUREHEIGHT	512
+# define TEXTUREWIDTH	512
 # define BLOCK 128
 # define DEBUG 0
 
+enum	e_side
+{
+	_s_null,
+	_s_north,
+	_s_south,
+	_s_west,
+	_s_east
+};
 
 typedef	struct	s_raycast
 {
@@ -184,7 +193,7 @@ void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_game *game);
 int		key_realese(int keycode, t_game *game);
 void	move_player(t_game *game, float move_x, float move_y);
-void	init_player(t_game *game);
+void	init_player(t_player *player, t_game *game);
 int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
@@ -197,12 +206,14 @@ bool	touch(t_game *game, float px, float py);
 float	fixed_dist(t_game *game, double x1, double y1, double x2, double y2);
 void	movement_player(t_game *game);
 void	init_raycast(t_game *game);
-void	draw_wall_segment(t_game *game, int x);
+void	draw_wall_segment(t_game *game, int x, int y);
 void	calculate_texture_position(t_game *game);
 void	calculate_wall_dimensions(t_game *game);
 void	find_wall_hit(t_game *game);
 void	calculate_ray_step(t_game *game);
 void	calculate_ray_direction(t_game *game, int x);
 int		get_pixel(t_image *texture, int x, int y);
+void	floor_and_ceiling(t_game *game);
+void	init_movement(t_game *game);
 
 #endif

@@ -6,11 +6,19 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:28:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/06 19:59:12 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/17 22:27:21 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// void	init_movement(t_game *game)
+// {
+// 	game->player->dir_x = 0;
+// 	game->player->dir_y = 1;
+// 	game->player->plane_x = 0.66;
+// 	game->player->plane_y = 0;
+// }
 
 void	move_player(t_game *game, float move_x, float move_y)
 {
@@ -29,7 +37,6 @@ void	move_player(t_game *game, float move_x, float move_y)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * PI;
-
 	if(!touch(game, player->x, new_y))
 	{
 		player->y = new_y;

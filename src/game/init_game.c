@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/16 22:29:42 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/19 23:36:24 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_game(t_game *game)
 		free(game->back);
 		return ;
 	}
-	init_player(game);
+	init_player(game->player, game);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -90,7 +90,7 @@ void	load_texture(t_game *game, char *path,
 		printf("Error: Failed to get image address.\n");
 		exit(1);
 	}
-	printf("Texture loaded successfully from path: %s\n", path);
+	// printf("Texture loaded successfully from path: %s\n", path);
 }
 
 void	rm_newline(char *str)

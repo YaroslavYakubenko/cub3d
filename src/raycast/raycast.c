@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 19:51:06 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/15 23:07:41 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:33:35 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,32 @@ t_image	*get_wall_texture(t_game *game)
 	}
 }
 
-void	draw_wall_segment(t_game *game, int x)
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
-	int	y;
+	char	*dst;
+
+	dst = image->addr + (y * image->line_lenght + x * (image->bpp / 8));
+	*(unsigned int *)dst = color;
+}
+
+void	draw_wall_segment(t_game *game, int x, int y)
+{
+	// int	y;
 	t_raycast *rc;
 
 	rc = game->rc;
-	y = rc->draw_start;
+	// y = rc->draw_start - 1;
 	// printf("y: %d\n", y);
-	while (y < rc->draw_end)
-	{
-		rc->tex_y = (int)rc->tex_pos & (TEXTUREHEIGHT - 1);
-		rc->tex_pos += rc->step;
-		rc->color = get_pixel(get_wall_texture(game), rc->tex_x, rc->tex_y);
-		printf("here_is_draw_wall_segment\n");
-		put_pixel(game, x, y, rc->color);
-		y++;
-	}
+	// printf("draw_start: %d\n", rc->draw_start);
+	// printf("%d\n", rc->draw_end);
+	// while (y < rc->draw_end)
+	// {
+	rc->tex_y = (int)rc->tex_pos & (TEXTUREHEIGHT - 1);
+	rc->tex_pos += rc->step;
+	rc->color = get_pixel(get_wall_texture(game), rc->tex_x, rc->tex_y);
+	// rc->color = 255;
+	// printf("here_is_draw_wall_segment\n");
+	my_mlx_pixel_put(game->back, x, y, rc->color);
+		// y++;
+	// }
 }
