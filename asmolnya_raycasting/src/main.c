@@ -22,12 +22,40 @@ void draw_square(int x, int y, int size, int color, t_game *game)
 		put_pixel(x + i, y + size, color, game);
 }
 
+void init_rc(t_raycast *rc)
+{
+	rc->raydir_x = 0.0;
+    rc->raydir_y = 0.0;
+    rc->map_x = 0;
+    rc->map_y = 0;
+    rc->side_dist_x = 0.0;
+    rc->side_dist_y = 0.0;
+    rc->delta_dist_x = 0.0;
+    rc->delta_dist_y = 0.0;
+    rc->perp_wall_dist = 0.0;
+    rc->step_x = 0;
+    rc->step_y = 0;
+    rc->hit = 0;
+    rc->side = 0;
+    rc->line_height = 0;
+    rc->draw_start = 0;
+    rc->draw_end = 0;
+    rc->wall_x = 0.0;
+    rc->step = 0.0;
+    rc->tex_pos = 0.0;
+    rc->tex_x = 0;
+    rc->tex_y = 0;
+    rc->color = 0;
+}
+
 void init_game(t_game *game)
 {
 	init_player(&game->player);
+	init_rc(&game->rc);
 	game->map = malloc(sizeof(t_map));
 	game->map->map = get_map();
 	init_position_charactor(game);
+	add_plane_characters(game);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
@@ -39,16 +67,16 @@ void init_game(t_game *game)
 char **get_map(void)
 {
     char **map = malloc(sizeof(char *) * 11);
-    map[0] = "111111111111111";
-    map[1] = "100000000000001";
-    map[2] = "100000000000001";
-    map[3] = "100000100000001";
-    map[4] = "100000000000001";
-    map[5] = "100000010000001";
-    map[6] = "100001000000001";
-    map[7] = "100000000000001";
-    map[8] = "10000N000000001";
-    map[9] = "111111111111111";
+    map[0] = strdup("111111111111111"); // CHANGE FOR FT
+    map[1] = strdup("100000000000001");
+    map[2] = strdup("100000000000001");
+    map[3] = strdup("100000100000001");
+    map[4] = strdup("100000000000001");
+    map[5] = strdup("100000010000001");
+    map[6] = strdup("100001000000001");
+    map[7] = strdup("100000000000001");
+    map[8] = strdup("10000N000000001");
+    map[9] = strdup("111111111111111");
     map[10] = NULL;
     return (map);
 }
@@ -131,40 +159,7 @@ void draw_line(t_player *player, t_game *game, float start_x, int i)
 
 }
 
-void	ray_direction_calculate(t_game *game, int x)
-{
-	double camera_x = 2 * x / (double)WIDTH - 1; // a normalized value from -1 (left of the screen) to +1 (right of the screen).
-	game->rc.raydir_x = game->player.dir_x + game->player.plane_x
-		* camera_x; // x for each ray of each pixel
-	game->rc.raydir_y = game->player.dir_y + game->player.plane_y
-		* camera_x; // yfor each ray of each pixel
-	game->rc.map_x = (int)game->player.pos_x; //player position in int
-	game->rc.map_y = (int)game->player.pos_y; //player position in int
-	game->rc.delta_dist_x = fabs(1 / game->rc.raydir_x); // Distance the ray must travel in world space to cross one full tile in the X direction.
-	game->rc.delta_dist_y = fabs(1 / game->rc.raydir_y); // distance to travel whole grid
-}
 
-int render(t_game *game)
-{
-	// int	y;
-	int	x;
-
-	x = -1;
-	while (++x < WIDTH)
-	{
-		ray_direction_calculate(game, x);
-		// calculate_step_and_dist(game);
-		// set_ray_steps(game);
-		// calculate_wall_parameters(game);
-		// calculate_texture_coordinates(game);
-		// y = game->rc.draw_start - 1;
-		// while (++y < game->rc.draw_end)
-		// {
-		// 	render_walls(game, x, y);
-		// }
-	}
-	return (0);
-}
 
 int draw_loop(t_game *game)
 {

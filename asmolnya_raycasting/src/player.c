@@ -12,8 +12,10 @@ void init_player(t_player *player)
 	player->key_right = false;
 	player->left_rotate = false;
 	player->right_rotate = false;
-
-	
+	player->dir_x = 0;
+	player->dir_y = 0;
+	player->plane_x = 0;
+	player->plane_y = 0;
 }
 
 bool	valid_symbol_character(char c)
@@ -43,6 +45,33 @@ void	init_position_charactor(t_game *game)
 			j++;
 		}
 		i++;
+	}
+}
+
+void	add_plane_characters(t_game *game)
+{
+	char	plane;
+
+	plane = game->player.direction;
+	if (plane == 'S')
+	{
+		game->player.dir_x = 1;
+		game->player.plane_y = -0.66;
+	}
+	else if (plane == 'N')
+	{
+		game->player.dir_x = -1;
+		game->player.plane_y = 0.66;
+	}
+	else if (plane == 'E')
+	{
+		game->player.dir_y = 1;
+		game->player.plane_x = 0.66;
+	}
+	else if (plane == 'W')
+	{
+		game->player.dir_y = -1;
+		game->player.plane_x = -0.66;
 	}
 }
 

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <math.h>
+#include <string.h> // REMOVE????
 
 #define DEBUG 0
 
@@ -111,5 +112,8 @@ int key_release(int keycode, t_player *player);
 void move_player(t_player *player);
 char **get_map(void);
 void	init_position_charactor(t_game *game);
+void	ray_direction_calculate(t_game *game, int x);
+int render(t_game *game);
+void	add_plane_characters(t_game *game);
 
 #endif
