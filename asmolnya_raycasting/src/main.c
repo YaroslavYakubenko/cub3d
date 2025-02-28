@@ -1,14 +1,14 @@
 #include "../includes/game.h"
 
-void put_pixel(int x, int y, int color, t_game *game)
-{
-	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-		return;
-	int index = y * game->size_line + x * game->bpp / 8; // counting index
-	game->data[index] = color & 0xFF;  // set blue component
-	game->data[index + 1] = (color >> 8) & 0xFF; //  set green
-	game->data[index + 2] = (color >> 16) & 0xFF; // set red
-}
+// void put_pixel(int x, int y, int color, t_game *game)
+// {
+// 	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+// 		return;
+// 	int index = y * game->size_line + x * game->bpp / 8; // counting index
+// 	game->data[index] = color & 0xFF;  // set blue component
+// 	game->data[index + 1] = (color >> 8) & 0xFF; //  set green
+// 	game->data[index + 2] = (color >> 16) & 0xFF; // set red
+// }
 
 void draw_square(int x, int y, int size, int color, t_game *game)
 {
@@ -48,18 +48,47 @@ void init_rc(t_raycast *rc)
     rc->color = 0;
 }
 
+void	init_texture(t_game *game, t_image **texture, char *path_texture,
+	int size_texture)
+{
+int	size;
+
+size = size_texture;
+*texture = calloc(1, sizeof(t_image)); // change for ft?
+(*texture)->img = mlx_xpm_file_to_image(game->mlx, path_texture, &size,
+		&size);
+if (!(*texture)->img)
+	return 1;
+	// error_exit_game("Problem with loading image", game);
+(*texture)->addr = mlx_get_data_addr((*texture)->img,
+		&(*texture)->bits_per_pixel, &(*texture)->line_length,
+		&(*texture)->endian);
+if (!(*texture)->addr)
+	return 1;
+	// error_exit_game("Problem with getting image address", game);
+}
+
+void	init_walls(t_game *game)
+{
+	init_texture(game, &game->so_img, game->map->so, TEXHEIGHT);
+	init_texture(game, &game->no_img, game->map->no, TEXHEIGHT);
+	init_texture(game, &game->we_img, game->map->we, TEXHEIGHT);
+	init_texture(game, &game->ea_img, game->map->ea, TEXHEIGHT);
+}
+
 void init_game(t_game *game)
 {
 	init_player(&game->player);
 	init_rc(&game->rc);
 	game->map = malloc(sizeof(t_map));
 	game->map->map = get_map();
+	init_walls(game);
 	init_position_charactor(game);
 	add_plane_characters(game);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
+	// game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	
 }
