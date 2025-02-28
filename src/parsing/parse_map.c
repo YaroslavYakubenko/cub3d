@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/17 22:28:32 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:53:40 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	while (lines[i])
 	{
 		if (ft_strncmp(lines[i], "NO ", 3) == 0)
-		{
 			map->north_texture = ft_strdup(lines[i] + 3);
-			// printf("map->north_texture: %s\n", map->north_texture);
-		}
 		else if (ft_strncmp(lines[i], "SO ", 3) == 0)
 			map->south_texture = ft_strdup(lines[i] + 3);
 		else if (ft_strncmp(lines[i], "WE ", 3) == 0)
@@ -44,6 +41,28 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	return (i);
 }
 
+char	*parse_rgb(char *rgb)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	j = 0;
+	str = malloc(sizeof(char) * 11);
+	while (rgb[i])
+	{
+		if (rgb[i] && (rgb[i] == ',' || (rgb[i] >= '0' && rgb[i] <= '9')))
+		{
+			str[j] = rgb[i];
+			j++;
+		}
+		i++;
+	}
+	str[j] = '\0';
+	return (str);
+}
+
 unsigned int	init_colors(char *color_string, t_map *map)
 {
 	char			**rgb;
@@ -52,6 +71,7 @@ unsigned int	init_colors(char *color_string, t_map *map)
 
 	(void)map;
 	i = 0;
+	color_string = parse_rgb(color_string);
 	if (color_string != NULL)
 	{
 		rgb = ft_split(color_string, ',');
@@ -66,6 +86,7 @@ unsigned int	init_colors(char *color_string, t_map *map)
 		while (i < 3)
 			free(rgb[i++]);
 		free(rgb);
+		free(color_string);
 		return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 	}
 	return (0);
@@ -76,7 +97,7 @@ int	validate_map(char **grid)
 	int	i;
 	int	j;
 
-	i = 6;
+	i = 0;
 	while (grid[i])
 	{
 		j = 0;
@@ -85,10 +106,10 @@ int	validate_map(char **grid)
 			if (grid[i][j] != '1' && grid[i][j] != '0'
 				&& grid[i][j] != 'N' && grid[i][j] != 'S'
 				&& grid[i][j] != 'E' && grid[i][j] != 'W'
-				&& grid[i][j] != 'P')
+				&& grid[i][j] != ' ' && grid[i][j] != '\n' && grid[i][j] != '\t')
 				{
 					printf("Error: Invalid character in map.\n");
-					return (0);	
+					exit (1);	
 				}
 			j++;
 		}
@@ -100,21 +121,12 @@ int	validate_map(char **grid)
 t_map	*parse_cub_file(const char *file_name)
 {
 	t_map	*map;
-	// char	**lines;
 	int		map_start;
-	// int		i;
 
 	map = malloc(sizeof(t_map));
 	map->liness = read_file(file_name);
 	if (!map->liness)
 		return (NULL);
-	// i = 0;
-	// while (i < 15)
-	// {
-	// 	printf("lines[%d]: %s\n", i, lines[i]);
-	// 	i++;
-		
-	// }
 	map->north_texture = NULL;
 	map->south_texture = NULL;
 	map->west_texture = NULL;
@@ -125,29 +137,12 @@ t_map	*parse_cub_file(const char *file_name)
 	map_start = parse_textures_and_colors(map, map->liness);
 	map->ceiling_color = init_colors(map->ceiling, map);
 	map->floor_color = init_colors(map->floor, map);
-	// i = 0;
-	// while (map->liness[i])
-	// {
-	// 	printf("map->liness[%d]: %s\n", i, map->liness[i]);
-	// 	i++;
-	// }
 	map->grid = &map->liness[map_start];
-	// printf("map->grid: %s\n", map->grid[0]);
-	// printf("map->grid: %s\n", map->grid[1]);
-	// printf("map->grid: %s\n", map->grid[2]);
-	// printf("map->grid: %s\n", map->grid[3]);
-	// printf("map->grid: %s\n", map->grid[4]);
-	// printf("map->grid: %s\n", map->grid[5]);
-	// printf("map->grid: %s\n", map->grid[6]);
 	if (!validate_map(map->grid))
 	{
 		printf("Error: Invalid map.\n");
-		// free_map(map);
         return (NULL);
 	}
-	// i = 0;
-	// while (lines[i++])
-	// 	free(lines[i]);
-	// free(lines);
+	validate_walls(map->grid);
 	return (map);
 }

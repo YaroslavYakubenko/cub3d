@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:06:22 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/16 19:15:40 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:52:25 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,8 @@ char	**read_file(const char *file_name)
 	if (!lines)
 		return (close(fd), printf("Error allocation memory.\n"), NULL);
 	while ((line = get_next_line(fd)) != NULL)
-	{
 		lines[i++] = line;
-		// printf("line: %s\n", line);
-		// free(line);
-		// printf("lines[%zu]: %s\n", i, lines[i - 1]);
-	}
 	lines[i] = NULL;
-	// i = 0;
-	// while (i < 15)
-	// {
-	// 	printf("lines[%zu]: %s\n", i, lines[i]);
-	// 	i++;
-		
-	// }
 	close(fd);
 	return (lines);
 }

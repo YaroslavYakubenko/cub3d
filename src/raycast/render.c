@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:26:18 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/20 21:18:02 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:55:30 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	draw_line(t_player *player, t_game *game, double start_x, int i)
 	double	sin_angle = sin(start_x);
 	double	ray_x = player->x;
 	double	ray_y = player->y;
-	// int	y;
 
 	(void)i;
-	// Ищем, где луч ударяется в стену
 	while (!touch(game, ray_x, ray_y))
 	{
 		if (DEBUG)
@@ -101,9 +99,11 @@ int	draw_loop(t_game *game)
 			calculate_texture_position(game);
 			y = game->rc->draw_start - 1;
 			while( ++y < game->rc->draw_end)
+			{
 				draw_wall_segment(game, x, y);
+				// printf("here_is_draw_loop\n");
+			}
 			// start_x += fraction;
-			// printf("here_is_draw_loop\n");
 			// x++;
 		}
 	}

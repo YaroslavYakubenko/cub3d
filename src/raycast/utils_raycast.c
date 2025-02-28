@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 19:54:10 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/20 16:22:26 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:27:15 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	find_wall_hit(t_game *game)
 		// printf("map_y: %d\nmap_x: %d\n", rc->map_y, rc->map_x);
 		// printf("game->map_y: %d\ngame->map_x: %d\n", game->rc->map_y, game->rc->map_x);
 		if (game->map->grid[rc->map_y][rc->map_x] > '0')
+		{
 			rc->hit = 1;
+			// printf("grid[%d][%d]: %c", rc->map_y, rc->map_x, game->map->grid[rc->map_y][rc->map_x]);
+		}
 	}
 }
 

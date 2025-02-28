@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/19 23:36:24 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:38:39 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ int	exit_game(t_game *game)
 			free(game->back);
 			free(game->player);
 		}
-		// printf("Destroy game->back\n");
 	}
-	// printf("exit function\n");
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
@@ -79,7 +77,6 @@ void	load_texture(t_game *game, char *path,
 	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
 	if (!(*texture)->img)
 	{
-		printf("path: %s\nsize_texture: %d\n", path, size_texture);
 		printf("Error: Failed to load texture.\n");
 		exit(1);
 	}
@@ -90,7 +87,6 @@ void	load_texture(t_game *game, char *path,
 		printf("Error: Failed to get image address.\n");
 		exit(1);
 	}
-	// printf("Texture loaded successfully from path: %s\n", path);
 }
 
 void	rm_newline(char *str)

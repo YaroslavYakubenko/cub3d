@@ -23,6 +23,8 @@ SRCS        = $(SRCS_F)main.c \
               $(SRCS_F)free.c \
               $(SRCS_F)parsing/check_and_reading.c \
               $(SRCS_F)parsing/parse_map.c \
+			  $(SRCS_F)parsing/check_map.c \
+			  $(SRCS_F)parsing/validation_n_check.c \
               $(SRCS_F)game/init_player.c \
               $(SRCS_F)game/init_move.c \
               $(SRCS_F)game/movement.c \

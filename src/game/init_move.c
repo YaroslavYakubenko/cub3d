@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/19 22:39:03 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:40:38 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ int	key_press(int keycode, t_game *game)
 	if (keycode == KEY_ESC)
 		exit_game(game);
 	if (keycode == KEY_W)
-	{
 		game->player->key_up = true;
-		// printf("W: %d\n", game->player->key_up);
-	}
 	if (keycode == KEY_S)
 		game->player->key_down = true;
 	if (keycode == KEY_A)

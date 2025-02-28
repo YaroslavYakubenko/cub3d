@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/20 21:26:56 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:17:39 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	touch(t_game *game, float px, float py)
 	// printf("px: %f\npy: %f\n", px, py);
 	// x = (int)px;
 	// y = (int)py;
-	printf("x: %d\ny: %d\n", x, y);
+	// printf("x: %d\ny: %d\n", x, y);
 	if(y > 6 || y < 0) // Костыль убрать!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		return true;
 	if (game->map->grid[y][x] == '1')

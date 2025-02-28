@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/16 22:30:34 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:56:26 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	free_map(t_map *map, t_game *game)
 
 	if (!map || !game)
 		return ;
-	// printf("here_is_free_map\n");
 	if (map->north_texture)
 		free(map->north_texture);
 	if (map->south_texture)

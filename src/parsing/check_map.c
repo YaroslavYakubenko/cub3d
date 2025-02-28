@@ -1,0 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
+/*   Updated: 2025/02/28 14:36:07 by yyakuben         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+void	check_last_array(char **map, int i)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	x = 0;
+	while (map[y])
+		++y;
+	if (i == y - 1)
+	{
+		while (map[y - 1][x])
+		{
+			x++;
+		}
+	}
+	if ((map[y - 1][x - 2] == '0' || map[y - 1][x - 1] == '0')
+		|| map[y - 1][0] == '0')
+	{
+		printf("map[%d][%d]: %c\n", y, x, map[y - 1][x]);
+		printf("Error: problems with walls.\n");
+		exit (1);
+	}
+}
+
+int	find_last_array(char **map, int x, int y)
+{
+	int	i;
+
+	(void)map;
+	i = 0;
+	while (y > 0)
+	{
+		x = 0;
+		while (map[y][x] != '\n' && map[y][x] != '\0')
+		{
+			if (map[y][x] == '1')
+			{
+				i = y;
+				return (i);
+			}
+			x++;
+		}
+		y--;
+	}
+	return (0);
+}
+
+void	go_to_last_array(char **map)
+{
+	int	x;
+	int	y;
+	int	i;
+	
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			x++;
+		}
+		y++;
+	}
+	
+	i = find_last_array(map, x, y - 1);
+	// printf("here_is_go_to_last_array\n");
+	// printf("this is i: %d and this is the line %s", i, map[i]);
+	check_last_array(map, i);
+}

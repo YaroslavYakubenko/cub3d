@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/20 18:44:23 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/27 20:48:00 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ char	**read_file(const char *file_name);
 t_map	*parse_cub_file(const char *file_name);
 void	free_resources(t_map *map);
 void	load_all_textures(t_game *game);
-// void	render_scene(t_game *game);
 
 void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_game *game);
@@ -215,5 +214,7 @@ void	calculate_ray_direction(t_game *game, int x);
 int		get_pixel(t_image *texture, int x, int y);
 void	floor_and_ceiling(t_game *game);
 void	init_movement(t_game *game);
+void	validate_walls(char **map);
+void	go_to_last_array(char **map);
 
 #endif
