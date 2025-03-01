@@ -116,6 +116,7 @@ typedef struct s_game
     t_player player;
     t_map *map; 
     t_raycast rc; // allocate memory
+	t_image				*back;
 	t_image				*no_img;
 	t_image				*so_img;
 	t_image				*we_img;

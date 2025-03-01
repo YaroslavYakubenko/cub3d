@@ -141,6 +141,8 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
 	char	*dst;
 
+	// MAYBE CHANGE floor and ceiling here
+
 	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
 	{
 		dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel
@@ -149,13 +151,15 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 	}
 }
 
+
+
 static void	render_walls(t_game *game, int x, int y)
 {
 	game->rc.tex_y = (int)game->rc.tex_pos & (TEXHEIGHT - 1);
 	game->rc.tex_pos += game->rc.step;
 	game->rc.color = get_texture_pixel(get_texture_directions(game),
 			game->rc.tex_x, game->rc.tex_y);
-	my_mlx_pixel_put(game->back, x, y, game->rc.color); // WHAT TO DO WITH BACK???
+	my_mlx_pixel_put(game->back, x, y, game->rc.color);
 }
 
 int render(t_game *game)
@@ -172,10 +176,12 @@ int render(t_game *game)
 		calculate_wall_parameters(game);
 		calculate_texture_coordinates(game);
 		y = game->rc.draw_start - 1;
-		// while (++y < game->rc.draw_end)
-		// {
-		// 	render_walls(game, x, y);
-		// }
+		while (++y < game->rc.draw_end)
+		{
+			render_walls(game, x, y);
+		}
 	}
+	move_player(&game->player);
+	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }
