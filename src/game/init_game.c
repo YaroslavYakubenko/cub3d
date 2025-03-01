@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/27 16:38:39 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:26:04 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ void	load_texture(t_game *game, char *path,
 	if (!(*texture))
 	{
 		printf("Error: Failed to allocate memory for texture.");
+		free(texture);
 		exit (1);
 	}
 	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
 	if (!(*texture)->img)
 	{
 		printf("Error: Failed to load texture.\n");
+		free((*texture)->img);
 		exit(1);
 	}
 	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,
@@ -85,6 +87,7 @@ void	load_texture(t_game *game, char *path,
 	if (!(*texture)->addr)
 	{
 		printf("Error: Failed to get image address.\n");
+		free((*texture)->addr);
 		exit(1);
 	}
 }

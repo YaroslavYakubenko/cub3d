@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/24 21:06:43 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:23:23 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ int	main(int ac, char **av)
 	if (ac != 2)
 	{
 		printf("Error: Too many arguments.\n");
+		free(game);
 		return (1);
 	}
 	game->map = parse_cub_file(av[1]);
 	if (!game->map)
 	{
 		printf("Error: Failed to parse the *.cub file.\n");
+		free(game->map);
 		return (1);
 	}
 	init_game(game);

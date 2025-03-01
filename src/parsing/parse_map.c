@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/27 16:53:40 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:57:42 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,32 +63,30 @@ char	*parse_rgb(char *rgb)
 	return (str);
 }
 
-unsigned int	init_colors(char *color_string, t_map *map)
+unsigned int	init_colors(char *color_string)
 {
 	char			**rgb;
 	unsigned int	colors[3];
 	int				i;
 
-	(void)map;
-	i = 0;
+	i = -1;
 	color_string = parse_rgb(color_string);
-	if (color_string != NULL)
+	rgb = ft_split(color_string, ',');
+	while (rgb[++i])
 	{
-		rgb = ft_split(color_string, ',');
-		while (rgb[i])
+		colors[i] = ft_atoi(rgb[i]);
+		if (colors[i] > 255 || colors[i] < 0)
 		{
-			colors[i] = ft_atoi(rgb[i]);
-			if (colors[i] > 255)
-				printf("Error: The range must be from 0 to 255.\n");
-			i++;
+			printf("Error: The range must be from 0 to 255.\n");
+			exit (1);
 		}
-		i = 0;
-		while (i < 3)
-			free(rgb[i++]);
-		free(rgb);
-		free(color_string);
-		return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 	}
+	i = 0;
+	while (i < 3)
+		free(rgb[i++]);
+	free(rgb);
+	free(color_string);
+	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 	return (0);
 }
 
@@ -107,14 +105,15 @@ int	validate_map(char **grid)
 				&& grid[i][j] != 'N' && grid[i][j] != 'S'
 				&& grid[i][j] != 'E' && grid[i][j] != 'W'
 				&& grid[i][j] != ' ' && grid[i][j] != '\n' && grid[i][j] != '\t')
-				{
-					printf("Error: Invalid character in map.\n");
-					exit (1);	
-				}
+			{
+				printf("Error: Invalid character in map.\n");
+				exit (1);	
+			}
 			j++;
 		}
 		i++;
 	}
+	double_character(grid);
 	return (1);
 }
 
@@ -135,8 +134,8 @@ t_map	*parse_cub_file(const char *file_name)
 	map->ceiling_color = -1;
 	map->grid = NULL;
 	map_start = parse_textures_and_colors(map, map->liness);
-	map->ceiling_color = init_colors(map->ceiling, map);
-	map->floor_color = init_colors(map->floor, map);
+	map->ceiling_color = init_colors(map->ceiling);
+	map->floor_color = init_colors(map->floor);
 	map->grid = &map->liness[map_start];
 	if (!validate_map(map->grid))
 	{

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/28 14:36:07 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:25:52 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,31 @@ void	go_to_last_array(char **map)
 	// printf("here_is_go_to_last_array\n");
 	// printf("this is i: %d and this is the line %s", i, map[i]);
 	check_last_array(map, i);
+}
+
+void	double_character(char **map)
+{
+	int	y;
+	int	x;
+	int	i;
+
+	i = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == 'S' || map[y][x] == 'W'
+				|| map[y][x] == 'E' || map[y][x] == 'N')
+				i++;
+			x++;
+		}
+		y++;
+	}
+	if (i > 1)
+	{
+		printf("Error: More then 1 character in a map.\n");
+		exit (1);
+	}
 }

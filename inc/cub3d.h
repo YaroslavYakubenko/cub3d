@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/27 20:48:00 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:50:21 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,5 +216,6 @@ void	floor_and_ceiling(t_game *game);
 void	init_movement(t_game *game);
 void	validate_walls(char **map);
 void	go_to_last_array(char **map);
+void	double_character(char **map);
 
 #endif
