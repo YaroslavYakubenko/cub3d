@@ -5,7 +5,7 @@ OBJ = $(SRC:.c=.o)
 # FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit -g
 FLAGS = -L$(MLX) -lmlx -lGL -lX11 -lXext -lm
 MLX = ../minilibx_linux/
-SRC = src/main.c src/player.c src/render.c
+SRC = src/main.c src/player.c src/render.c src/rotate_game.c src/movement_game.c
  
 all: $(NAME)
 

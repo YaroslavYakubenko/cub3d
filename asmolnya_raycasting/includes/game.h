@@ -13,6 +13,11 @@
 #define WIDTH 1920
 #define HEIGHT 1080
 
+# define MOVE_SPEED 0.03
+# define ROTATION_SPEED 0.025
+
+# define DISTANCE 0.2
+
 # define TEXWIDTH 512
 # define TEXHEIGHT 512
 
@@ -128,11 +133,17 @@ typedef struct s_game
 void init_player(t_player *player);
 int key_press(int keycode, t_player *player);
 int key_release(int keycode, t_player *player);
-void move_player(t_player *player);
+void move_player(t_game *game);
 char **get_map(void);
 void	init_position_charactor(t_game *game);
 void	ray_direction_calculate(t_game *game, int x);
 int render(t_game *game);
 void	add_plane_characters(t_game *game);
+void	move_front(t_game *game);
+void	move_back(t_game *game);
+void	move_left(t_game *game);
+void	move_right(t_game *game);
+void	rotate_right(t_game *game);
+void	rotate_left(t_game *game);
 
 #endif
