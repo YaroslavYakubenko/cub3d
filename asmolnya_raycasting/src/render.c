@@ -104,6 +104,64 @@ void	calculate_texture_coordinates(t_game *game)
 			+ game->rc.line_height / 2) * game->rc.step;
 }
 
+t_image	*get_texture_directions(t_game *game)
+{
+	if (game->rc.side == 0)
+	{
+		if (game->rc.raydir_x > 0)
+			return (game->so_img);
+		else
+			return (game->no_img);
+	}
+	else
+	{
+		if (game->rc.raydir_y > 0)
+			return (game->ea_img);
+		else
+			return (game->we_img);
+	}
+}
+
+int	get_texture_pixel(t_image *texture, int tex_x, int tex_y)
+{
+	int				offset;
+	unsigned int	*pixel;
+
+	if (!texture || !texture->addr || tex_x < 0 || tex_y < 0
+		|| tex_x >= TEXWIDTH || tex_y >= TEXHEIGHT)
+		return (0);
+	offset = tex_y * (texture->line_length / (texture->bits_per_pixel / 8))
+		+ tex_x;
+	pixel = (unsigned int *)(texture->addr + offset * (texture->bits_per_pixel
+				/ 8));
+	return (*pixel);
+}
+
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
+{
+	char	*dst;
+
+	// MAYBE CHANGE floor and ceiling here
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel
+					/ 8));
+		*(unsigned int *)dst = color;
+	}
+}
+
+
+
+static void	render_walls(t_game *game, int x, int y)
+{
+	game->rc.tex_y = (int)game->rc.tex_pos & (TEXHEIGHT - 1);
+	game->rc.tex_pos += game->rc.step;
+	game->rc.color = get_texture_pixel(get_texture_directions(game),
+			game->rc.tex_x, game->rc.tex_y);
+	my_mlx_pixel_put(game->back, x, y, game->rc.color);
+}
+
 int render(t_game *game)
 {
 	int	y;
@@ -118,10 +176,12 @@ int render(t_game *game)
 		calculate_wall_parameters(game);
 		calculate_texture_coordinates(game);
 		y = game->rc.draw_start - 1;
-		// while (++y < game->rc.draw_end)
-		// {
-		// 	render_walls(game, x, y);
-		// }
+		while (++y < game->rc.draw_end)
+		{
+			render_walls(game, x, y);
+		}
 	}
+	move_player(&game->player);
+	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }

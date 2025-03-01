@@ -1,26 +1,26 @@
 #include "../includes/game.h"
 
-void put_pixel(int x, int y, int color, t_game *game)
-{
-	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-		return;
-	int index = y * game->size_line + x * game->bpp / 8; // counting index
-	game->data[index] = color & 0xFF;  // set blue component
-	game->data[index + 1] = (color >> 8) & 0xFF; //  set green
-	game->data[index + 2] = (color >> 16) & 0xFF; // set red
-}
+// void put_pixel(int x, int y, int color, t_game *game)
+// {
+// 	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+// 		return;
+// 	int index = y * game->size_line + x * game->bpp / 8; // counting index
+// 	game->data[index] = color & 0xFF;  // set blue component
+// 	game->data[index + 1] = (color >> 8) & 0xFF; //  set green
+// 	game->data[index + 2] = (color >> 16) & 0xFF; // set red
+// }
 
-void draw_square(int x, int y, int size, int color, t_game *game)
-{
-	for(int i = 0; i < size; i++)
-		put_pixel(x + i, y, color, game);
-	for(int i = 0; i < size; i++)
-		put_pixel(x, y + i, color, game);
-	for(int i = 0; i < size; i++)
-		put_pixel(x + size, y + i, color, game);
-	for(int i = 0; i < size; i++)
-		put_pixel(x + i, y + size, color, game);
-}
+// void draw_square(int x, int y, int size, int color, t_game *game)
+// {
+// 	for(int i = 0; i < size; i++)
+// 		put_pixel(x + i, y, color, game);
+// 	for(int i = 0; i < size; i++)
+// 		put_pixel(x, y + i, color, game);
+// 	for(int i = 0; i < size; i++)
+// 		put_pixel(x + size, y + i, color, game);
+// 	for(int i = 0; i < size; i++)
+// 		put_pixel(x + i, y + size, color, game);
+// }
 
 void init_rc(t_raycast *rc)
 {
@@ -48,19 +48,85 @@ void init_rc(t_raycast *rc)
     rc->color = 0;
 }
 
+void	init_texture(t_game *game, t_image **texture, char *path_texture,
+	int size_texture)
+{
+int	size;
+
+size = size_texture;
+*texture = calloc(1, sizeof(t_image)); // change for ft?
+(*texture)->img = mlx_xpm_file_to_image(game->mlx, path_texture, &size,
+		&size);
+if (!(*texture)->img)
+	exit(1);
+	// error_exit_game("Problem with loading image", game);
+(*texture)->addr = mlx_get_data_addr((*texture)->img,
+		&(*texture)->bits_per_pixel, &(*texture)->line_length,
+		&(*texture)->endian);
+if (!(*texture)->addr)
+	exit(1);
+	// error_exit_game("Problem with getting image address", game);
+}
+
+void	init_walls(t_game *game)
+{
+	game->map->so = "textures/south_texture";
+	game->map->no = "textures/north_texture";
+	game->map->we = "textures/west_texture";
+	game->map->ea = "textures/east_texture";
+	init_texture(game, &game->so_img, game->map->so, TEXHEIGHT);
+	init_texture(game, &game->no_img, game->map->no, TEXHEIGHT);
+	init_texture(game, &game->we_img, game->map->we, TEXHEIGHT);
+	init_texture(game, &game->ea_img, game->map->ea, TEXHEIGHT);
+}
+
+static void	init_background(t_game *game)
+{
+	game->back = malloc(sizeof(t_image));
+	if (!game->back)
+		exit(1);
+		// error_exit_game("Failed to allocate memory for background", game);
+	game->back->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
+	if (!game->back->img)
+		exit(1);
+		// error_exit_game("Failed to create background image", game);
+	game->back->addr = mlx_get_data_addr(game->back->img,
+			&game->back->bits_per_pixel, &game->back->line_length,
+			&game->back->endian);
+	if (!game->back->addr)
+		exit(1);
+		// error_exit_game("Failed to get background image address", game);
+}
+
+static void	init_mlx_window(t_game *game)
+{
+	game->mlx = mlx_init();
+	if (!game->mlx)
+		exit(1);
+		// error_exit_game("Failed to initialize mlx", game);
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT,
+			"cub3D");
+	if (!game->win)
+		exit(1);
+		// error_exit_game("Failed to create mlx window", game);
+}
+
 void init_game(t_game *game)
 {
 	init_player(&game->player);
 	init_rc(&game->rc);
 	game->map = malloc(sizeof(t_map));
 	game->map->map = get_map();
+	init_mlx_window(game);
+	init_background(game);
+	init_walls(game);
 	init_position_charactor(game);
 	add_plane_characters(game);
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "Game");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
-	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	// game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
+	// mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	
 }
 
@@ -81,29 +147,29 @@ char **get_map(void)
     return (map);
 }
 
-int draw_map(t_game *game)
-{
-	char **map = game->map->map;
-	int color = 0x0000FF;
-	for(int y = 0; map[y]; y++)
-		for(int x = 0; map[y][x]; x++)
-			if(map[y][x] == '1')
-				draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
-	return 0;
-}
+// int draw_map(t_game *game)
+// {
+// 	char **map = game->map->map;
+// 	int color = 0x0000FF;
+// 	for(int y = 0; map[y]; y++)
+// 		for(int x = 0; map[y][x]; x++)
+// 			if(map[y][x] == '1')
+// 				draw_square(x * BLOCK, y * BLOCK, BLOCK, color, game);
+// 	return 0;
+// }
 
-void clear_image(t_game *game)
-{
-	int color;
-	for(int y = 0; y < HEIGHT; y++)
-		for(int x = 0; x < WIDTH; x++)
-		{
-			color = 220001000;
-			if(y < HEIGHT / 2)
-				color = 225030000;
-			put_pixel(x, y, color, game);
-		}
-}
+// void clear_image(t_game *game)
+// {
+// 	int color;
+// 	for(int y = 0; y < HEIGHT; y++)
+// 		for(int x = 0; x < WIDTH; x++)
+// 		{
+// 			color = 220001000;
+// 			if(y < HEIGHT / 2)
+// 				color = 225030000;
+// 			put_pixel(x, y, color, game);
+// 		}
+// }
 
 bool touch(float px, float py, t_game *game)
 {
@@ -114,79 +180,79 @@ bool touch(float px, float py, t_game *game)
 	return false;
 }
 
-int distance(float x, float y)
-{
-	return sqrt(x * x + y * y);
-}
+// int distance(float x, float y)
+// {
+// 	return sqrt(x * x + y * y);
+// }
 
-float fixed_dist(float x1, float y1, float x2, float y2, t_game *game)
-{
-	float delta_x = x2 - x1;
-	float delta_y = y2 - y1;
-	float angle = atan2(delta_y, delta_x) - game->player.angle;
-	float fix_dist = distance(delta_x, delta_y) * cos(angle);
-	return fix_dist;
+// float fixed_dist(float x1, float y1, float x2, float y2, t_game *game)
+// {
+// 	float delta_x = x2 - x1;
+// 	float delta_y = y2 - y1;
+// 	float angle = atan2(delta_y, delta_x) - game->player.angle;
+// 	float fix_dist = distance(delta_x, delta_y) * cos(angle);
+// 	return fix_dist;
 
-}
+// }
 
-void draw_line(t_player *player, t_game *game, float start_x, int i)
-{
-	float cos_angle = cos(start_x);
-	float sin_angle = sin(start_x);
+// void draw_line(t_player *player, t_game *game, float start_x, int i)
+// {
+// 	float cos_angle = cos(start_x);
+// 	float sin_angle = sin(start_x);
 
-	float ray_x = player->x;
-	float ray_y = player->y;
+// 	float ray_x = player->x;
+// 	float ray_y = player->y;
 
-	while(!touch(ray_x, ray_y, game))
-	{
-		if(DEBUG)
-			put_pixel(ray_x, ray_y, 0xFF0000, game);
-		ray_x += cos_angle;
-		ray_y += sin_angle;
-	}
-	if(!DEBUG)
-	{
-		float dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
-		float height = (BLOCK / dist) * (WIDTH / 2);
-		int start_y = (HEIGHT - height) / 2;
-		int end = start_y + height;
-		while(start_y < end)
-		{
-			put_pixel(i, start_y, 255, game);
-			start_y++;
-		}
-	}
+// 	while(!touch(ray_x, ray_y, game))
+// 	{
+// 		if(DEBUG)
+// 			put_pixel(ray_x, ray_y, 0xFF0000, game);
+// 		ray_x += cos_angle;
+// 		ray_y += sin_angle;
+// 	}
+// 	if(!DEBUG)
+// 	{
+// 		float dist = fixed_dist(player->x, player->y, ray_x, ray_y, game);
+// 		float height = (BLOCK / dist) * (WIDTH / 2);
+// 		int start_y = (HEIGHT - height) / 2;
+// 		int end = start_y + height;
+// 		while(start_y < end)
+// 		{
+// 			put_pixel(i, start_y, 255, game);
+// 			start_y++;
+// 		}
+// 	}
 
-}
+// }
 
 
 
-int draw_loop(t_game *game)
-{
-	t_player *player = &game->player;
-	move_player(player);
-	clear_image(game);
-	if(DEBUG)
-	{
-		draw_square(player->x, player->y, 10, 0x00FF00, game);
-		draw_map(game);
-	}
+// int draw_loop(t_game *game)
+// {
+// 	t_player *player = &game->player;
+// 	move_player(player);
+// 	clear_image(game);
+// 	if(DEBUG)
+// 	{
+// 		draw_square(player->x, player->y, 10, 0x00FF00, game);
+// 		draw_map(game);
+// 	}
 
-	float fraction = PI / 3 / WIDTH;
-	float start_x = player->angle - PI / 6;
-	render(game);
-	// delete when finish
-	int i = 0;
-	while(i < WIDTH)
-	{
-		draw_line(player, game, start_x, i);
-		start_x += fraction;
-		i++;
-	}
-	// delete when finish
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-	return 0;
-}
+// 	float fraction = PI / 3 / WIDTH;
+// 	float start_x = player->angle - PI / 6;
+// 	render(game);
+// 	// delete when finish
+// 	int i = 0;
+// 	while(i < WIDTH)
+// 	{
+// 		draw_line(player, game, start_x, i);
+// 		start_x += fraction;
+// 		i++;
+// 	}
+// 	// delete when finish
+// 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+// 	return 0;
+// }
 
 int main()
 {
@@ -195,7 +261,7 @@ int main()
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game.player);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game.player);
 	
-	mlx_loop_hook(game.mlx, draw_loop, &game);
+	mlx_loop_hook(game.mlx, render, &game);
 	mlx_loop(game.mlx);
 	return 0;
 }

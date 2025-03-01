@@ -94,20 +94,36 @@ typedef struct s_raycast
 	int					color;
 }						t_raycast;
 
+typedef struct s_image
+{
+	void				*img;
+	char				*addr;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;
+}						t_image;
+
 typedef struct s_game
 {
     void *mlx;
     void *win;
     void *img;
 
-    char *data;
-    int bpp;
-    int size_line;
-    int endian;
+    // char *data;
+    // int bpp;
+    // int size_line;
+    // int endian;
     t_player player;
     t_map *map; 
     t_raycast rc; // allocate memory
+	t_image				*back;
+	t_image				*no_img;
+	t_image				*so_img;
+	t_image				*we_img;
+	t_image				*ea_img;
 } t_game;
+
+
 
 void init_player(t_player *player);
 int key_press(int keycode, t_player *player);
