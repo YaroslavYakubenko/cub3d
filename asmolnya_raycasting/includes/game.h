@@ -38,8 +38,8 @@ typedef struct s_map
 	char				*so;
 	char				*we;
 	char				*ea;
-	// char				*floor;
-	// char				*ceiling;
+	char				*floor;
+	char				*ceiling;
 	unsigned int		color_floor;
 	unsigned int		color_ceiling;
 }						t_map;

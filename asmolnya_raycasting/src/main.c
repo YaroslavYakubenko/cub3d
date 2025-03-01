@@ -48,36 +48,70 @@ void init_rc(t_raycast *rc)
     rc->color = 0;
 }
 
+void	ft_bzero(void *p, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+		*(unsigned char *)(p + i++) = '\0';
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*p;
+
+	p = (void *)malloc(size * count);
+	if (!p)
+		return (NULL);
+	ft_bzero(p, (count * size));
+	return (p);
+}
+
 void	init_texture(t_game *game, t_image **texture, char *path_texture,
 	int size_texture)
 {
 int	size;
 
 size = size_texture;
-*texture = calloc(1, sizeof(t_image)); // change for ft?
+*texture = ft_calloc(1, sizeof(t_image));
+printf("INIT TEXTURES: game->mlx = %p,\n path_texture = %s,\n size = %d\n", game->mlx, path_texture, size);
 (*texture)->img = mlx_xpm_file_to_image(game->mlx, path_texture, &size,
 		&size);
+printf("(*texture)->img = %p\n", (*texture)->img);
+printf("INIT TEXTURES HERE 1\n");
 if (!(*texture)->img)
 	exit(1);
 	// error_exit_game("Problem with loading image", game);
+printf("INIT TEXTURES HERE 2\n");
 (*texture)->addr = mlx_get_data_addr((*texture)->img,
 		&(*texture)->bits_per_pixel, &(*texture)->line_length,
 		&(*texture)->endian);
 if (!(*texture)->addr)
 	exit(1);
+printf("INIT TEXTURES HERE 3\n");
 	// error_exit_game("Problem with getting image address", game);
 }
 
 void	init_walls(t_game *game)
 {
-	game->map->so = "textures/south_texture";
-	game->map->no = "textures/north_texture";
-	game->map->we = "textures/west_texture";
-	game->map->ea = "textures/east_texture";
+	game->map->ea = "../textures/wallE.xpm";
+	game->map->so = "../textures/wallS.xpm";
+	game->map->no = "../textures/wallN.xpm";
+	game->map->we = "../textures/wallW.xpm";
+
+	game->so_img = NULL;
+	game->ea_img = NULL;
+	game->no_img = NULL;
+	game->we_img = NULL;
+
+	// printf("INIT WALLS HERE 1\n");
+
+	init_texture(game, &game->ea_img, game->map->ea, TEXHEIGHT);
+	// printf("INIT WALLS HERE 2\n");
 	init_texture(game, &game->so_img, game->map->so, TEXHEIGHT);
 	init_texture(game, &game->no_img, game->map->no, TEXHEIGHT);
 	init_texture(game, &game->we_img, game->map->we, TEXHEIGHT);
-	init_texture(game, &game->ea_img, game->map->ea, TEXHEIGHT);
 }
 
 static void	init_background(t_game *game)
@@ -115,11 +149,16 @@ void init_game(t_game *game)
 {
 	init_player(&game->player);
 	init_rc(&game->rc);
+	// printf("INIT GAME HERE 1\n");
 	game->map = malloc(sizeof(t_map));
 	game->map->map = get_map();
+	// printf("INIT GAME HERE 2\n");
 	init_mlx_window(game);
+	// printf("INIT GAME HERE 3\n");
 	init_background(game);
+	// printf("INIT GAME HERE 4\n");
 	init_walls(game);
+	// printf("INIT GAME HERE 5\n");
 	init_position_charactor(game);
 	add_plane_characters(game);
 	game->mlx = mlx_init();
@@ -258,10 +297,12 @@ int main()
 {
 	t_game game;
 	init_game(&game);
+	// printf("MAIN HERE\n");
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game.player);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game.player);
 	
 	mlx_loop_hook(game.mlx, render, &game);
 	mlx_loop(game.mlx);
+
 	return 0;
 }

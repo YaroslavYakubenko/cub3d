@@ -182,6 +182,7 @@ int render(t_game *game)
 		}
 	}
 	move_player(&game->player);
+	// printf("RENDER HERE\n");
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
 }
