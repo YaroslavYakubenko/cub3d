@@ -197,18 +197,19 @@ char **get_map(void)
 // 	return 0;
 // }
 
-// void clear_image(t_game *game)
-// {
-// 	int color;
-// 	for(int y = 0; y < HEIGHT; y++)
-// 		for(int x = 0; x < WIDTH; x++)
-// 		{
-// 			color = 220001000;
-// 			if(y < HEIGHT / 2)
-// 				color = 225030000;
-// 			put_pixel(x, y, color, game);
-// 		}
-// }
+void clear_image(t_game *game)
+{
+	int color;
+	for(int y = 0; y < HEIGHT; y++)
+		for(int x = 0; x < WIDTH; x++)
+		{
+			color = 0;
+			// if(y < HEIGHT / 2)
+			// 	color = 225030000;
+			// put_pixel(x, y, color, game);
+			my_mlx_pixel_put(game->back, x, y, 0);
+		}
+}
 
 bool touch(float px, float py, t_game *game)
 {

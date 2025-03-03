@@ -145,5 +145,7 @@ void	move_left(t_game *game);
 void	move_right(t_game *game);
 void	rotate_right(t_game *game);
 void	rotate_left(t_game *game);
+void clear_image(t_game *game);
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color);
 
 #endif

@@ -168,6 +168,7 @@ int render(t_game *game)
 	int	x;
 
 	x = -1;
+	clear_image(game);
 	while (++x < WIDTH)
 	{
 		ray_direction_calculate(game, x);
@@ -181,7 +182,7 @@ int render(t_game *game)
 			render_walls(game, x, y);
 		}
 	}
-	move_player(&game->player);
+	move_player(game);
 	// printf("RENDER HERE\n");
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 	return (0);
