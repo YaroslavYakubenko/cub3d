@@ -95,10 +95,15 @@ printf("INIT TEXTURES HERE 3\n");
 
 void	init_walls(t_game *game)
 {
-	game->map->ea = "../textures/wallE.xpm";
-	game->map->so = "../textures/wallS.xpm";
-	game->map->no = "../textures/wallN.xpm";
-	game->map->we = "../textures/wallW.xpm";
+	// game->map->ea = "../textures/wallE.xpm";
+	// game->map->so = "../textures/wallS.xpm";
+	// game->map->no = "../textures/wallN.xpm";
+	// game->map->we = "../textures/wallW.xpm";
+
+	game->map->no = "../textures/north512.xpm";
+	game->map->so = "../textures/south512.xpm";
+	game->map->we = "../textures/west512.xpm";
+	game->map->ea = "../textures/east512.xpm";
 
 	game->so_img = NULL;
 	game->ea_img = NULL;
@@ -180,7 +185,7 @@ char **get_map(void)
     map[5] = strdup("100000010000001");
     map[6] = strdup("100001000000001");
     map[7] = strdup("100000000000001");
-    map[8] = strdup("10000N000000001");
+    map[8] = strdup("10000S000000001");
     map[9] = strdup("111111111111111");
     map[10] = NULL;
     return (map);
