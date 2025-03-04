@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render_v2.c                                        :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 14:54:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 17:01:12 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:44:16 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	render_walls(t_game *game, int x, int y)
 	my_mlx_pixel_put_v2(game->back, x, y, game->rc->color);
 }
 
-int render(t_game *game)
+int	render(t_game *game)
 {
 	int	y;
 	int	x;

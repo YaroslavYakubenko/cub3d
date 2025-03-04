@@ -6,25 +6,25 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:28:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:32:35 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:35:00 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void move_player(t_game *game)
+void	move_player(t_game *game)
 {
-	if(game->player->lef_rotate)
+	if (game->player->lef_rotate)
 		rotate_left(game);
-	if(game->player->right_rotate)
+	if (game->player->right_rotate)
 		rotate_right(game);
-	if(game->player->key_up)
+	if (game->player->key_up)
 		move_front(game);
-	if(game->player->key_down)
+	if (game->player->key_down)
 		move_back(game);
-	if(game->player->key_left)
+	if (game->player->key_left)
 		move_left(game);
-	if(game->player->key_right)
+	if (game->player->key_right)
 		move_right(game);
 }
 

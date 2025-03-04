@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/28 20:25:06 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:45:17 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	free_map(t_map *map, t_game *game)
 	if (map->north_texture)
 		free(map->north_texture);
 	if (map->south_texture)
-	{
 		free(map->south_texture);
-	}
 	if (map->west_texture)
 		free(map->west_texture);
 	if (map->east_texture)

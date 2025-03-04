@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:34:06 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:36:13 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	go_to_last_array(char **map)
 	int	x;
 	int	y;
 	int	i;
-	
+
 	y = 0;
 	while (map[y])
 	{
@@ -75,7 +75,6 @@ void	go_to_last_array(char **map)
 		}
 		y++;
 	}
-	
 	i = find_last_array(map, x, y - 1);
 	check_last_array(map, i);
 }

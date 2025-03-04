@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/03 21:19:53 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:34:04 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	key_press(int keycode, t_game *game)
 		game->player->key_down = true;
 	if (keycode == KEY_A)
 		game->player->key_left = true;
-	if (keycode ==  KEY_D)
+	if (keycode == KEY_D)
 		game->player->key_right = true;
 	if (keycode == KEY_LEFT)
 		game->player->lef_rotate = true;
@@ -59,7 +59,7 @@ int	key_realese(int keycode, t_game *game)
 		game->player->key_down = false;
 	if (keycode == KEY_A)
 		game->player->key_left = false;
-	if (keycode ==  KEY_D)
+	if (keycode == KEY_D)
 		game->player->key_right = false;
 	if (keycode == KEY_LEFT)
 		game->player->lef_rotate = false;

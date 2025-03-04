@@ -6,18 +6,17 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 17:35:13 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:31:22 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:34:23 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void init_player(t_player *player)
+void	init_player(t_player *player)
 {
 	player->x = SCREEN_WIDTH / 2;
 	player->y = SCREEN_HEIGHT / 2;
 	player->angle = PI / 2;
-
 	player->key_down = false;
 	player->key_up = false;
 	player->key_left = false;

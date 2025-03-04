@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:57:53 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:30:34 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@
 
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
-# define KEY_PRESS_MASK (1L<<0) 
-# define KEY_RELEASE_MASK (1L<<1) 
+# define KEY_PRESS_MASK (1L<<0)
+# define KEY_RELEASE_MASK (1L<<1)
 # define DESTROY 17
 
 # define PLAYER_SPEED 0.085
@@ -84,7 +84,7 @@ enum	e_side
 	_s_east
 };
 
-typedef	struct	s_raycast
+typedef	struct s_raycast
 {
 	double	camera_x;
 	double	ray_dir_x;
@@ -119,7 +119,6 @@ typedef struct s_image
 	int		line_lenght;
 	int		endian;
 }	t_image;
-
 
 typedef struct s_player
 {
@@ -166,35 +165,15 @@ typedef struct s_game
 	t_image		*east_img;
 	t_map		*map;
 	t_player	*player;
-	float		*z_buffer;
 	t_raycast	*rc;
 }	t_game;
-
-// typedef struct s_ray
-// {
-// 	float	ray_x;
-// 	float	ray_y;
-// 	float	ray_dir_x;
-// 	float	ray_dir_y;
-// 	float	side_dist_x;
-// 	float	side_dist_y;
-// 	int		step_x;
-// 	int		step_y;
-// 	int		side;
-// }	t_ray;
-
-
-
 
 char	**read_file(const char *file_name);
 t_map	*parse_cub_file(const char *file_name);
 void	free_resources(t_map *map);
 void	load_all_textures(t_game *game);
-
-// void	put_pixel(t_game *game, int x, int y, int color);
 int		key_press(int keycode, t_game *game);
 int		key_realese(int keycode, t_game *game);
-// void	move_player(t_game *game, float move_x, float move_y);
 void	move_player(t_game *game);
 void	move_front(t_game *game);
 void	move_back(t_game *game);
@@ -203,32 +182,18 @@ void	move_right(t_game *game);
 void	rotate_right(t_game *game);
 void	rotate_left(t_game *game);
 void	init_player(t_player *player);
-// int		draw_loop(t_game *game);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
-// void	draw_square(t_game *game, int x, int y, int size, int color);
-// void	draw_map(t_game *game);
 int		exit_game(t_game *game);
 void	free_game(t_game *game);
 void	free_map(t_map *map, t_game *game);
 bool	touch(t_game *game, float px, float py);
-// float	fixed_dist(t_game *game, double x1, double y1, double x2, double y2);
-// void	movement_player(t_game *game);
-// void	movement_player(t_player *player);
 void	init_raycast(t_game *game);
-void	draw_wall_segment(t_game *game, int x, int y);
-void	calculate_texture_position(t_game *game);
-void	calculate_wall_dimensions(t_game *game);
-void	find_wall_hit(t_game *game);
-void	calculate_ray_step(t_game *game);
-void	calculate_ray_direction(t_game *game, int x);
-// int		get_pixel(t_image *texture, int x, int y);
 void	floor_and_ceiling(t_game *game);
-// void	init_movement(t_game *game);
 void	validate_walls(char **map);
 void	go_to_last_array(char **map);
 void	double_character(char **map);
-int 	render(t_game *game);
+int		render(t_game *game);
 void	my_mlx_pixel_put_v2(t_image *image, int x, int y, int color);
 void	init_position_charactor(t_game *game);
 void	add_plane_characters(t_game *game);

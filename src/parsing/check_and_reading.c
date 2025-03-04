@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:06:22 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:37:10 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:35:14 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	count_lines(const char *file_name)
 		count++;
 	}
 	close(fd);
-	return(count);
+	return (count);
 }
 
 size_t	validate_and_count_lines(const char *file_name)

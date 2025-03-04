@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:35:13 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:40:33 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 		else if (ft_strncmp(lines[i], "C ", 2) == 0)
 			map->ceiling = ft_strdup(lines[i] + 2);
 		else
-			break;
+			break ;
 		i++;
 	}
 	i++;
@@ -102,10 +102,11 @@ int	validate_map(char **grid)
 			if (grid[i][j] != '1' && grid[i][j] != '0'
 				&& grid[i][j] != 'N' && grid[i][j] != 'S'
 				&& grid[i][j] != 'E' && grid[i][j] != 'W'
-				&& grid[i][j] != ' ' && grid[i][j] != '\n' && grid[i][j] != '\t')
+				&& grid[i][j] != ' ' && grid[i][j] != '\n'
+				&& grid[i][j] != '\t')
 			{
 				printf("Error: Invalid character in map.\n");
-				exit (1);	
+				exit (1);
 			}
 			j++;
 		}
@@ -138,7 +139,7 @@ t_map	*parse_cub_file(const char *file_name)
 	if (!validate_map(map->grid))
 	{
 		printf("Error: Invalid map.\n");
-        return (NULL);
+		return (NULL);
 	}
 	validate_walls(map->grid);
 	return (map);
