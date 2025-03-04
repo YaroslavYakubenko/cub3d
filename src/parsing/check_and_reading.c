@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:06:22 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/27 16:52:25 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:37:10 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ size_t	validate_and_count_lines(const char *file_name)
 	if (!check_file(file_name))
 	{
 		ft_printf("Error: invalid file extension.\n");
-		return (0);
+		exit (1);
 	}
 	line_count = count_lines(file_name);
 	if (line_count == 0)
 	{
 		ft_printf("Error: Invalid or empty file.\n");
-		return (0);
+		exit (1);
 	}
 	return (line_count);
 }

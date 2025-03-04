@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 18:30:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/27 16:40:38 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/03 21:19:53 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	clear_image(t_game *game)
 {
 	int	y;
 	int	x;
+	int	color;
 
 	y = 0;
 	while (y < SCREEN_WIDTH)
@@ -23,7 +24,8 @@ void	clear_image(t_game *game)
 		x = 0;
 		while (x < SCREEN_HEIGHT)
 		{
-			put_pixel(game, y, x, 0);
+			color = 0;
+			my_mlx_pixel_put_v2(game->back, y, x, 0);
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/01 18:25:52 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:34:06 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	check_last_array(char **map, int i)
 	if ((map[y - 1][x - 2] == '0' || map[y - 1][x - 1] == '0')
 		|| map[y - 1][0] == '0')
 	{
-		printf("map[%d][%d]: %c\n", y, x, map[y - 1][x]);
 		printf("Error: problems with walls.\n");
 		exit (1);
 	}
@@ -78,8 +77,6 @@ void	go_to_last_array(char **map)
 	}
 	
 	i = find_last_array(map, x, y - 1);
-	// printf("here_is_go_to_last_array\n");
-	// printf("this is i: %d and this is the line %s", i, map[i]);
 	check_last_array(map, i);
 }
 

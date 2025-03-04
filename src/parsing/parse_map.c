@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/01 18:57:42 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:35:13 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 		else if (ft_strncmp(lines[i], "F ", 2) == 0)
 			map->floor = ft_strdup(lines[i] + 2);
 		else if (ft_strncmp(lines[i], "C ", 2) == 0)
-		{
 			map->ceiling = ft_strdup(lines[i] + 2);
-		}
 		else
 			break;
 		i++;
@@ -75,7 +73,7 @@ unsigned int	init_colors(char *color_string)
 	while (rgb[++i])
 	{
 		colors[i] = ft_atoi(rgb[i]);
-		if (colors[i] > 255 || colors[i] < 0)
+		if (colors[i] > 255)
 		{
 			printf("Error: The range must be from 0 to 255.\n");
 			exit (1);

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 20:14:37 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/02/24 20:17:39 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:00:06 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,38 @@ bool	touch(t_game *game, float px, float py)
 		x = (int)px - 0.5;
 		y = (int)py - 0.5;
 	}
-	// printf("px: %f\npy: %f\n", px, py);
-	// x = (int)px;
-	// y = (int)py;
-	// printf("x: %d\ny: %d\n", x, y);
-	if(y > 6 || y < 0) // Костыль убрать!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		return true;
 	if (game->map->grid[y][x] == '1')
-	{
-		// printf("Wall hit at (%d, %d)\n", x, y);
 		return (true);
-	}
 	return (false);
 }
 
-double	distance(double x, double y)
+void	my_mlx_pixel_put_v2(t_image *image, int x, int y, int color)
 {
-	return (sqrt(x * x + y * y));
+	char	*dst;
+
+	// MAYBE CHANGE floor and ceiling here
+
+	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
+	{
+		dst = image->addr + (y * image->line_lenght + x * (image->bpp
+					/ 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
-float	fixed_dist(t_game *game, double x1, double y1, double x2, double y2)
+void	floor_and_ceiling(t_game *game)
 {
-	double	delta_x;
-	double	delta_y;
-	double	angle;
-	double	fix_dist;
+	unsigned int	*dst;
+	int				i;
 
-	delta_x = x2 - x1;
-	delta_y = y2 - y1;
-	angle = atan2(delta_y, delta_x) - game->player->angle;
-	fix_dist = distance(delta_x, delta_y) * cos(angle);
-	return (fix_dist);
+	dst = (unsigned int *)game->back->addr;
+	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
+	while (--i > 0)
+	{
+		*dst++ = game->map->ceiling_color;
+		
+	}
+	i = SCREEN_WIDTH * SCREEN_HEIGHT / 2 + 1;
+	while (--i > 0)
+		*dst++ = game->map->floor_color;
 }

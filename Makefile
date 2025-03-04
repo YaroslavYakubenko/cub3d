@@ -28,11 +28,11 @@ SRCS        = $(SRCS_F)main.c \
               $(SRCS_F)game/init_player.c \
               $(SRCS_F)game/init_move.c \
               $(SRCS_F)game/movement.c \
+			  $(SRCS_F)game/move_player.c \
               $(SRCS_F)game/init_game.c \
               $(SRCS_F)raycast/render.c \
 			  $(SRCS_F)raycast/raycast.c \
 			  $(SRCS_F)raycast/utils.c \
-			  $(SRCS_F)raycast/utils_raycast.c \
 			  $(SRCS_F)raycast/init_raycast.c \
 
 OBJS        = $(SRCS:.c=.o)
@@ -46,7 +46,6 @@ ifeq ($(UNAME_S), Linux)
     MLX         = minilibx_linux/
 	CC_FLAGS    = -g -Wall -Wextra -Werror -g -Iinc #-fsanitize=address
     MLX_FLAGS   = -Imlx -Lmlx_Linux -lmlx -lXext -lX11 -lz
-# MLX_FLAGS   = -Imlx -Lmlx -lmlx -lXext -lX11 -lz
 
 else ifeq ($(UNAME_S), Darwin)
     MLX         = mlx/
