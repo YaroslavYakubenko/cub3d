@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 17:30:34 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:10:18 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@
 
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
-# define KEY_PRESS_MASK (1L<<0)
-# define KEY_RELEASE_MASK (1L<<1)
 # define DESTROY 17
 
 # define PLAYER_SPEED 0.085
@@ -84,7 +82,7 @@ enum	e_side
 	_s_east
 };
 
-typedef	struct s_raycast
+typedef struct s_raycast
 {
 	double	camera_x;
 	double	ray_dir_x;
@@ -202,5 +200,6 @@ void	calculate_step_and_dist(t_game *game);
 void	set_ray_steps(t_game *game);
 void	calculate_wall_parameters(t_game *game);
 void	calculate_texture_coordinates(t_game *game);
+void	free_all_textures(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 17:32:03 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:59:18 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	mlx_fuctions(t_game *game)
 {
-	mlx_hook(game->win, KEY_PRESS, KEY_PRESS_MASK, key_press, (void *)game);
-	mlx_hook(game->win, KEY_RELEASE, KEY_RELEASE_MASK,
+	mlx_hook(game->win, KEY_PRESS, (1L << 0), key_press, (void *)game);
+	mlx_hook(game->win, KEY_RELEASE, (1L << 1),
 		key_realese, (void *)game);
 	mlx_loop_hook(game->mlx, render, (void *)game);
-	mlx_hook(game->win, DESTROY, KEY_PRESS_MASK, exit_game, (void *)game);
+	mlx_hook(game->win, DESTROY, (1L << 0), exit_game, (void *)game);
 	mlx_loop(game->mlx);
 }
 

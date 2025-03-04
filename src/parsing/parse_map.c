@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 17:40:33 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:39:39 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ char	*parse_rgb(char *rgb)
 	str = malloc(sizeof(char) * 11);
 	while (rgb[i])
 	{
+		if (rgb[i] < '0' || rgb[i] > '9')
+		{
+			printf("Error: wrong characters for floor's or ceiling's color.\n");
+			free(str);
+			exit (1);
+		}
 		if (rgb[i] && (rgb[i] == ',' || (rgb[i] >= '0' && rgb[i] <= '9')))
 		{
 			str[j] = rgb[i];

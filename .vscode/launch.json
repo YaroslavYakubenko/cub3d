@@ -8,7 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "${workspaceFolder}/asmolnya_raycasting/game",
+			"program": "${workspaceFolder}/cub3D",
 			"args": ["maps/simple_map.cub"],
 			"cwd": "${workspaceFolder}"
 		}

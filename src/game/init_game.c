@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 17:33:50 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/04 20:12:18 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,13 @@ void	init_game(t_game *game)
 
 int	exit_game(t_game *game)
 {
+	free_all_textures(game);
+	free(game->rc);
 	if (game->back)
 	{
-		if (game->back)
-		{
-			mlx_destroy_image(game->mlx, game->back->img);
-			free(game->back);
-			free(game->player);
-		}
+		mlx_destroy_image(game->mlx, game->back->img);
+		free(game->back);
+		free(game->player);
 	}
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
