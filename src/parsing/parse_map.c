@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 20:39:39 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:09:58 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parse_textures_and_colors(t_map *map, char **lines)
 	return (i);
 }
 
-char	*parse_rgb(char *rgb)
+char	*parse_rgb(char *rgb, t_game *game)
 {
 	int		i;
 	int		j;
@@ -50,31 +50,31 @@ char	*parse_rgb(char *rgb)
 	str = malloc(sizeof(char) * 11);
 	while (rgb[i])
 	{
-		if (rgb[i] < '0' || rgb[i] > '9')
+		if (rgb[i] && (rgb[i] < '0' || rgb[i] > '9')
+			&& rgb[i] != ',' && rgb[i] != '\n')
 		{
-			printf("Error: wrong characters for floor's or ceiling's color.\n");
+			printf("Error: wrong characters for floors or ceilings color.\n");
 			free(str);
+			free_map(game->map);
+			free(game);
 			exit (1);
 		}
 		if (rgb[i] && (rgb[i] == ',' || (rgb[i] >= '0' && rgb[i] <= '9')))
-		{
-			str[j] = rgb[i];
-			j++;
-		}
+			str[j++] = rgb[i];
 		i++;
 	}
 	str[j] = '\0';
 	return (str);
 }
 
-unsigned int	init_colors(char *color_string)
+unsigned int	init_colors(char *color_string, t_game *game)
 {
 	char			**rgb;
 	unsigned int	colors[3];
 	int				i;
 
 	i = -1;
-	color_string = parse_rgb(color_string);
+	color_string = parse_rgb(color_string, game);
 	rgb = ft_split(color_string, ',');
 	while (rgb[++i])
 	{
@@ -94,16 +94,16 @@ unsigned int	init_colors(char *color_string)
 	return (0);
 }
 
-int	validate_map(char **grid)
+int	validate_map(char **grid, t_game *game)
 {
 	int	i;
 	int	j;
 
-	i = 0;
-	while (grid[i])
+	i = -1;
+	while (grid[++i])
 	{
-		j = 0;
-		while (grid[i][j])
+		j = -1;
+		while (grid[i][++j])
 		{
 			if (grid[i][j] != '1' && grid[i][j] != '0'
 				&& grid[i][j] != 'N' && grid[i][j] != 'S'
@@ -112,41 +112,40 @@ int	validate_map(char **grid)
 				&& grid[i][j] != '\t')
 			{
 				printf("Error: Invalid character in map.\n");
+				free_map(game->map);
+				free(game);
 				exit (1);
 			}
-			j++;
 		}
-		i++;
 	}
-	double_character(grid);
+	double_character(grid, game);
 	return (1);
 }
 
-t_map	*parse_cub_file(const char *file_name)
+t_map	*parse_cub_file(const char *file_name, t_game *game)
 {
-	t_map	*map;
 	int		map_start;
 
-	map = malloc(sizeof(t_map));
-	map->liness = read_file(file_name);
-	if (!map->liness)
+	game->map = malloc(sizeof(t_map));
+	game->map->liness = read_file(file_name);
+	if (!game->map->liness)
 		return (NULL);
-	map->north_texture = NULL;
-	map->south_texture = NULL;
-	map->west_texture = NULL;
-	map->east_texture = NULL;
-	map->floor_color = -1;
-	map->ceiling_color = -1;
-	map->grid = NULL;
-	map_start = parse_textures_and_colors(map, map->liness);
-	map->ceiling_color = init_colors(map->ceiling);
-	map->floor_color = init_colors(map->floor);
-	map->grid = &map->liness[map_start];
-	if (!validate_map(map->grid))
+	game->map->north_texture = NULL;
+	game->map->south_texture = NULL;
+	game->map->west_texture = NULL;
+	game->map->east_texture = NULL;
+	game->map->floor_color = -1;
+	game->map->ceiling_color = -1;
+	game->map->grid = NULL;
+	map_start = parse_textures_and_colors(game->map, game->map->liness);
+	game->map->ceiling_color = init_colors(game->map->ceiling, game);
+	game->map->floor_color = init_colors(game->map->floor, game);
+	game->map->grid = &game->map->liness[map_start];
+	if (!validate_map(game->map->grid, game))
 	{
 		printf("Error: Invalid map.\n");
 		return (NULL);
 	}
-	validate_walls(map->grid);
-	return (map);
+	validate_walls(game->map->grid, game);
+	return (game->map);
 }

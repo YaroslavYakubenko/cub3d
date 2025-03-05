@@ -6,13 +6,13 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 17:36:13 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:11:07 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_last_array(char **map, int i)
+void	check_last_array(char **map, int i, t_game *game)
 {
 	int	x;
 	int	y;
@@ -32,6 +32,8 @@ void	check_last_array(char **map, int i)
 		|| map[y - 1][0] == '0')
 	{
 		printf("Error: problems with walls.\n");
+		free_map(game->map);
+		free(game);
 		exit (1);
 	}
 }
@@ -59,7 +61,7 @@ int	find_last_array(char **map, int x, int y)
 	return (0);
 }
 
-void	go_to_last_array(char **map)
+void	go_to_last_array(char **map, t_game *game)
 {
 	int	x;
 	int	y;
@@ -76,10 +78,10 @@ void	go_to_last_array(char **map)
 		y++;
 	}
 	i = find_last_array(map, x, y - 1);
-	check_last_array(map, i);
+	check_last_array(map, i, game);
 }
 
-void	double_character(char **map)
+void	double_character(char **map, t_game *game)
 {
 	int	y;
 	int	x;
@@ -102,6 +104,8 @@ void	double_character(char **map)
 	if (i > 1)
 	{
 		printf("Error: More then 1 character in a map.\n");
+		free_map(game->map);
+		free(game);
 		exit (1);
 	}
 }

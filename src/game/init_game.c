@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 20:12:18 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:00:26 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	exit_game(t_game *game)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	free_map(game->map, game);
+	free_map(game->map);
 	free(game);
 	exit(0);
 	return (0);

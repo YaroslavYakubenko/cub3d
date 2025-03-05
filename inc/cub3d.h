@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 20:10:18 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:50:37 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ typedef struct s_game
 }	t_game;
 
 char	**read_file(const char *file_name);
-t_map	*parse_cub_file(const char *file_name);
+t_map	*parse_cub_file(const char *file_name, t_game *game);
 void	free_resources(t_map *map);
 void	load_all_textures(t_game *game);
 int		key_press(int keycode, t_game *game);
@@ -183,14 +183,13 @@ void	init_player(t_player *player);
 void	init_game(t_game *game);
 void	clear_image(t_game *game);
 int		exit_game(t_game *game);
-void	free_game(t_game *game);
-void	free_map(t_map *map, t_game *game);
+void	free_map(t_map *map);
 bool	touch(t_game *game, float px, float py);
 void	init_raycast(t_game *game);
 void	floor_and_ceiling(t_game *game);
-void	validate_walls(char **map);
-void	go_to_last_array(char **map);
-void	double_character(char **map);
+void	validate_walls(char **map, t_game *game);
+void	go_to_last_array(char **map, t_game *game);
+void	double_character(char **map, t_game *game);
 int		render(t_game *game);
 void	my_mlx_pixel_put_v2(t_image *image, int x, int y, int color);
 void	init_position_charactor(t_game *game);
@@ -201,5 +200,6 @@ void	set_ray_steps(t_game *game);
 void	calculate_wall_parameters(t_game *game);
 void	calculate_texture_coordinates(t_game *game);
 void	free_all_textures(t_game *game);
+void	free_lines(char **lines);
 
 #endif

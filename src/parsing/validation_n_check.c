@@ -6,13 +6,13 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:22:43 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 16:36:05 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 20:18:18 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_spaces(char **map)
+void	check_spaces(char **map, t_game *game)
 {
 	int	y;
 	int	x;
@@ -31,6 +31,8 @@ void	check_spaces(char **map)
 					|| map[y + 1][x] == ' ' || map[y + 1][x + 1] == ' ')
 				{
 					printf("Error: problems with walls.\n");
+					free_map(game->map);
+					free(game);
 					exit (1);
 				}
 			}
@@ -40,7 +42,7 @@ void	check_spaces(char **map)
 	}
 }
 
-void	check_tabs(char **map)
+void	check_tabs(char **map, t_game *game)
 {
 	int	y;
 	int	x;
@@ -59,6 +61,8 @@ void	check_tabs(char **map)
 					|| map[y + 1][x] == '\t' || map[y + 1][x + 1] == '\t')
 				{
 					printf("Error: problems with walls.\n");
+					free_map(game->map);
+					free(game);
 					exit (1);
 				}
 			}
@@ -68,7 +72,7 @@ void	check_tabs(char **map)
 	}
 }
 
-void	check_end(char **map)
+void	check_end(char **map, t_game *game)
 {
 	int	y;
 	int	x;
@@ -85,6 +89,8 @@ void	check_end(char **map)
 					|| map[y + 1][x + 1] == '\0')
 				{
 					printf("Error: problems with walls.\n");
+					free_map(game->map);
+					free(game);
 					exit (1);
 				}
 			}
@@ -94,7 +100,7 @@ void	check_end(char **map)
 	}
 }
 
-void	check_new_line(char **map)
+void	check_new_line(char **map, t_game *game)
 {
 	int	y;
 	int	x;
@@ -113,6 +119,8 @@ void	check_new_line(char **map)
 					|| map[y + 1][x] == '\n' || map[y + 1][x + 1] == '\n')
 				{
 					printf("Error: problems with walls.\n");
+					free_map(game->map);
+					free(game);
 					exit (1);
 				}
 			}
@@ -122,11 +130,11 @@ void	check_new_line(char **map)
 	}
 }
 
-void	validate_walls(char **map)
+void	validate_walls(char **map, t_game *game)
 {
-	go_to_last_array(map);
-	check_spaces(map);
-	check_tabs(map);
-	check_end(map);
-	check_new_line(map);
+	go_to_last_array(map, game);
+	check_spaces(map, game);
+	check_tabs(map, game);
+	check_end(map, game);
+	check_new_line(map, game);
 }

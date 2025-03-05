@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 16:41:56 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 19:59:18 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 16:17:23 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int ac, char **av)
 		free(game);
 		return (1);
 	}
-	game->map = parse_cub_file(av[1]);
+	game->map = parse_cub_file(av[1], game);
 	if (!game->map)
 	{
 		printf("Error: Failed to parse the *.cub file.\n");
