@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asmolnya <asmolnya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 20:11:07 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:09:43 by asmolnya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ void	double_character(char **map, t_game *game)
 		}
 		y++;
 	}
-	if (i > 1)
+	if (i != 1)
 	{
-		printf("Error: More then 1 character in a map.\n");
+		printf("Error: Invalid player.\n");
 		free_map(game->map);
 		free(game);
 		exit (1);

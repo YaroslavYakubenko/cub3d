@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asmolnya <asmolnya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 16:00:26 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:29:21 by asmolnya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_game(t_game *game)
 	add_plane_characters(game);
 	init_raycast(game);
 	game->mlx = mlx_init();
+	load_all_textures(game);
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
 	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
@@ -37,7 +38,6 @@ void	init_game(t_game *game)
 		printf("Error: Initialization failed.\n");
 		exit(1);
 	}
-	load_all_textures(game);
 	mlx_put_image_to_window(game->mlx, game->win, game->back->img, 0, 0);
 }
 
@@ -81,7 +81,19 @@ void	load_texture(t_game *game, char *path,
 	if (!(*texture)->img)
 	{
 		printf("Error: Failed to load texture.\n");
-		free((*texture)->img);
+		// free(game.);
+		// free_all_textures(game);
+		free((*texture));
+		free_map(game->map);
+		free(game->rc);
+		free(game->back);
+		free(game->player);
+		if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+		free(game);
 		exit(1);
 	}
 	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,

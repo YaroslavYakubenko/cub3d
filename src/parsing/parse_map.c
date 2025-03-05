@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asmolnya <asmolnya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 20:09:58 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:20:16 by asmolnya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ char	*parse_rgb(char *rgb, t_game *game)
 
 	i = 0;
 	j = 0;
+	printf("rgb: %s\n", rgb);
 	str = malloc(sizeof(char) * 11);
 	while (rgb[i])
 	{
-		if (rgb[i] && (rgb[i] < '0' || rgb[i] > '9')
+			
+		if ((rgb[i]) && (rgb[i] < '0' || rgb[i] > '9')
 			&& rgb[i] != ',' && rgb[i] != '\n')
 		{
 			printf("Error: wrong characters for floors or ceilings color.\n");
