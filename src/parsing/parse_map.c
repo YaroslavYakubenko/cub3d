@@ -6,34 +6,11 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/07 21:49:45 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/07 22:16:03 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int check_first_syms(char *line)
-{
-	int res;
-
-	res = 0;
-	if (ft_strncmp(line, "NO ", 3) == 0)
-		res = 1;
-	else if (ft_strncmp(line, "SO ", 3) == 0)
-		res = 1;
-	else if (ft_strncmp(line, "WE ", 3) == 0)
-		res = 1;
-	else if (ft_strncmp(line, "EA ", 3) == 0)
-		res = 1;
-	else if (ft_strncmp(line, "F ", 2) == 0)
-		res = 1;
-	else if (ft_strncmp(line, "C ", 2) == 0)
-		res = 1;
-	else if (line[0] == '\n'
-		|| line[0] == '\t' || line[0] == ' ')
-		res = 1;
-	return (res);
-}
 
 int	parse_textures_and_colors(t_game *game, char **lines)
 {
@@ -148,7 +125,6 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			exit (1);
 		}
 	}
-	printf("iiq = %d\n", i);
 	return (i);
 }
 
@@ -253,32 +229,15 @@ int	validate_map(char **grid, t_game *game)
 t_map	*parse_cub_file(const char *file_name, t_game *game)
 {
 	int		map_start;
-	int		i;
 	
-	i = 0;
 	init_map(game);
-	// game->map = malloc(sizeof(t_map));
 	game->map->liness = read_file(file_name, game);
 	if (!game->map->liness)
 		return (NULL);
-	// game->map->north_texture = NULL;
-	// game->map->south_texture = NULL;
-	// game->map->west_texture = NULL;
-	// game->map->east_texture = NULL;
-	// game->map->ceiling = NULL;
-	// game->map->floor = NULL;
-	// game->map->floor_color = -1;
-	// game->map->ceiling_color = -1;
-	// game->map->grid = NULL;
 	map_start = parse_textures_and_colors(game, game->map->liness);
 	game->map->ceiling_color = init_colors(game->map->ceiling, game);
 	game->map->floor_color = init_colors(game->map->floor, game);
 	game->map->grid = &game->map->liness[map_start];
-	while(game->map->grid[i])
-	{
-		// printf("game->map->grid[%d]: %s", i, game->map->grid[i]);
-		i++;
-	}
 	if (!validate_map(game->map->grid, game))
 	{
 		printf("Error: Invalid map.\n");

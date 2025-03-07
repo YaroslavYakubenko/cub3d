@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:41:26 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/07 20:48:06 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/07 22:12:51 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_textures(t_game *game)
 	game->west_img = NULL;
 	game->east_img = NULL;
 }
+
 void	init_map(t_game *game)
 {
 	game->map = malloc(sizeof(t_map));

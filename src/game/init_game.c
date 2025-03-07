@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/07 20:49:25 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/07 22:12:38 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ void	load_all_textures(t_game *game)
 	rm_newline(game->map->south_texture);
 	rm_newline(game->map->west_texture);
 	rm_newline(game->map->east_texture);
-	load_texture(game, game->map->north_texture, &game->north_img, TEXTUREHEIGHT);
-	load_texture(game, game->map->south_texture, &game->south_img, TEXTUREHEIGHT);
+	load_texture(game, game->map->north_texture,
+		&game->north_img, TEXTUREHEIGHT);
+	load_texture(game, game->map->south_texture,
+		&game->south_img, TEXTUREHEIGHT);
 	load_texture(game, game->map->west_texture, &game->west_img, TEXTUREHEIGHT);
 	load_texture(game, game->map->east_texture, &game->east_img, TEXTUREHEIGHT);
 }

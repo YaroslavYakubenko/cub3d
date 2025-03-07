@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/07 21:09:16 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/07 22:10:17 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	check_last_array(char **map, int i, t_game *game)
 		{
 			x++;
 		}
+		if ((map[y - 1][x - 2] == '0' || map[y - 1][x - 1] == '0')
+			|| map[y - 1][0] == '0')
+		{
+			printf("Error: problems with walls.\n");
+			free_map(game->map);
+			free(game);
+			exit (1);
+		}
 	}
-	if ((map[y - 1][x - 2] == '0' || map[y - 1][x - 1] == '0')
-		|| map[y - 1][0] == '0')
-	{
-		printf("Error: problems with walls.\n");
-		free_map(game->map);
-		free(game);
-		exit (1);
-	}
+	else
+		return ;
 }
 
 int	find_last_array(char **map, int x, int y)
@@ -91,11 +93,9 @@ void	double_character(char **map, t_game *game)
 	y = 0;
 	while (map[y])
 	{
-		// printf("map[%d]: %s", y, map[y]);
 		x = 0;
 		while (map[y][x])
 		{
-			// printf("X = %d\n", x);
 			if (map[y][x] == 'S' || map[y][x] == 'W'
 				|| map[y][x] == 'E' || map[y][x] == 'N')
 				i++;
@@ -105,8 +105,6 @@ void	double_character(char **map, t_game *game)
 	}
 	if (i != 1)
 	{
-		// printf("map[%d][%d]: %c\n", y, x, map[y][x]);
-		printf("i: %d\n", i);
 		printf("Error: Invalid player.\n");
 		free_map(game->map);
 		free(game);
