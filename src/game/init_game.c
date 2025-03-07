@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asmolnya <asmolnya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 20:10:47 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 21:29:21 by asmolnya         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:49:25 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_game(t_game *game)
 {
 	game->back = malloc(sizeof(t_image));
 	game->player = malloc(sizeof(t_player));
+	init_structures(game);
 	if (!game->back || !game->player)
 	{
 		printf("Error: Failed to allocate memory.\n");
@@ -23,14 +24,10 @@ void	init_game(t_game *game)
 		free(game->back);
 		return ;
 	}
-	init_player(game->player);
-	init_position_charactor(game);
-	add_plane_characters(game);
-	init_raycast(game);
 	game->mlx = mlx_init();
 	load_all_textures(game);
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3D");
-	game->back->img = mlx_new_image(game->mlx,SCREEN_WIDTH, SCREEN_HEIGHT);
+	game->back->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	game->back->addr = mlx_get_data_addr(game->back->img, &game->back->bpp,
 			&game->back->line_lenght, &game->back->endian);
 	if (!game->mlx || !game->win || !game->back->img || !game->back->addr)
@@ -74,26 +71,14 @@ void	load_texture(t_game *game, char *path,
 	if (!(*texture))
 	{
 		printf("Error: Failed to allocate memory for texture.");
-		free(texture);
+		free((*texture));
 		exit (1);
 	}
 	(*texture)->img = mlx_xpm_file_to_image(game->mlx, path, &size, &size);
 	if (!(*texture)->img)
 	{
 		printf("Error: Failed to load texture.\n");
-		// free(game.);
-		// free_all_textures(game);
-		free((*texture));
-		free_map(game->map);
-		free(game->rc);
-		free(game->back);
-		free(game->player);
-		if (game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-	}
-		free(game);
+		free_texture(game);
 		exit(1);
 	}
 	(*texture)->addr = mlx_get_data_addr((*texture)->img, &(*texture)->bpp,
@@ -124,10 +109,8 @@ void	load_all_textures(t_game *game)
 	rm_newline(game->map->south_texture);
 	rm_newline(game->map->west_texture);
 	rm_newline(game->map->east_texture);
-	load_texture(game, game->map->north_texture,
-		&game->north_img, TEXTUREHEIGHT);
-	load_texture(game, game->map->south_texture,
-		&game->south_img, TEXTUREHEIGHT);
+	load_texture(game, game->map->north_texture, &game->north_img, TEXTUREHEIGHT);
+	load_texture(game, game->map->south_texture, &game->south_img, TEXTUREHEIGHT);
 	load_texture(game, game->map->west_texture, &game->west_img, TEXTUREHEIGHT);
 	load_texture(game, game->map->east_texture, &game->east_img, TEXTUREHEIGHT);
 }

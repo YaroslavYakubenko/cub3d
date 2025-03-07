@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 16:01:08 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:49:14 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@ void	free_resources(t_map *map)
 			free(map->grid);
 		free(map);
 	}
-}
-
-void	free_lines(char **lines)
-{
-	size_t	i;
-
-	if (!lines)
-		return ;
-	i = 0;
-	while (lines[i])
-		free(lines[i++]);
-	free(lines);
 }
 
 void	free_map(t_map *map)
@@ -82,29 +70,20 @@ void	free_all_textures(t_game *game)
 	free_image(game->mlx, game->south_img);
 }
 
-// void	free_game(t_game *game)
-// {
-// 	// printf("1map->north_texture: %s\n", game->map->north_texture);
-// 	if (!game)
-// 		return ;
-// 	// printf("game->mlx before: %p\n", &game->mlx);
-// 	// if (game->mlx)
-// 	// {
-// 	// 	printf("here_is_free_game\n");
-// 	// 	free_all_textures(game);
-// 	// 	if (game->back)
-// 	// 	{
-// 	// 		free_image(game->mlx, game->back);
-// 	// 		game->back = NULL;
-// 	// 	}
-// 	// 	if (game->win)
-// 	// 	{
-// 	// 		mlx_destroy_window(game->mlx,game->win);
-// 	// 		game->win = NULL;
-// 	// 	}
-// 	// 	free(game->mlx);
-// 	// }
-// 	// printf("game->mlx  after: %p\n", &game->mlx);
-// 	// free_map(game->map, game);
-// 	// free(game);
-// }
+void	free_texture(t_game *game)
+{
+	free_map(game->map);
+	if (game->rc)
+	free(game->rc);
+	if (game->back)
+	free(game->back);
+	if (game->player)
+	free(game->player);
+	free_all_textures(game);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	free(game);
+}

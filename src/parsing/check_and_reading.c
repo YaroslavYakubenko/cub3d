@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 17:06:22 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/04 20:47:06 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:51:33 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,40 @@ size_t	count_lines(const char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line)
 	{
 		free(line);
 		count++;
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (count);
 }
 
-size_t	validate_and_count_lines(const char *file_name)
+size_t	validate_and_count_lines(const char *file_name, t_game *game)
 {
 	size_t	line_count;
 
 	if (!check_file(file_name))
 	{
 		ft_printf("Error: invalid file extension.\n");
+		free(game->map);
+		free(game);
 		exit (1);
 	}
 	line_count = count_lines(file_name);
 	if (line_count == 0)
 	{
 		ft_printf("Error: Invalid or empty file.\n");
+		free(game->map);
+		free(game);
 		exit (1);
 	}
 	return (line_count);
 }
 
-char	**read_file(const char *file_name)
+char	**read_file(const char *file_name, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -68,17 +74,19 @@ char	**read_file(const char *file_name)
 	line = NULL;
 	lines = NULL;
 	i = 0;
-	line_count = validate_and_count_lines(file_name);
-	if (line_count == 0)
-		return (NULL);
+	line_count = validate_and_count_lines(file_name, game);
 	fd = open(file_name, O_RDONLY);
-	if (fd < 0)
+	if (fd < 0 || line_count == 0)
 		return (printf("Error opening file.\n"), NULL);
 	lines = malloc(sizeof(char *) * (line_count + 1));
 	if (!lines)
 		return (close(fd), printf("Error allocation memory.\n"), NULL);
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line)
+	{
 		lines[i++] = line;
+		line = get_next_line(fd);
+	}
 	lines[i] = NULL;
 	close(fd);
 	return (lines);

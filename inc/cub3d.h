@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 19:50:37 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/07 20:44:43 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,8 +166,11 @@ typedef struct s_game
 	t_raycast	*rc;
 }	t_game;
 
-char	**read_file(const char *file_name);
+char	**read_file(const char *file_name, t_game *game);
 t_map	*parse_cub_file(const char *file_name, t_game *game);
+void	init_textures(t_game *game);
+void	init_map(t_game *game);
+void	init_structures(t_game *game);
 void	free_resources(t_map *map);
 void	load_all_textures(t_game *game);
 int		key_press(int keycode, t_game *game);
@@ -200,6 +203,6 @@ void	set_ray_steps(t_game *game);
 void	calculate_wall_parameters(t_game *game);
 void	calculate_texture_coordinates(t_game *game);
 void	free_all_textures(t_game *game);
-void	free_lines(char **lines);
+void	free_texture(t_game *game);
 
 #endif

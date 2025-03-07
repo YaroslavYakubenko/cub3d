@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 18:22:43 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 20:18:18 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/05 21:48:51 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	check_spaces(char **map, t_game *game)
 	int	y;
 	int	x;
 
-	y = 0;
-	while (map[y])
+	y = -1;
+	while (map[++y])
 	{
-		x = 0;
-		while (map[y][x])
+		x = -1;
+		while (map[y][++x])
 		{
 			if (map[y][x] == '0')
 			{
@@ -36,9 +36,7 @@ void	check_spaces(char **map, t_game *game)
 					exit (1);
 				}
 			}
-			x++;
 		}
-		y++;
 	}
 }
 
@@ -47,11 +45,11 @@ void	check_tabs(char **map, t_game *game)
 	int	y;
 	int	x;
 
-	y = 0;
-	while (map[y])
+	y = -1;
+	while (map[++y])
 	{
-		x = 0;
-		while (map[y][x])
+		x = -1;
+		while (map[y][++x])
 		{
 			if (map[y][x] == '0')
 			{
@@ -66,9 +64,7 @@ void	check_tabs(char **map, t_game *game)
 					exit (1);
 				}
 			}
-			x++;
 		}
-		y++;
 	}
 }
 
@@ -105,11 +101,11 @@ void	check_new_line(char **map, t_game *game)
 	int	y;
 	int	x;
 
-	y = 0;
-	while (map[y])
+	y = -1;
+	while (map[++y])
 	{
-		x = 0;
-		while (map[y][x])
+		x = -1;
+		while (map[y][++x])
 		{
 			if (map[y][x] == '0')
 			{
@@ -124,9 +120,7 @@ void	check_new_line(char **map, t_game *game)
 					exit (1);
 				}
 			}
-			x++;
 		}
-		y++;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asmolnya <asmolnya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:35:23 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/05 21:09:43 by asmolnya         ###   ########.fr       */
+/*   Updated: 2025/03/07 21:09:16 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,11 @@ void	double_character(char **map, t_game *game)
 	y = 0;
 	while (map[y])
 	{
+		// printf("map[%d]: %s", y, map[y]);
 		x = 0;
 		while (map[y][x])
 		{
+			// printf("X = %d\n", x);
 			if (map[y][x] == 'S' || map[y][x] == 'W'
 				|| map[y][x] == 'E' || map[y][x] == 'N')
 				i++;
@@ -103,6 +105,8 @@ void	double_character(char **map, t_game *game)
 	}
 	if (i != 1)
 	{
+		// printf("map[%d][%d]: %c\n", y, x, map[y][x]);
+		printf("i: %d\n", i);
 		printf("Error: Invalid player.\n");
 		free_map(game->map);
 		free(game);
