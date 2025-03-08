@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 21:33:50 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/07 20:49:14 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:09:42 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ void	free_texture(t_game *game)
 {
 	free_map(game->map);
 	if (game->rc)
-	free(game->rc);
+		free(game->rc);
 	if (game->back)
-	free(game->back);
+		free(game->back);
 	if (game->player)
-	free(game->player);
+		free(game->player);
 	free_all_textures(game);
 	if (game->mlx)
 	{

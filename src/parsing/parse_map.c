@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/07 22:16:03 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:44:58 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,7 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			if(!game->map->north_texture)
 				game->map->north_texture = ft_strdup(lines[i] + 3);
 			else
-			{
-				printf("Error: Duplicate texture.\n");
-				free_map(game->map);
-				free(game);
-				exit (1);
-			}
+				error_for_duplicate_texture(game);
 			i++;
 			continue;
 		}
@@ -39,12 +34,7 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			if(!game->map->south_texture)
 				game->map->south_texture = ft_strdup(lines[i] + 3);
 			else
-			{
-				printf("Error: Duplicate texture.\n");
-				free_map(game->map);
-				free(game);
-				exit (1);
-			}
+				error_for_duplicate_texture(game);
 			i++;
 			continue;
 		}
@@ -53,12 +43,7 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			if(!game->map->west_texture)
 				game->map->west_texture = ft_strdup(lines[i] + 3);
 			else
-			{
-				printf("Error: Duplicate texture.\n");
-				free_map(game->map);
-				free(game);
-				exit (1);
-			}
+				error_for_duplicate_texture(game);
 			i++;
 			continue;
 		}
@@ -67,12 +52,7 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			if(!game->map->east_texture)
 				game->map->east_texture = ft_strdup(lines[i] + 3);
 			else
-			{
-				printf("Error: Duplicate texture.\n");
-				free_map(game->map);
-				free(game);
-				exit (1);
-			}
+				error_for_duplicate_texture(game);
 			i++;
 			continue;
 		}
@@ -81,12 +61,7 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			if(!game->map->floor)
 				game->map->floor = ft_strdup(lines[i] + 2);
 			else
-			{
-				printf("Error: Duplicate texture.\n");
-				free_map(game->map);
-				free(game);
-				exit (1);
-			}
+				error_for_duplicate_texture(game);
 			i++;
 			continue;
 		}
@@ -95,12 +70,7 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 			if(!game->map->ceiling)
 				game->map->ceiling = ft_strdup(lines[i] + 2);
 			else
-			{
-				printf("Error: Duplicate texture.\n");
-				free_map(game->map);
-				free(game);
-				exit (1);
-			}
+				error_for_duplicate_texture(game);
 			i++;
 			continue;
 		}
@@ -111,19 +81,13 @@ int	parse_textures_and_colors(t_game *game, char **lines)
 				if(game->map->north_texture && game->map->south_texture && game->map->west_texture
 					&& game->map->east_texture && game->map->floor && game->map->ceiling)
 					break ;
-				// i++;
 				continue ;
 			}
 		else if(game->map->north_texture && game->map->south_texture && game->map->west_texture
 			&& game->map->east_texture && game->map->floor && game->map->ceiling)
 			break ;
 		else
-		{
-			printf("Error: Invalid line in the map.\n");
-			free_map(game->map);
-			free(game);
-			exit (1);
-		}
+			error_for_invalid_line(game);
 	}
 	return (i);
 }
@@ -139,15 +103,11 @@ char	*parse_rgb(char *rgb, t_game *game)
 	str = malloc(sizeof(char) * strlen(rgb) + 1);
 	while (rgb[i])
 	{
+		while (rgb[i] == ' ' || rgb[i] == '\t')
+			i++;
 		if ((rgb[i]) && (rgb[i] < '0' || rgb[i] > '9')
 			&& rgb[i] != ',' && rgb[i] != '\n')
-		{
-			printf("Error: wrong characters for floors or ceilings color.\n");
-			free(str);
-			free_map(game->map);
-			free(game);
-			exit (1);
-		}
+			error_exit_for_parse_rgb(game, str);
 		if (rgb[i] && (rgb[i] == ',' || (rgb[i] >= '0' && rgb[i] <= '9')))
 			str[j++] = rgb[i];
 		i++;
@@ -156,7 +116,7 @@ char	*parse_rgb(char *rgb, t_game *game)
 	return (str);
 }
 
-void	free_rgb(char **rgb)
+void	free_rgb(char **rgb, char *color_string)
 {
 	int	i;
 
@@ -167,6 +127,7 @@ void	free_rgb(char **rgb)
 		i++;
 	}
 	free(rgb);
+	free(color_string);
 }
 
 unsigned int	init_colors(char *color_string, t_game *game)
@@ -185,15 +146,13 @@ unsigned int	init_colors(char *color_string, t_game *game)
 		{
 			
 			printf("Error: The range must be from 0 to 255.\n");
+			free_rgb(rgb, color_string);
 			free_map(game->map);
-			free_rgb(rgb);
-			free(color_string);
 			free(game);
 			exit (1);
 		}
 	}
-	free_rgb(rgb);
-	free(color_string);
+	free_rgb(rgb, color_string);
 	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 }
 

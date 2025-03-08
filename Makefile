@@ -21,6 +21,7 @@ OBJS_F      = obj/
 
 SRCS        = $(SRCS_F)main.c \
               $(SRCS_F)free.c \
+			  $(SRCS_F)error.c \
               $(SRCS_F)parsing/check_and_reading.c \
               $(SRCS_F)parsing/parse_map.c \
 			  $(SRCS_F)parsing/check_map.c \
