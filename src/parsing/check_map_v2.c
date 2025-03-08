@@ -6,13 +6,13 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 19:26:51 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/08 19:31:33 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/08 19:49:10 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void parse_texture(char **texture, char *line, t_game *game)
+void	parse_texture(char **texture, char *line, t_game *game)
 {
 	if (!*texture)
 		*texture = ft_strdup(line);
@@ -20,7 +20,7 @@ void parse_texture(char **texture, char *line, t_game *game)
 		error_for_duplicate_texture(game);
 }
 
-void parse_color(char **color, char *line, t_game *game)
+void	parse_color(char **color, char *line, t_game *game)
 {
 	if (!*color)
 		*color = ft_strdup(line);
@@ -28,7 +28,7 @@ void parse_color(char **color, char *line, t_game *game)
 		error_for_duplicate_texture(game);
 }
 
-int parse_line(t_game *game, char *line)
+int	parse_line(t_game *game, char *line)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		parse_texture(&game->map->north_texture, line + 3, game);
@@ -47,4 +47,29 @@ int parse_line(t_game *game, char *line)
 	else
 		error_for_invalid_line(game);
 	return (0);
+}
+
+int	parse_textures_and_colors(t_game *game, char **lines)
+{
+	int	i;
+
+	i = 0;
+	while (lines[i])
+	{
+		if (parse_line(game, lines[i]))
+		{
+			i++;
+			if (game->map->north_texture && game->map->south_texture
+				&& game->map->west_texture && game->map->east_texture
+				&& game->map->floor && game->map->ceiling)
+				break ;
+			continue ;
+		}
+		i++;
+		if (game->map->north_texture && game->map->south_texture
+			&& game->map->west_texture && game->map->east_texture
+			&& game->map->floor && game->map->ceiling)
+			break ;
+	}
+	return (i);
 }

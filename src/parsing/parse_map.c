@@ -6,38 +6,17 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:47:46 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/08 19:31:18 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/08 19:49:50 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int parse_textures_and_colors(t_game *game, char **lines)
+char	*parse_rgb(char *rgb, t_game *game)
 {
-	int i;
-
-	i = 0;
-	while (lines[i])
-	{
-		if (parse_line(game, lines[i]))
-		{
-			i++;
-			if (game->map->north_texture && game->map->south_texture && game->map->west_texture && game->map->east_texture && game->map->floor && game->map->ceiling)
-				break;
-			continue;
-		}
-		i++;
-		if (game->map->north_texture && game->map->south_texture && game->map->west_texture && game->map->east_texture && game->map->floor && game->map->ceiling)
-			break;
-	}
-	return (i);
-}
-
-char *parse_rgb(char *rgb, t_game *game)
-{
-	int i;
-	int j;
-	char *str;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
 	j = 0;
@@ -46,9 +25,11 @@ char *parse_rgb(char *rgb, t_game *game)
 	{
 		while (rgb[i] == ' ' || rgb[i] == '\t')
 			i++;
-		if ((rgb[i]) && (rgb[i] < '0' || rgb[i] > '9') && rgb[i] != ',' && rgb[i] != '\n')
+		if ((rgb[i]) && (rgb[i] < '0' || rgb[i] > '9')
+			&& rgb[i] != ',' && rgb[i] != '\n')
 			error_exit_for_parse_rgb(game, str);
-		if (rgb[i] && (rgb[i] == ',' || (rgb[i] >= '0' && rgb[i] <= '9')))
+		if (rgb[i] && (rgb[i] == ','
+				|| (rgb[i] >= '0' && rgb[i] <= '9')))
 			str[j++] = rgb[i];
 		i++;
 	}
@@ -56,9 +37,9 @@ char *parse_rgb(char *rgb, t_game *game)
 	return (str);
 }
 
-void free_rgb(char **rgb, char *color_string)
+void	free_rgb(char **rgb, char *color_string)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (rgb[i])
@@ -70,11 +51,11 @@ void free_rgb(char **rgb, char *color_string)
 	free(color_string);
 }
 
-unsigned int init_colors(char *color_string, t_game *game)
+unsigned int	init_colors(char *color_string, t_game *game)
 {
-	char **rgb;
-	unsigned int colors[3];
-	int i;
+	char			**rgb;
+	unsigned int	colors[3];
+	int				i;
 
 	i = -1;
 	color_string = parse_rgb(color_string, game);
@@ -84,7 +65,6 @@ unsigned int init_colors(char *color_string, t_game *game)
 		colors[i] = ft_atoi(rgb[i]);
 		if (colors[i] > 255 || ft_strlen(rgb[i]) > 3)
 		{
-
 			printf("Error: The range must be from 0 to 255.\n");
 			free_rgb(rgb, color_string);
 			free_map(game->map);
@@ -96,19 +76,21 @@ unsigned int init_colors(char *color_string, t_game *game)
 	return ((colors[0] << 16) | (colors[1] << 8) | colors[2]);
 }
 
-int validate_map(char **grid, t_game *game)
+int	validate_map(char **grid, t_game *game)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = -1;
 	while (grid[++i])
 	{
-		// printf("grid[%d] = %s", i, grid[i]);
 		j = -1;
 		while (grid[i][++j])
 		{
-			if (grid[i][j] != '1' && grid[i][j] != '0' && grid[i][j] != 'N' && grid[i][j] != 'S' && grid[i][j] != 'E' && grid[i][j] != 'W' && grid[i][j] != ' ' && grid[i][j] != '\n' && grid[i][j] != '\t')
+			if (grid[i][j] != '1' && grid[i][j] != '0' && grid[i][j] != 'N'
+				&& grid[i][j] != 'S' && grid[i][j] != 'E' && grid[i][j] != 'W'
+				&& grid[i][j] != ' ' && grid[i][j] != '\n'
+				&& grid[i][j] != '\t')
 			{
 				printf("Error: Invalid character in map.\n");
 				free_map(game->map);
@@ -121,9 +103,9 @@ int validate_map(char **grid, t_game *game)
 	return (1);
 }
 
-t_map *parse_cub_file(const char *file_name, t_game *game)
+t_map	*parse_cub_file(const char *file_name, t_game *game)
 {
-	int map_start;
+	int	map_start;
 
 	init_map(game);
 	game->map->liness = read_file(file_name, game);
