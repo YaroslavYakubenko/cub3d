@@ -6,7 +6,7 @@
 /*   By: yyakuben <yyakuben@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 22:37:39 by yyakuben          #+#    #+#             */
-/*   Updated: 2025/03/08 17:29:48 by yyakuben         ###   ########.fr       */
+/*   Updated: 2025/03/08 19:29:11 by yyakuben         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,5 +207,9 @@ void	free_texture(t_game *game);
 void	error_exit_for_parse_rgb(t_game *game, char *rgb);
 void	error_for_duplicate_texture(t_game *game);
 void	error_for_invalid_line(t_game *game);
+void	error_for_walls(t_game *game);
+void	parse_texture(char **texture, char *line, t_game *game);
+void	parse_color(char **color, char *line, t_game *game);
+int		parse_line(t_game *game, char *line);
 
 #endif
